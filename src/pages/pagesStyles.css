@@ -1,0 +1,46 @@
+.communityText{
+    align-items: center;
+    text-align: center;
+}
+
+.topBar{
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    margin-bottom: 100px;
+    height: 100px;
+}
+.privacyContainer{
+    margin: 30px;
+    font-family:Arial, Helvetica, sans-serif 
+}
+.privacyTitle{
+    margin: 20px;
+    font-size: 20px;
+
+}
+.privacyContent{
+    color: gray;
+    text-align: justify;
+}
+.privacyBtnContainer {
+    display: block;
+    margin: 20px;
+    align-items: center;
+    text-align: center;
+}
+.NoConnectionContainer{
+    margin-top: 50%;
+    align-items: center;
+    text-align: center;
+}
+.NoConnectionTxt{
+    font-size: 30px;
+    margin: 20px;
+    color: grey;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
+.NoConnectionAnimation{
+    margin: 40px;
+}

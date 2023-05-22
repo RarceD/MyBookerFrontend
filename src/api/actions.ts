@@ -1,0 +1,78 @@
+import { Booker } from "../interfaces/Booker";
+import { GetTokenId } from "./auth";
+import { URL_REQUEST } from "./request";
+
+function getRequestOptions(data: any) {
+    return {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    };
+}
+
+export async function tryLogin(data: any, callback: (resp: any) => void) {
+    fetch(URL_REQUEST + "login", getRequestOptions(data))
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            callback(response);
+        });
+}
+
+export async function tryCreateUser(data: any, callback: (resp: any) => void) {
+    fetch(URL_REQUEST + "create", getRequestOptions(data))
+        .then(response => response)
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            callback(response);
+        });
+}
+
+export async function MakeBook(bookerData: Booker, callback: (resp: any) => void) {
+    const [token, id] = GetTokenId();
+    bookerData.token = token;
+    bookerData.id = id;
+    await fetch(URL_REQUEST + "book", getRequestOptions(bookerData))
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            callback(response);
+        })
+}
+
+export async function RemoveBook(idToRemove: number, callback: (resp: any) => void) {
+    const [token, client_id] = GetTokenId();
+    const data = {
+        book_id: idToRemove,
+        token: token === null ? "" : token,
+        id: client_id === null ? "" : client_id,
+    }
+    fetch(URL_REQUEST + "book/delete", getRequestOptions(data))
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            callback(response)
+        });
+}
+
+export async function forgetCredentials(secretNumber: string, callback: (resp: any) => void) {
+    const data: any = {
+        username: secretNumber == null ? "" : secretNumber
+    }
+    fetch(URL_REQUEST + "forget", getRequestOptions(data))
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            callback(response);
+        });
+}
+
+export async function numberCreateCredentials(code: string, callback: (resp: any) => void) {
+    const data: any = {
+       client_number : code == null ? "" : code
+    }
+    fetch(URL_REQUEST + "createnumber", getRequestOptions(data))
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => callback(response));
+}

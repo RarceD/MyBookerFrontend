@@ -1,0 +1,124 @@
+.header {
+  background-color: var(--dark-header-footer) !important;
+}
+
+.comunity-text {
+  color: var(--text);
+  font-size: 22px;
+  align-items: center;
+  margin-top: 24px;
+  margin-left: 10px;
+}
+
+.comunity-text-center {
+  color: var(--text);
+  font-size: 22px;
+  align-items: center;
+  margin-top: -20px;
+  margin-left: 10px;
+}
+
+.hours-courts {
+  margin: 2px;
+  display: grid;
+  font-size: 18px;
+  grid-template-columns: repeat(5, auto);
+}
+
+.hours-courts div {
+  display: block;
+  background-color: var(--dark-card);
+  color: var(--text);
+  margin: 5px;
+  height: 35px;
+  width: 60px;
+  align-items: center;
+  text-align: center;
+  padding-top: 10px;
+  border-radius: 10px;
+}
+
+.hours-courts-desktop {
+  margin: 2px;
+  display: grid;
+  font-size: 18px;
+  margin-left: 200px;
+  margin-right: 200px;
+  grid-template-columns: repeat(6, auto);
+}
+
+.hours-courts-desktop div {
+  display: block;
+  background-color: var(--dark-card);
+  color: var(--text);
+  margin: 10px;
+  height: 35px;
+  width: 80%;
+  align-items: center;
+  text-align: center;
+  padding-top: 10px;
+  border-radius: 10px;
+}
+
+.date-selector-desktop {
+  display: flex;
+  background-color: var(--dark-card);
+  border-radius: 20px;
+  margin-top: 10px;
+  width: 80%;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+.date-selector {
+  display: flex;
+  background-color: var(--dark-card);
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.date-selector-items {
+  display: flex;
+  border: 1px solid var(--dark-card);
+  border-radius: 10px;
+  overflow-y: hidden;
+  overflow-x: unset;
+  scroll-behavior: smooth;
+}
+
+.date-selector-item {
+  height: 80px;
+  min-width: 50px;
+  text-align: center;
+  margin-left: 8px;
+}
+
+.date-selector-item-week {
+  font-size: 12px;
+}
+
+.date-selector-item-day {
+  font-size: 30px;
+  border: 0px solid var(--dark-card);
+  border-radius: 80px;
+}
+
+.date-selector-item-letter {
+  font-size: 12px;
+}
+
+.date-selector-icon {
+  display: flex;
+  width: 80px;
+  align-items: center;
+  text-align: center;
+}
+
+.date-selector-icon div {
+  display: inline;
+  width: 80px;
+  vertical-align: center;
+  border: 1px solid var(--text);
+  margin-left: 10px;
+  border-radius: 20px;
+}

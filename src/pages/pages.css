@@ -1,0 +1,27 @@
+/* PROFILE STYLES: */
+.card-profile {
+    height: 200px;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+}
+
+.card-urb {
+    font-size: 13px;
+    color: var(--dark-card);
+    margin-top: 6px;
+}
+
+.card-plays {
+    font-size: 12px;
+    color: #a9a9a9;
+    margin-top: 10px;
+}
+
+.profile-user-tab {
+    text-align: center;
+}
+
+.profile-user-tab-current {
+    margin: 20px;
+}
