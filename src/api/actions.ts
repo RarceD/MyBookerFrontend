@@ -1,4 +1,5 @@
 import { Booker } from "../interfaces/Booker";
+import { GenericResponse } from "../interfaces/GenericResponse";
 import { ProfileToChange } from "../interfaces/profile";
 import { GetTokenId } from "./auth";
 import { URL_REQUEST } from "./request";
@@ -29,10 +30,10 @@ export async function tryCreateUser(data: any, callback: (resp: any) => void) {
         });
 }
 
-export async function MakeBook(bookerData: Booker, callback: (resp: any) => void) {
+export async function MakeBook(bookerData: Booker, callback: (resp: GenericResponse) => void) {
     const [token, id] = GetTokenId();
     bookerData.token = token;
-    bookerData.id = id;
+    bookerData.id = +id;
     await fetch(URL_REQUEST + "book", getRequestOptions(bookerData))
         .then(response => response.json())
         .catch(error => console.error('Error:', error))
