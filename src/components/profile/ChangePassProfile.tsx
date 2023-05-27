@@ -4,11 +4,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Md5 } from "ts-md5";
 import { GetTokenId } from "../../api/auth";
-import { URL_REQUEST } from "../../api/request";
 import { colorLogo } from "../../interfaces/colors";
 import { styleModalRaad } from "../../util/util";
 import DialogRaad from "../DialogRaad";
 import TextFieldRaad from "../TextFieldRaad";
+import { updateUserPost } from "../../api/actions";
+import { ProfileToChange } from "../../interfaces/profile";
 
 export default function ChangePassProfile() {
     const [firstUser, setFirstUser] = useState<string>("");
@@ -21,49 +22,33 @@ export default function ChangePassProfile() {
 
     const updateUser = () => {
         const [token, id] = GetTokenId();
-        let md5 = new Md5();
-        let passServer = md5.appendStr(firstUser).end()?.toString();
-        const data = {
-            id: id,
-            pass: passServer,
+        const data: ProfileToChange = {
+            id: +id,
+            password: new Md5().appendStr(firstUser).end()?.toString() ?? "",
             token: token == null ? "" : token,
-            name: "null",
-            username: "null"
+            username: ""
         }
-        const to_send = JSON.stringify(data)
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: to_send
-        };
-        if (data.username !== "null" || data.pass !== "null")
-            fetch(URL_REQUEST + "profile", requestOptions)
-                .then(response => response)
-                .catch(error => console.error('Error:', error))
-                .then(response => {
-                    let r: any = response;
-                    if (r.status === 200) {
-                        setOpenModalOk(true);
-                        setTimeout(() => {
-                            setOpenModalOk(false);
-                            navigate("/");
-                        }, 3500)
-                    }
-                    else {
-                        setOpenModalError(true);
-                        setTimeout(() => {
-                            setOpenModalError(false);
-                        }, 3500)
-                    }
-
-                });
+        updateUserPost(data, (response) => {
+            let r: any = response;
+            if (r.status === 200) {
+                setOpenModalOk(true);
+                setTimeout(() => {
+                    setOpenModalOk(false);
+                    navigate("/");
+                }, 3500)
+            }
+            else {
+                setOpenModalError(true);
+                setTimeout(() => {
+                    setOpenModalError(false);
+                }, 3500)
+            }
+        });
     };
 
     const HandlerSaveNewValue = () => {
-        if (firstUser === "" || firstUser === "") return;
-        if (firstUser != firstUser) return;
+        if (firstUser === "" || secondUser === "") return;
+        if (firstUser != secondUser) return;
         setOpen(true);
     }
 

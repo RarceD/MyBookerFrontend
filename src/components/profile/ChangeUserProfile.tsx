@@ -1,11 +1,12 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { useState } from "react";
 import { GetTokenId } from "../../api/auth";
-import { URL_REQUEST } from "../../api/request";
 import { colorLogo } from "../../interfaces/colors";
 import { styleModalRaad } from "../../util/util";
 import DialogRaad from "../DialogRaad";
 import TextFieldRaad from "../TextFieldRaad";
+import { updateUserPost } from "../../api/actions";
+import { ProfileToChange } from "../../interfaces/profile";
 
 
 
@@ -19,46 +20,32 @@ export default function ChangeUserProfile(props: { email: string }) {
 
     const updateUser = () => {
         const [token, id] = GetTokenId();
-        const data = {
-            id: id,
-            pass: "null",
+        const data: ProfileToChange = {
+            id: +id,
+            password: "",
             token: token == null ? "" : token,
-            name: "null",
             username: firstUser
         }
-        const to_send = JSON.stringify(data)
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: to_send
-        };
-        if (data.username !== "null" || data.pass !== "null")
-            fetch(URL_REQUEST + "profile", requestOptions)
-                .then(response => response)
-                .catch(error => console.error('Error:', error))
-                .then(response => {
-                    let r: any = response;
-                    if (r.status === 200) {
-                        setOpenModalOk(true);
-                        setTimeout(() => {
-                            setOpenModalOk(false);
-                        }, 3500)
-                    }
-                    else {
-                        setOpenModalError(true);
-                        setTimeout(() => {
-                            setOpenModalError(false);
-                        }, 3500)
-                    }
-
-                });
+        updateUserPost(data, (response) => {
+            let r: any = response;
+            if (r.status === 200) {
+                setOpenModalOk(true);
+                setTimeout(() => {
+                    setOpenModalOk(false);
+                }, 3500)
+            }
+            else {
+                setOpenModalError(true);
+                setTimeout(() => {
+                    setOpenModalError(false);
+                }, 3500)
+            }
+        });
     };
 
     const HandlerSaveNewValue = () => {
-        if (firstUser === "" || firstUser === "") return;
-        if (firstUser != firstUser) return;
+        if (firstUser === "" || secondUser === "") return;
+        if (firstUser != secondUser) return;
         setOpen(true);
     }
 

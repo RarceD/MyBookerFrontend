@@ -1,4 +1,5 @@
 import { Booker } from "../interfaces/Booker";
+import { ProfileToChange } from "../interfaces/profile";
 import { GetTokenId } from "./auth";
 import { URL_REQUEST } from "./request";
 
@@ -69,10 +70,17 @@ export async function forgetCredentials(secretNumber: string, callback: (resp: a
 
 export async function numberCreateCredentials(code: string, callback: (resp: any) => void) {
     const data: any = {
-       client_number : code == null ? "" : code
+        client_number: code == null ? "" : code
     }
     fetch(URL_REQUEST + "createnumber", getRequestOptions(data))
         .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => callback(response));
+}
+
+export async function updateUserPost(data: ProfileToChange, callback: (resp: any) => void) {
+    await fetch(URL_REQUEST + "profile", getRequestOptions(data))
+        .then(response => response)
         .catch(error => console.error('Error:', error))
         .then(response => callback(response));
 }
