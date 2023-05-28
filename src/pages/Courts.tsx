@@ -12,7 +12,7 @@ import { BasicTabsRaadUncontrolled } from '../components/TabsRaad';
 import { Booker } from '../interfaces/Booker';
 import { colorDarkCard, colorLetter, colorLogo } from '../interfaces/colors';
 import { Court, Timetable } from '../interfaces/Courts';
-import { areThereMultipleCourtTypes, getCourtType, getCourtTypesTabsList, getDateSelectorDtoListFromCourts, getTypeNameCourt, onlyUnique, styleModalRaad } from '../util/util';
+import { areThereMultipleCourtTypes, getCourtType, getCourtTypesTabsList, getDateSelectorDtoListFromCourts, getMaxSliderValues, getMinSliderValues, getTypeNameCourt, styleModalRaad } from '../util/util';
 import { GenericResponse } from '../interfaces/GenericResponse';
 
 interface SelectedItem {
@@ -34,9 +34,8 @@ const Courts = () => {
     const navigate = useNavigate();
     useEffect(() => {
         GetCourts((n: Court[]) => {
-            if (n.length > 0) setSelectedItem({ date: n[0].timetables[0].day, courtId: n[0].id, hour: 0, time: 1 })
+            if (n.length > 0) setSelectedItem({ date: n[0].timetables[0].day, courtId: n[0].id, hour: -1, time: 1 })
             setCourts(n);
-            console.log(n);
         });
     }, []);
 
@@ -69,7 +68,6 @@ const Courts = () => {
             id: 0
         }
         MakeBook(b, (resp: GenericResponse) => {
-            console.log("response", resp)
             if (resp.error == true) {
                 modalMsg.current = "No es posible llevar a cabo su reserva, por favor compruebe las fechas y que no haya reservado previamente ese día.";
                 setOpenModal(true)
@@ -114,7 +112,7 @@ const Courts = () => {
                 <RadioGroup value={selectedItem.courtId} style={{ color: colorLetter }}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         let courtIdToBook: number = +(event.target as HTMLInputElement).value;
-                        setSelectedItem({ date: selectedItem.date, courtId: courtIdToBook, hour: selectedItem.hour, time: 1 })
+                        setSelectedItem({ date: selectedItem.date, courtId: courtIdToBook, hour: -1, time: 1 })
                     }}>
                     {courts.filter(c => c.type == courtTypeSelected).map((item, idx) => <FormControlLabel value={item.id} key={idx}
                         control={<Radio style={{ color: colorLogo }} />} label={item.name} />)}
@@ -127,8 +125,7 @@ const Courts = () => {
             <DateSelectorRaad iconType={getCourtType(courts, selectedItem.courtId)}
                 dateSelectorDto={getDateSelectorDtoListFromCourts(courts, selectedItem.courtId)}
                 selected={selectedItem.date} setSelected={function (n: number): void {
-                    console.log(n);
-                    setSelectedItem({ date: n, courtId: selectedItem.courtId, hour: selectedItem.hour, time: 1 })
+                    setSelectedItem({ date: n, courtId: selectedItem.courtId, hour: -1, time: 1 })
                 }} />
 
             <div className="comunity-text">
@@ -146,7 +143,11 @@ const Courts = () => {
             <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
                 <AccessTimeIcon style={{ color: colorLogo }} />
                 <Slider value={selectedItem.time}
-                    step={1} valueLabelDisplay={"auto"} marks min={0} max={1}
+                    step={1}
+                    marks
+                    min={getMinSliderValues(courts.filter(c => c.id == selectedItem.courtId))}
+                    max={getMaxSliderValues(courts.filter(c => c.id == selectedItem.courtId))}
+                    valueLabelDisplay={"auto"}
                     onChange={function (event: Event, newValue: number | number[]): void {
                         let time: number = newValue as number;
                         setSelectedItem({
@@ -162,7 +163,7 @@ const Courts = () => {
             <div style={{ textAlign: "center" }}>
                 <Button variant="outlined"
                     onClick={() => {
-                        if (selectedItem.time == 0) return;
+                        if (selectedItem.hour == -1 || selectedItem.time == 0) return;
                         setShowPopUp(true)
                     }}
                     style={{ background: colorLogo, color: "white" }}>

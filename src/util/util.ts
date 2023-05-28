@@ -2,26 +2,19 @@ import { DateSelectorDto } from "../components/courts/DateSelectorRaad";
 import { colorBackground } from "../interfaces/colors";
 import { Court, CourtType, Timetable } from "../interfaces/Courts";
 
-export function onlyUnique(value: any, index: any, array: any) {
-    return array.indexOf(value) === index;
-}
 
+// TODO: almost all file should be a useCallback/useMemo approach
 export const getDateSelectorDtoListFromCourts = (courts: Court[], courtSelected: number): DateSelectorDto[] => {
     let s: DateSelectorDto[] = [];
-    let weekDays = ['Lun.', 'Mar.', 'Mie.', 'Jue.', 'Vie.', 'Sab.', 'Dom.'];
+    let weekDays = ['Dom.', 'Lun.', 'Mar.', 'Mie.', 'Jue.', 'Vie.', 'Sab.'];
     let months = ['Ene.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.', 'Jul.', 'Ago.', 'Sep.', 'Oct.', 'Nov.', 'Dic.'];
     for (let court of courts) {
         if (court.id != courtSelected) continue;
         let currentDay = new Date();
-
-        // Get only not repeated days:
-        const test = [];
-        for (const c of court.timetables) test.push(c.day)
-
-        for (let t of test.filter(onlyUnique)) {
+        for (let t of court.timetables.map(i=>i.day)) {
             s.push({
-                week: weekDays[0],
-                day: t,
+                week: weekDays[currentDay.getDay()],
+                day: t.toString(),
                 letter: months[currentDay.getMonth()]
             })
             currentDay = addDays(currentDay, 1);
@@ -79,6 +72,23 @@ export function addDays(date: any, days: any) {
     var result = new Date(date);
     result.setDate(result.getDate() + days);
     return result;
+}
+
+export function getMaxSliderValues(courts: Court[]) {
+    if (courts.length == 0) return 1;
+    const times = courts[0].validTimes.split(";");
+    if (times.length > 1)
+        return 2;
+    else
+        return 1;
+}
+export function getMinSliderValues(courts: Court[]) {
+    if (courts.length == 0) return 1;
+    const times = courts[0].validTimes.split(";");
+    if (times.length > 1)
+        return 1;
+    else
+        return 0;
 }
 
 export const styleModalRaad = {
