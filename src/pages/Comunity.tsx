@@ -2,18 +2,14 @@ import { useEffect, useState } from "react";
 import { GetTokenId } from "../api/auth";
 import { GetBooks } from "../api/request";
 import ListRaad from "../components/comunity/ListRaad";
-import { MyBooks } from "../interfaces/MyBooks";
+import { ClientBooks } from "../interfaces/MyBooks";
 import './../components/components.css'
 
 const Comunity = () => {
-    const [books, setBooks] = useState<MyBooks[]>([]);
+    const [books, setBooks] = useState<ClientBooks[]>([]);
     const [token, myClientId] = GetTokenId();
     useEffect(() => {
-        GetBooks((n: MyBooks[]) => {
-            n.sort((a, b) => {
-                if (a.weekday < b.weekday || a.timeRaw < b.timeRaw) return -1;
-                return 1;
-            });
+        GetBooks((n: ClientBooks[]) => {
             setBooks(n);
         })
     }, []);
@@ -24,36 +20,36 @@ const Comunity = () => {
             <div className="comunity-text">
                 Mis próximas reservas
             </div>
-            {books.filter((item: MyBooks) => item.client_id == +myClientId).length == 0 ?
+            {books.filter((item: ClientBooks) => item.clientId == +myClientId).length == 0 ?
                 <div className="comunity-text" style={{ textAlign: "center" }}>
                     no hay próximamente
                 </div> : <></>
             }
-            {books.map((item: MyBooks, idx) => item.client_id == +myClientId ?
+            {books.map((item: ClientBooks, idx) => item.clientId == +myClientId ?
                 <ListRaad key={idx}
                     courtType={item.type}
                     courtName={item.courtName}
                     toDelete={true}
-                    mainText={item.schedule}
+                    mainText={item.weekday + " " + item.hour}
                     id={item.id}
-                    secondText={item.duration + " - " + item.name} /> : <div key={idx}></div>
+                    secondText={"Duración: " + item.duration + " - " + item.clientName} /> : <div key={idx}></div>
             )}
 
             {/*The ones with my client id */}
             <div className="comunity-text">
                 Reservas de otros usuarios
             </div>
-            {books.map((item: MyBooks, idx) => item.client_id != +myClientId ?
+            {books.map((item: ClientBooks, idx) => item.clientId != +myClientId ?
                 <ListRaad key={idx}
                     courtType={item.type}
                     courtName={item.courtName}
                     toDelete={false}
-                    mainText={item.schedule}
+                    mainText={item.weekday + " " + item.hour}
                     id={item.id}
-                    secondText={item.duration + " - " + item.name} /> : <div key={idx}></div>
+                    secondText={"Duración: " + item.duration + " - " + item.clientName} /> : <div key={idx}></div>
             )}
 
-            {books.filter((item: MyBooks) => item.client_id != +myClientId).length == 0 ?
+            {books.filter((item: ClientBooks) => item.clientId != +myClientId).length == 0 ?
                 <div className="comunity-text" style={{ textAlign: "center" }}>
                     no hay próximamente
                 </div> : <></>

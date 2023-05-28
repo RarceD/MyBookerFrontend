@@ -4,18 +4,18 @@ export interface Court {
     timetables: Timetable[]
     type: CourtType,
     validTimes: string,
-    // urba: Urbas
-    // last_played_res?: string,
-    // info_text?: string,
-    // last_oponent?: string,
-    // img?: string
 }
 
 export interface Timetable {
-    day: string,
+    day: number,
+    fullDay: string,
+    availability: Availability[]
+}
+export interface Availability {
     time: string,
     valid: boolean
 }
+
 export interface Urbas {
     name: string,
     info: string,

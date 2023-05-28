@@ -45,7 +45,7 @@ export async function MakeBook(bookerData: Booker, callback: (resp: GenericRespo
 export async function RemoveBook(idToRemove: number, callback: (resp: any) => void) {
     const [token, client_id] = GetTokenId();
     const data = {
-        book_id: idToRemove,
+        bookId: idToRemove,
         token: token === null ? "" : token,
         id: client_id === null ? "" : client_id,
     }

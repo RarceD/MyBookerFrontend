@@ -36,6 +36,7 @@ const Courts = () => {
         GetCourts((n: Court[]) => {
             if (n.length > 0) setSelectedItem({ date: n[0].timetables[0].day, courtId: n[0].id, hour: 0, time: 1 })
             setCourts(n);
+            console.log(n);
         });
     }, []);
 
@@ -55,6 +56,36 @@ const Courts = () => {
             setHours(listOfTimes);
         }
     }, [courts, selectedItem]);
+
+    const confirmBookAction = () => {
+        // Get full day:
+        const court: Court = courts.filter(c => c.id == selectedItem.courtId)[0];
+        const timetable: Timetable = court.timetables.filter(t => t.day == selectedItem.date)[0];
+        const b: Booker = {
+            courtId: selectedItem.courtId,
+            duration: selectedItem.time.toString(),
+            day: timetable.fullDay,
+            time: hours[selectedItem.hour].title,
+            id: 0
+        }
+        MakeBook(b, (resp: GenericResponse) => {
+            console.log("response", resp)
+            if (resp.error == true) {
+                modalMsg.current = "No es posible llevar a cabo su reserva, por favor compruebe las fechas y que no haya reservado previamente ese día.";
+                setOpenModal(true)
+                setTimeout(() => setOpenModal(false), 3000)
+            }
+            else {
+                modalMsg.current = "Su reserva se ha guardado correctamente. Disfrute de su partida.";
+                setOpenModal(true)
+                setTimeout(() => {
+                    setOpenModal(false)
+                    navigate('/');
+                }, 3000)
+            }
+        })
+        setShowPopUp(false);
+    }
 
     return (
         <div style={{ marginTop: 100, marginBottom: 120 }}>
@@ -143,37 +174,8 @@ const Courts = () => {
                 titleMsg={'Confirmar reserva'}
                 longMsg={'Está seguro de que quiere reservar'}
                 activate={showPopUp}
-                deactivate={function (): void {
-                    setShowPopUp(false);
-                }} confirmHandler={function (): void {
-                    // Get full day:
-                    const court: Court = courts.filter(c => c.id == selectedItem.courtId)[0];
-                    const timetable: Timetable = court.timetables.filter(t => t.day == selectedItem.date)[0];
-                    const b: Booker = {
-                        courtId: selectedItem.courtId,
-                        duration: selectedItem.time.toString(),
-                        day: timetable.fullDay,
-                        time: hours[selectedItem.hour].title,
-                        id: 0
-                    }
-                    MakeBook(b, (resp: GenericResponse) => {
-                        console.log("response", resp)
-                        if (resp.error == true) {
-                            modalMsg.current = "No es posible llevar a cabo su reserva, por favor compruebe las fechas y que no haya reservado previamente ese día.";
-                            setOpenModal(true)
-                            setTimeout(() => setOpenModal(false), 3000)
-                        }
-                        else {
-                            modalMsg.current = "Su reserva se ha guardado correctamente. Disfrute de su partida.";
-                            setOpenModal(true)
-                            setTimeout(() => {
-                                setOpenModal(false)
-                                navigate('/');
-                            }, 3000)
-                        }
-                    })
-                    setShowPopUp(false);
-                }} />
+                deactivate={() => setShowPopUp(false)}
+                confirmHandler={() => confirmBookAction()} />
             <Modal
                 open={openModal}
             >

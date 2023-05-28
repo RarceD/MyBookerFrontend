@@ -1,9 +1,8 @@
 export interface Booker {
-    id: string,
-    token: string,
-    court_id: number,
+    id: number,
+    token?: string,
+    courtId: number,
     time: string,
     duration: string,
-    weekday?: number,
-    day?: number
+    day: string 
 }

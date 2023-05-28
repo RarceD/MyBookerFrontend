@@ -13,3 +13,14 @@ export interface MyBooks {
     weekday: number,
     timeRaw: number
 }
+
+export interface ClientBooks {
+    id: number,
+    clientId: number,
+    weekday: string,
+    hour: string,
+    courtName: string,
+    duration: string,
+    clientName: string,
+    type: number 
+}

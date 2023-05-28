@@ -30,8 +30,8 @@ export default function DateSelectorRaad(props: {
           {props.dateSelectorDto.map((item, idx) =>
             <DateSelectorItemRaad
               key={idx}
-              week={item.week} day={item.day} letter={item.letter} selected={props.selected == idx}
-              changeSelectedItem={() => props.setSelected(idx)}
+              week={item.week} day={item.day} letter={item.letter} selected={props.selected == +item.day}
+              changeSelectedItem={() => props.setSelected(+item.day)}
             />)}
         </div>
       </div>
@@ -53,8 +53,8 @@ export default function DateSelectorRaad(props: {
             {props.dateSelectorDto.map((item, idx) =>
               <DateSelectorItemRaad
                 key={idx}
-                week={item.week} day={item.day} letter={item.letter} selected={props.selected == idx}
-                changeSelectedItem={() => props.setSelected(idx)}
+                week={item.week} day={item.day} letter={item.letter} selected={props.selected == +item.day}
+                changeSelectedItem={() => props.setSelected(+item.day)}
               />)}
           </div>
         </div>
