@@ -46,6 +46,7 @@ export default function SchedulRaad(props: {
                     style={{
                         color: idx == props.selected ? "white" : "",
                         backgroundColor: getBackgroundColor(item, idx),
+                        cursor: "pointer"
                     }}>
                     {item.title}
                 </div>)}

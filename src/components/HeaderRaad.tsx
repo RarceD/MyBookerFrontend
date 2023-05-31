@@ -1,4 +1,5 @@
 import { AppBar, Avatar, Container, IconButton, Toolbar, Typography } from '@mui/material';
+import LogoutIcon from "@mui/icons-material/Logout"
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DialogRaad from './DialogRaad';
@@ -13,6 +14,7 @@ function HeaderRaad() {
         <AppBar position="absolute" className="header" style={{ top: 0, left: 0 }} >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
+                    <Avatar alt="Remy Sharp" src="/images/logo.png" style={{ height: 65, width: 60, backgroundColor: "" }} />
                     <Typography
                         fontFamily={'sans-serif'}
                         sx={{
@@ -21,14 +23,12 @@ function HeaderRaad() {
                             fontWeight: 200,
                             letterSpacing: '.1rem',
                             color: '#cbc9c9',
+                            paddingLeft: "1em"
                         }}
                     >
                         AppDeReservas
                     </Typography>
-                    <IconButton onClick={logOut} sx={{ p: 0 }} >
-                        <Avatar
-                            alt="Remy Sharp" src="/images/logo.png" style={{ height: 65, width: 60, backgroundColor: "" }} />
-                    </IconButton>
+                    <LogoutIcon onClick={logOut} style={{cursor: "pointer"}}/>
                 </Toolbar>
             </Container>
             <DialogRaad
