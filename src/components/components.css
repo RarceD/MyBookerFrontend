@@ -101,6 +101,7 @@
   font-size: 30px;
   border: 0px solid var(--dark-card);
   border-radius: 80px;
+  cursor: pointer;
 }
 
 .date-selector-item-letter {
