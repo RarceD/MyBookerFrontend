@@ -33,7 +33,7 @@ export default function ListRaad(props: {
                 />
                 {props.toDelete ? <ListItemAvatar onClick={() => setShowPopUp(true)}>
                     <Avatar sx={{ bgcolor: 'inherit' }}>
-                        <DeleteForeverIcon style={{ color: "#fff" }} />
+                        <DeleteForeverIcon style={{ color: "#fff", cursor: "pointer" }} />
                     </Avatar>
                 </ListItemAvatar> : <></>}
             </ListItem>

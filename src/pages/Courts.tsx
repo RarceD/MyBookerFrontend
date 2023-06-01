@@ -1,8 +1,8 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import { Box, Button, FormControlLabel, Modal, Radio, RadioGroup, Slider, Stack, Typography } from '@mui/material';
+import { Button, FormControlLabel, IconButton, Radio, RadioGroup, Slider, Snackbar, Stack } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { MakeBook } from '../api/actions';
 import { GetCourts } from '../api/request';
 import DateSelectorRaad from '../components/courts/DateSelectorRaad';
@@ -14,6 +14,7 @@ import { colorDarkCard, colorLetter, colorLogo } from '../interfaces/colors';
 import { Court, Timetable } from '../interfaces/Courts';
 import { areThereMultipleCourtTypes, getCourtType, getCourtTypesTabsList, getDateSelectorDtoListFromCourts, getMaxSliderValues, getMinSliderValues, getTypeNameCourt, styleModalRaad } from '../util/util';
 import { GenericResponse } from '../interfaces/GenericResponse';
+import React from 'react';
 
 interface SelectedItem {
     courtId: number,
@@ -28,16 +29,39 @@ const Courts = () => {
     const [courtTypeSelected, setCourtTypeSelected] = useState<number>(0);
 
     const [hours, setHours] = useState<HourInfo[]>([]);
-    const [openModal, setOpenModal] = useState(false);
-    const modalMsg = useRef("");
+    const [open, setOpen] = useState(false);
+    const modalMsg = useRef("");    
 
-    const navigate = useNavigate();
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+      };
+
+    const action = (
+        <React.Fragment>
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </React.Fragment>
+      );
+
     useEffect(() => {
         GetCourts((n: Court[]) => {
             if (n.length > 0) setSelectedItem({ date: n[0].timetables[0].day, courtId: n[0].id, hour: -1, time: 1 })
             setCourts(n);
         });
-    }, []);
+    }, [open]);
 
     useEffect(() => {
         for (let c of courts) {
@@ -70,16 +94,11 @@ const Courts = () => {
         MakeBook(b, (resp: GenericResponse) => {
             if (resp.error == true) {
                 modalMsg.current = "No es posible llevar a cabo su reserva, por favor compruebe las fechas y que no haya reservado previamente ese día.";
-                setOpenModal(true)
-                setTimeout(() => setOpenModal(false), 3000)
+                handleClick();
             }
             else {
                 modalMsg.current = "Su reserva se ha guardado correctamente. Disfrute de su partida.";
-                setOpenModal(true)
-                setTimeout(() => {
-                    setOpenModal(false)
-                    navigate('/');
-                }, 3000)
+                handleClick();
             }
         })
         setShowPopUp(false);
@@ -173,19 +192,17 @@ const Courts = () => {
 
             <DialogRaad
                 titleMsg={'Confirmar reserva'}
-                longMsg={'Está seguro de que quiere reservar'}
+                longMsg={'¿Está seguro de que quiere reservar?'}
                 activate={showPopUp}
                 deactivate={() => setShowPopUp(false)}
                 confirmHandler={() => confirmBookAction()} />
-            <Modal
-                open={openModal}
-            >
-                <Box sx={styleModalRaad}>
-                    <Typography id="modal-modal-description" mx={{ xs: 12 }}>
-                        {modalMsg.current}
-                    </Typography>
-                </Box>
-            </Modal>
+            <Snackbar
+                open={open}
+                autoHideDuration={3000}
+                onClose={handleClose}
+                message={modalMsg.current}
+                action={action}
+            />
         </div>
     )
 }

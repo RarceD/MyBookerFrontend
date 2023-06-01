@@ -22,7 +22,7 @@ const Comunity = () => {
             </div>
             {books.filter((item: ClientBooks) => item.clientId == +myClientId).length == 0 ?
                 <div className="comunity-text" style={{ textAlign: "center" }}>
-                    no hay próximamente
+                    No hay próximamente
                 </div> : <></>
             }
             {books.map((item: ClientBooks, idx) => item.clientId == +myClientId ?
@@ -35,7 +35,7 @@ const Comunity = () => {
                     secondText={"Duración: " + item.duration + " - " + item.clientName} /> : <div key={idx}></div>
             )}
 
-            {/*The ones with my client id */}
+            {/*The ones with other client id */}
             <div className="comunity-text">
                 Reservas de otros usuarios
             </div>
@@ -51,7 +51,7 @@ const Comunity = () => {
 
             {books.filter((item: ClientBooks) => item.clientId != +myClientId).length == 0 ?
                 <div className="comunity-text" style={{ textAlign: "center" }}>
-                    no hay próximamente
+                    No hay próximamente
                 </div> : <></>
             }
 
