@@ -12,7 +12,7 @@ import { BasicTabsRaadUncontrolled } from '../components/TabsRaad';
 import { Booker } from '../interfaces/Booker';
 import { colorDarkCard, colorLetter, colorLogo } from '../interfaces/colors';
 import { Court, Timetable } from '../interfaces/Courts';
-import { areThereMultipleCourtTypes, getCourtType, getCourtTypesTabsList, getDateSelectorDtoListFromCourts, getMaxSliderValues, getMinSliderValues, getTypeNameCourt, styleModalRaad } from '../util/util';
+import { areThereMultipleCourtTypes, getCourtType, getCourtTypesTabsList, getDateSelectorDtoListFromCourts, getMaxSliderValues, getMinSliderValues, getSlider, getTypeNameCourt, styleModalRaad } from '../util/util';
 import { GenericResponse } from '../interfaces/GenericResponse';
 
 interface SelectedItem {
@@ -23,7 +23,7 @@ interface SelectedItem {
 }
 const Courts = () => {
     const [courts, setCourts] = useState<Court[]>([]);
-    const [selectedItem, setSelectedItem] = useState<SelectedItem>({ courtId: 0, hour: 0, date: 0, time: 1 });
+    const [selectedItem, setSelectedItem] = useState<SelectedItem>({ courtId: 0, hour: 0, date: 0, time: 0 });
     const [showPopUp, setShowPopUp] = useState<boolean>(false);
     const [courtTypeSelected, setCourtTypeSelected] = useState<number>(0);
 
@@ -34,7 +34,7 @@ const Courts = () => {
     const navigate = useNavigate();
     useEffect(() => {
         GetCourts((n: Court[]) => {
-            if (n.length > 0) setSelectedItem({ date: n[0].timetables[0].day, courtId: n[0].id, hour: -1, time: 1 })
+            if (n.length > 0) setSelectedItem({ date: n[0].timetables[0].day, courtId: n[0].id, hour: -1, time: 0 })
             setCourts(n);
         });
     }, []);
@@ -101,7 +101,7 @@ const Courts = () => {
                             setSelectedItem({
                                 date: selectedItem.date,
                                 courtId: courtWithTypeX.length > 0 ? courtWithTypeX[0].id : courts[0].id,
-                                hour: selectedItem.hour, time: 1
+                                hour: selectedItem.hour, time: 0
                             })
                             setCourtTypeSelected(type);
                         }}
@@ -134,7 +134,7 @@ const Courts = () => {
             <SchedulRaad hours={hours} selected={selectedItem.hour} daySelected={selectedItem.date}
                 changeSelectedHour={
                     (index: number) => {
-                        setSelectedItem({ date: selectedItem.date, courtId: selectedItem.courtId, hour: index, time: 1 })
+                        setSelectedItem({ date: selectedItem.date, courtId: selectedItem.courtId, hour: index, time: 0 })
                     }} />
 
             <div className="comunity-text">
@@ -143,7 +143,7 @@ const Courts = () => {
             <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
                 <AccessTimeIcon style={{ color: colorLogo }} />
                 <Slider value={selectedItem.time}
-                    step={1}
+                    step={getSlider(courts.filter(c => c.id == selectedItem.courtId))}
                     marks
                     min={getMinSliderValues(courts.filter(c => c.id == selectedItem.courtId))}
                     max={getMaxSliderValues(courts.filter(c => c.id == selectedItem.courtId))}

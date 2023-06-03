@@ -74,20 +74,35 @@ export function addDays(date: any, days: any) {
     return result;
 }
 
+export function getSlider(courts: Court[]) {
+    if (courts.length == 0) return 1;
+    const times = courts[0].validTimes.split(";");
+    if (times.length > 1){
+        return 2;
+    }
+    else {
+        if (times[0] == "1,5")
+            return 1.5;
+        if (times[0] == "1")
+            return 1;
+    }
+}
+
 export function getMaxSliderValues(courts: Court[]) {
     if (courts.length == 0) return 1;
     const times = courts[0].validTimes.split(";");
-    if (times.length > 1)
+    if (times.length > 1){
+
         return 2;
-    else
-        return 1;
+    }
+    else {
+        if (times[0] == "1,5")
+            return 1.5;
+        if (times[0] == "1")
+            return 1;
+    }
 }
 export function getMinSliderValues(courts: Court[]) {
-    if (courts.length == 0) return 1;
-    const times = courts[0].validTimes.split(";");
-    if (times.length > 1)
-        return 1;
-    else
         return 0;
 }
 
