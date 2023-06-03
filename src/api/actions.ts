@@ -71,9 +71,9 @@ export async function forgetCredentials(secretNumber: string, callback: (resp: a
 
 export async function numberCreateCredentials(code: string, callback: (resp: any) => void) {
     const data: any = {
-        client_number: code == null ? "" : code
+        code: code
     }
-    fetch(URL_REQUEST + "createnumber", getRequestOptions(data))
+    fetch(URL_REQUEST + "create/redirect", getRequestOptions(data))
         .then(response => response.json())
         .catch(error => console.error('Error:', error))
         .then(response => callback(response));
