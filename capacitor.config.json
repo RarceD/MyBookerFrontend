@@ -1,0 +1,8 @@
+{
+    "appId": "AppDeReservas.es",
+    "appName": "AppDeReservas.es",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "build",
+    "cordova": {}
+}

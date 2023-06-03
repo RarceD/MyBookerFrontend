@@ -6,15 +6,22 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "resources": "capacitor-resources -p android,ios"
   },
   "dependencies": {
+    "@capacitor/android": "^5.0.4",
+    "@capacitor/app": "^5.0.2",
+    "@capacitor/cli": "^5.0.4",
+    "@capacitor/core": "^5.0.4",
+    "@capacitor/ios": "^5.0.4",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.9",
     "@mui/styled-engine-sc": "^5.11.9",
     "@mui/styles": "^5.11.12",
+    "capacitor-resources": "^2.0.5",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",

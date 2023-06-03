@@ -1,0 +1,7 @@
+{
+    "name": "AppDeReservas",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "react"
+}
