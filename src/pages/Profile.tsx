@@ -88,7 +88,7 @@ const Profile = () => {
             <div style={{ marginTop: 80, marginBottom: 120, marginLeft: 20, marginRight: 20 }}>
                 <ProfileCardRaad name={profile.name} urbaName={profile.urbaName} numberPlays={profile.plays} />
 
-                {firstUser !== profile.username && <h4>Cambio de correo electrónico</h4>}
+                {firstUser !== profile.username ? <h4>Cambio de correo electrónico</h4> : <h4>Correo electrónico</h4>}
                 <TextFieldRaadCustom
                     value={firstUser}
                     label={firstUser == profile.username ? "Correo" : "Nuevo correo"}

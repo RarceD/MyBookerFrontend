@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import HeaderRaad from './components/HeaderRaad'
 import NoConnection from './pages/NoConnection'
 import { convertNumberToType, PageType, PageTypeNumber } from './interfaces/pages'
+import { responsiveCtr } from './util/responsiveService';
 
 const Comunity = lazy(() => import('./pages/Comunity'));
 const Courts = lazy(() => import('./pages/Courts'));
@@ -92,12 +93,21 @@ function AppBase() {
   return (
     <>
       <HeaderRaad />
-      <div className="App">
-        {page == "comunity" ? <Comunity /> : <></>}
-        {page == "courts" ? <Courts /> : <></>}
-        {page == "normative" ? <Normative /> : <></>}
-        {page == "profile" ? <Profile /> : <></>}
-      </div>
+      {responsiveCtr.IsMobileDevice()
+        ?
+        <div className="App" >
+          {page == "comunity" ? <Comunity /> : <></>}
+          {page == "courts" ? <Courts /> : <></>}
+          {page == "normative" ? <Normative /> : <></>}
+          {page == "profile" ? <Profile /> : <></>}
+        </div >
+        : <div className="App" style={{ paddingLeft: "25%", paddingRight: "25%" }}>
+          {page == "comunity" ? <Comunity /> : <></>}
+          {page == "courts" ? <Courts /> : <></>}
+          {page == "normative" ? <Normative /> : <></>}
+          {page == "profile" ? <Profile /> : <></>}
+        </div>
+      }
       <Footer
         pageToShow={page}
         setPageToShow={(t: PageTypeNumber): void => setPage(convertNumberToType(t))} />
@@ -110,7 +120,7 @@ function App() {
   // Check http or https
   //let urlPath = window.location.href;
   //if(!urlPath.includes("https") && !urlPath.includes("localhost") )
-    //window.location.href ='https://meapunto.online';
+  //window.location.href ='https://meapunto.online';
 
   return <RouterProvider router={router} />
 }
