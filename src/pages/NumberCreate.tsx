@@ -19,8 +19,8 @@ const NumberCreate = () => {
     const [openModal, setOpenModal] = useState(false);
     const createUser = () => {
         numberCreateCredentials(secretNumber, (response: any) => {
-            const url: any = response["url"];
-            if (url !== "NOP") {
+            if (response.success) {
+                const url: any = response["url"];
                 window.location.href = url;
             }
             else {
