@@ -15,7 +15,5 @@ export const convertNumberToType = (n: PageTypeNumber): PageType => {
         return "normative";
     else if (n == PageTypeNumber.PROFILE)
         return "profile";
-
-    console.error("Unknow page");
     return "error"
 }
