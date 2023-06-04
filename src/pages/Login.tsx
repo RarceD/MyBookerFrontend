@@ -110,7 +110,7 @@ export const Login = () => {
           <Grid container>
             <Grid item xs>
               <Link variant="body2" href="forget">
-                ¿He olvidada la contraseña?
+                ¿He olvidado la contraseña?
               </Link>
             </Grid>
             <Grid item>

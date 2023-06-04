@@ -22,14 +22,14 @@ const router = createBrowserRouter([
     path: "/",
     element:
       <Suspense fallback={<NoConnection />}>
-        <Login />,
+        <Login />
       </Suspense>
   },
   {
     path: "/login",
     element:
       <Suspense fallback={<NoConnection />}>
-        <Login />,
+        <Login />
       </Suspense>
   },
   {
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     path: "/create",
     element:
       <Suspense fallback={<NoConnection />}>
-        <Create />,
+        <Create />
       </Suspense>,
     errorElement: <NoConnection />
   },
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
     path: "/number",
     element:
       <Suspense fallback={<NoConnection />}>
-        <NumberCreate />,
+        <NumberCreate />
       </Suspense>,
     errorElement: <NoConnection />
   },
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
     path: "/forget",
     element:
       <Suspense fallback={<NoConnection />}>
-        <ForgetCredentials />,
+        <ForgetCredentials />
       </Suspense>,
     errorElement: <NoConnection />
   },
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
     path: "/privacy",
     element:
       <Suspense fallback={<NoConnection />}>
-        <Privacy />,
+        <Privacy />
       </Suspense>,
     errorElement: <NoConnection />
   },
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
     path: "*",
     element:
       <Suspense fallback={<NoConnection />}>
-        <Login />,
+        <Login />
       </Suspense>,
     errorElement: <NoConnection />
   }
