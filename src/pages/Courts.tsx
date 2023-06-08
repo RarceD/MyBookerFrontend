@@ -12,7 +12,7 @@ import { BasicTabsRaadUncontrolled } from '../components/TabsRaad';
 import { Booker } from '../interfaces/Booker';
 import { colorDarkCard, colorLetter, colorLogo } from '../interfaces/colors';
 import { Court, Timetable } from '../interfaces/Courts';
-import { areThereMultipleCourtTypes, getCourtType, getCourtTypesTabsList, getDateSelectorDtoListFromCourts, getMaxSliderValues, getMinSliderValues, getSlider, getTypeNameCourt, styleModalRaad } from '../util/util';
+import { areThereMultipleCourtTypes, getCourtType, getCourtTypesTabsList, getDateSelectorDtoListFromCourts, getMaxSliderValues, getSlider, getTypeNameCourt, styleModalRaad } from '../util/util';
 import { GenericResponse } from '../interfaces/GenericResponse';
 import React from 'react';
 
