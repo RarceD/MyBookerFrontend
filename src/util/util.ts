@@ -77,8 +77,8 @@ export function addDays(date: any, days: any) {
 export function getSlider(courts: Court[]) {
     if (courts.length == 0) return 1;
     const times = courts[0].validTimes.split(";");
-    if (times.length > 1){
-        return 2;
+    if (times.length > 2){
+        return 0.5;
     }
     else {
         if (times[0] == "1,5")
@@ -92,8 +92,7 @@ export function getMaxSliderValues(courts: Court[]) {
     if (courts.length == 0) return 1;
     const times = courts[0].validTimes.split(";");
     if (times.length > 1){
-
-        return 2;
+        return 1.5;
     }
     else {
         if (times[0] == "1,5")
@@ -101,9 +100,6 @@ export function getMaxSliderValues(courts: Court[]) {
         if (times[0] == "1")
             return 1;
     }
-}
-export function getMinSliderValues(courts: Court[]) {
-        return 0;
 }
 
 export const styleModalRaad = {

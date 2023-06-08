@@ -164,7 +164,7 @@ const Courts = () => {
                 <Slider value={selectedItem.time}
                     step={getSlider(courts.filter(c => c.id == selectedItem.courtId))}
                     marks
-                    min={getMinSliderValues(courts.filter(c => c.id == selectedItem.courtId))}
+                    min={0}
                     max={getMaxSliderValues(courts.filter(c => c.id == selectedItem.courtId))}
                     valueLabelDisplay={"auto"}
                     onChange={function (event: Event, newValue: number | number[]): void {

@@ -32,7 +32,7 @@ const Comunity = () => {
                     toDelete={true}
                     mainText={item.weekday + " " + item.hour}
                     id={item.id}
-                    secondText={"Duración: " + item.duration + " - " + item.clientName} /> : <div key={idx}></div>
+                    secondText={"Duración: " + item.duration + "h - " + item.clientName} /> : <div key={idx}></div>
             )}
 
             {/*The ones with other client id */}
@@ -46,7 +46,7 @@ const Comunity = () => {
                     toDelete={false}
                     mainText={item.weekday + " " + item.hour}
                     id={item.id}
-                    secondText={"Duración: " + item.duration + " - " + item.clientName} /> : <div key={idx}></div>
+                    secondText={"Duración: " + item.duration + "h - " + item.clientName} /> : <div key={idx}></div>
             )}
 
             {books.filter((item: ClientBooks) => item.clientId != +myClientId).length == 0 ?
