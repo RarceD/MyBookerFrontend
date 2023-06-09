@@ -69,12 +69,12 @@ const ForgetCredentials = () => {
                     />
                 </Grid>
                 <Grid item>
-                    <Button variant="contained" endIcon={<SendIcon />} color="primary" onClick={forgetPassRequest}>
+                    <Button variant="contained" endIcon={<SendIcon />} color="warning" onClick={forgetPassRequest}>
                         Solicitar una
                     </Button>
                 </Grid>
                 <Grid item>
-                    <Button variant="outlined" color="primary" onClick={() => navigate("/")}>
+                    <Button variant="outlined" color="warning" onClick={() => navigate("/")}>
                         Volver
                     </Button>
                 </Grid>

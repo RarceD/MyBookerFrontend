@@ -65,10 +65,10 @@ const NumberCreate = () => {
                 </Grid>
 
                 <Grid item>
-                    <Button variant="contained" endIcon={<SendIcon />} color="primary" onClick={createUser}>Crear Usuario</Button>
+                    <Button variant="contained" endIcon={<SendIcon />} color="warning" onClick={createUser}>Crear Usuario</Button>
                 </Grid>
                 <Grid item>
-                    <Button variant="outlined" color="primary" onClick={() => navigate("/")}>Volver
+                    <Button variant="outlined" color="warning" onClick={() => navigate("/")}>Volver
                     </Button>
                 </Grid>
             </Grid>
