@@ -4,9 +4,21 @@ import { NormativeList } from "../interfaces/NormativeList";
 import { ProfileInfo } from "../interfaces/ProfileInfo";
 import { GetTokenId } from "./auth";
 
-export const URL_REQUEST: string = "https://localhost:5001/api/";
-// export const URL_REQUEST: string = "http://www.appdereservas.es/api/";
+// export const APP_NAME: string = "AppDeReservas";
+export const APP_NAME: string = "MeApunto.Online";
 
+// export const URL_REQUEST: string = "https://www.meapunto.online/api/";
+// export const URL_REQUEST: string = "http://www.appdereservas.es/api/";
+export const URL_REQUEST: string = "https://localhost:5001/api/";
+
+
+export const getCorrectLogo = (url: string) : string  => {
+    let path: string = '/images/logo.png';
+    if (url.toLowerCase().includes("online")) {
+        path = '/images/logo1.png'
+    }
+    return path;
+}
 
 const requestOptions = {
     method: 'GET',

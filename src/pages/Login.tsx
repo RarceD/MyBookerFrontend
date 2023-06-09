@@ -6,7 +6,7 @@ import { tryLogin } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
 import { colorLogoBlue } from '../interfaces/colors';
 import "./pages.css";
-import image_logo from '/images/logo.png';
+import { APP_NAME, getCorrectLogo } from '../api/request';
 
 export const Login = () => {
   const [user, setUser] = useState("");
@@ -52,8 +52,8 @@ export const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 2, width: 240, height: 180 }} variant="rounded" src={image_logo}> </Avatar>
-        <Typography component="h1" variant="h5"> AppDeReservas </Typography>
+        <Avatar sx={{ m: 2, width: 240, height: 180 }} variant="rounded" src={getCorrectLogo(APP_NAME)}> </Avatar>
+        <Typography component="h1" variant="h5"> {APP_NAME} </Typography>
         <Box component="form" sx={{ mt: 1 }} borderColor={"white"}>
           <TextFieldRaad
             InputLabelProps={{ style: { color: "white" } }}
