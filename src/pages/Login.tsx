@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { Md5 } from 'ts-md5';
 import { tryLogin } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
-import { colorLogoBlue } from '../interfaces/colors';
+import { colorLogo } from '../interfaces/colors';
 import "./pages.css";
 import { APP_NAME, getCorrectLogo } from '../api/request';
 
@@ -94,13 +94,13 @@ export const Login = () => {
             }}
           />
           <FormControlLabel
-            control={<Checkbox value={autologin} color="primary" />}
+            control={<Checkbox value={autologin} color="warning" />}
             label="Recordarme"
             onChange={handleChangeAutologin}
           />
           <Button
             fullWidth
-            style={{ background: colorLogoBlue }}
+            style={{ background: colorLogo }}
             variant="contained"
             onClick={handleSubmit}
             sx={{ mt: 3, mb: 2 }}
@@ -109,13 +109,13 @@ export const Login = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link variant="body2" href="forget">
+              <Link style={{color: "#ddd9d9"}} variant="body2" href="forget">
                 ¿He olvidado la contraseña?
               </Link>
             </Grid>
             <Grid item>
-              <Link variant="body2" href="number">
-                {"Acceder con código"}
+              <Link style={{color: "#ddd9d9"}}variant="body2" href="number">
+                Acceder con código
               </Link>
             </Grid>
           </Grid>
