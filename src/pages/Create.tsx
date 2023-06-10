@@ -1,7 +1,6 @@
 
 import SendIcon from '@mui/icons-material/Send';
 import { Box, Button, Modal } from '@mui/material';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { ChangeEvent, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -71,68 +70,57 @@ const Create = () => {
     };
     return (
         <>
-            <Grid container
-                spacing={3}
-                alignItems="center"
-                justifyContent="center"
-                justifyItems="center"
-                direction="column"
-            >
-                <Grid item style={{ marginTop: "40%" }}>
-                    <Typography variant="h5">
-                        Creación de nuevos usuarios:
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <TextFieldRaad id="outlined-basic" label="Correo:" variant="outlined" fullWidth
-                        InputLabelProps={{ style: { color: "grey" } }}
-                        value={username}
-                        inputProps={{
-                            style: {
-                                color: 'white',
-                                borderColor: "white",
-                            }
-                        }}
-                        onChange={handleChangeUsername} />
-                </Grid>
-                <Grid item>
-                    <TextFieldRaad id="filled-basic" label="Contraseña" variant="outlined" fullWidth
-                        InputLabelProps={{ style: { color: "grey" } }}
-                        value={pass}
-                        onChange={handleChangePass}
-                        inputProps={{
-                            style: {
-                                color: 'white',
-                                borderColor: "white",
-                            }
-                        }}
-                        type="password" />
-                </Grid>
-                <Grid item>
-                    <TextFieldRaad id="outline-basic" label="Repita contraseña" variant="outlined" fullWidth
-                        InputLabelProps={{ style: { color: "grey" } }}
-                        value={passSecond}
-                        type="password"
-                        inputProps={{
-                            style: {
-                                color: 'white',
-                                borderColor: "white",
-                            }
-                        }}
-                        onChange={handleChangeName} />
-                </Grid>
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+                height: "95vh",
+                padding: "0% 25% 0% 25%"
+            }}>
+                <Typography variant="h5">
+                    Creación de nuevos usuarios:
+                </Typography>
+                <TextFieldRaad style={{ marginTop: "1em" }} id="outlined-basic" label="Correo:" variant="outlined" fullWidth
+                    InputLabelProps={{ style: { color: "grey" } }}
+                    value={username}
+                    inputProps={{
+                        style: {
+                            color: 'white',
+                            borderColor: "white",
+                        }
+                    }}
+                    onChange={handleChangeUsername} />
+                <TextFieldRaad style={{ marginTop: "1em" }} id="filled-basic" label="Contraseña" variant="outlined" fullWidth
+                    InputLabelProps={{ style: { color: "grey" } }}
+                    value={pass}
+                    onChange={handleChangePass}
+                    inputProps={{
+                        style: {
+                            color: 'white',
+                            borderColor: "white",
+                        }
+                    }}
+                    type="password" />
+                {pass != "" && <TextFieldRaad style={{ marginTop: "1em" }} id="outline-basic" label="Repita contraseña" variant="outlined" fullWidth
+                    InputLabelProps={{ style: { color: "grey" } }}
+                    value={passSecond}
+                    type="password"
+                    inputProps={{
+                        style: {
+                            color: 'white',
+                            borderColor: "white",
+                        }
+                    }}
+                    onChange={handleChangeName} />}
+                <Button style={{ marginTop: "1em" }} variant="contained" endIcon={<SendIcon />} color="warning" onClick={createUser}>
+                    Crear Usuario
+                </Button>
 
-                <Grid item>
-                    <Button variant="contained" endIcon={<SendIcon />} color="primary" onClick={createUser}>
-                        Crear Usuario
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button variant="outlined" color="primary" onClick={() => navigate("/")}>
-                        Volver
-                    </Button>
-                </Grid>
-            </Grid>
+                <Button style={{ marginTop: "1em" }} variant="outlined" color="warning" onClick={() => navigate("/")}>
+                    Volver
+                </Button>
+            </Box >
 
             <Modal open={openModal} >
                 <Box sx={styleModalRaad}>

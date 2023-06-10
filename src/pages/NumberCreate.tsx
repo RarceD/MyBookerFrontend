@@ -1,6 +1,5 @@
 import SendIcon from '@mui/icons-material/Send';
 import { Box, Button } from '@mui/material';
-import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
@@ -33,45 +32,36 @@ const NumberCreate = () => {
     };
     return (
         <>
-            <Grid container
-                spacing={2}
-                alignContent="center"
-                alignItems="center"
-                justifyContent="center"
-                justifyItems="center"
-                direction="column"
-            >
-                <Grid item style={{ marginTop: "60%" }}>
-                    <Typography variant="h5">
-                        Creación de nuevos usuarios:
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <TextFieldRaad
-                        value={secretNumber}
-                        InputLabelProps={{ style: { color: "grey" } }}
-                        margin="normal"
-                        fullWidth
-                        inputProps={{
-                            style: {
-                                color: 'white',
-                                borderColor: "white",
-                            }
-                        }}
-                        label="Código único:"
-                        onChange={handleSecretNumber}
-                        variant="outlined"
-                    />
-                </Grid>
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+                height: "95vh",
+                padding: "0% 25% 0% 25%"
+            }}>
+                <Typography variant="h5">
+                    Creación de nuevos usuarios:
+                </Typography>
 
-                <Grid item>
-                    <Button variant="contained" endIcon={<SendIcon />} color="warning" onClick={createUser}>Crear Usuario</Button>
-                </Grid>
-                <Grid item>
-                    <Button variant="outlined" color="warning" onClick={() => navigate("/")}>Volver
-                    </Button>
-                </Grid>
-            </Grid>
+                <TextFieldRaad
+                    value={secretNumber}
+                    InputLabelProps={{ style: { color: "grey" } }}
+                    margin="normal"
+                    fullWidth
+                    inputProps={{
+                        style: {
+                            color: 'white',
+                            borderColor: "white",
+                        }
+                    }}
+                    label="Código único:"
+                    onChange={handleSecretNumber}
+                    variant="outlined"
+                />
+                <Button style={{ marginTop: "1em" }} variant="contained" endIcon={<SendIcon />} color="warning" onClick={createUser}>Crear Usuario</Button>
+                <Button style={{ marginTop: "1em" }} variant="outlined" color="warning" onClick={() => navigate("/")}>Volver</Button>
+            </Box >
 
             <Modal open={openModal}>
                 <Box sx={styleModalRaad}>
@@ -80,8 +70,6 @@ const NumberCreate = () => {
                     </Typography>
                 </Box>
             </Modal>
-
-
         </>
     )
 }
