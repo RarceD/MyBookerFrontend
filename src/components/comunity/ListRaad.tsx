@@ -21,10 +21,10 @@ export default function ListRaad(props: {
         <List sx={{ width: '100%', bgcolor: colorDarkCard, marginTop: "8px", borderRadius: 5 }}>
             <ListItem sx={{ height: "60px" }}>
                 <ListItemAvatar>
-                    {props.courtType == CourtType.PADEL ? <Avatar src={"./images/raqueta2.png"} variant="square" style={{ width: "50px", height: "50px" }} /> : <></>}
-                    {props.courtType == CourtType.TENIS ? <Avatar src={"./images/imagesNuno/tenis.png"} variant="square" style={{ width: "40px", height: "40px" }} /> : <></>}
-                    {props.courtType == CourtType.SALAS ? <Avatar src={"./images/imagesNuno/others.png"} variant="square" style={{ width: "40px", height: "45px" }} /> : <></>}
-                    {props.courtType == CourtType.OTHER ? <Avatar src={"./images/imagesNuno/merendero.png"} variant="square" style={{ width: "45px", height: "60px" }} /> : <></>}
+                    {props.courtType == CourtType.PADEL ? <Avatar alt="Padel" src={"./images/raqueta2.png"} variant="square" style={{ width: "50px", height: "50px" }} /> : <></>}
+                    {props.courtType == CourtType.TENIS ? <Avatar alt="Tenis" src={"./images/imagesNuno/tenis.png"} variant="square" style={{ width: "40px", height: "40px" }} /> : <></>}
+                    {props.courtType == CourtType.SALAS ? <Avatar alt="Salas" src={"./images/imagesNuno/others.png"} variant="square" style={{ width: "40px", height: "45px" }} /> : <></>}
+                    {props.courtType == CourtType.OTHER ? <Avatar alt="Other" src={"./images/imagesNuno/merendero.png"} variant="square" style={{ width: "45px", height: "60px" }} /> : <></>}
                 </ListItemAvatar>
                 <ListItemText
                     disableTypography

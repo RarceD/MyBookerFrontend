@@ -19,10 +19,10 @@ export default function DateSelectorRaad(props: {
       <div className="date-selector">
         <div className="date-selector-icon">
           <div>
-            {props.iconType == CourtType.PADEL ? <img src={"./images/raqueta2.png"} width={"50"} height={"50"} /> : <></>}
-            {props.iconType == CourtType.TENIS ? <img src={"./images/imagesNuno/tenis.png"} width={"50"} height={"50"} /> : <></>}
-            {props.iconType == CourtType.SALAS ? <img src={"./images/imagesNuno/others.png"} width={"60"} height={"70"} /> : <></>}
-            {props.iconType == CourtType.OTHER ? <img src={"./images/imagesNuno/merendero.png"} width={"50"} height={"55"} /> : <></>}
+            {props.iconType == CourtType.PADEL ? <img alt="Padel" src={"./images/raqueta2.png"} width={"50"} height={"50"} /> : <></>}
+            {props.iconType == CourtType.TENIS ? <img alt="Tenis" src={"./images/imagesNuno/tenis.png"} width={"50"} height={"50"} /> : <></>}
+            {props.iconType == CourtType.SALAS ? <img alt="Other" src={"./images/imagesNuno/others.png"} width={"60"} height={"70"} /> : <></>}
+            {props.iconType == CourtType.OTHER ? <img alt="Merendero" src={"./images/imagesNuno/merendero.png"} width={"50"} height={"55"} /> : <></>}
           </div>
         </div>
 
@@ -42,10 +42,10 @@ export default function DateSelectorRaad(props: {
         <div className="date-selector-desktop">
           <div className="date-selector-icon">
             <div>
-              {props.iconType == CourtType.PADEL ? <img src={"./images/raqueta2.png"} width={"50"} height={"50"} /> : <></>}
-              {props.iconType == CourtType.TENIS ? <img src={"./images/imagesNuno/tenis.png"} width={"50"} height={"50"} /> : <></>}
-              {props.iconType == CourtType.SALAS ? <img src={"./images/imagesNuno/others.png"} width={"60"} height={"70"} /> : <></>}
-              {props.iconType == CourtType.OTHER ? <img src={"./images/imagesNuno/merendero.png"} width={"50"} height={"55"} /> : <></>}
+              {props.iconType == CourtType.PADEL ? <img alt="Padel" src={"./images/raqueta2.png"} width={"50"} height={"50"} /> : <></>}
+              {props.iconType == CourtType.TENIS ? <img alt="Tenis" src={"./images/imagesNuno/tenis.png"} width={"50"} height={"50"} /> : <></>}
+              {props.iconType == CourtType.SALAS ? <img alt="Other" src={"./images/imagesNuno/others.png"} width={"60"} height={"70"} /> : <></>}
+              {props.iconType == CourtType.OTHER ? <img alt="Merendero" src={"./images/imagesNuno/merendero.png"} width={"50"} height={"55"} /> : <></>}
             </div>
           </div>
 

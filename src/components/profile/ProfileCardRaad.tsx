@@ -16,7 +16,7 @@ export default function ProfileCardRaad(props: ProfileData) {
         </div>
         <div className="card-plays">
             <Chip label={"Partidos: " + props.numberPlays}
-                avatar={<Avatar src="/images/raqueta2.png" />}
+                avatar={<Avatar alt='icon' src="/images/raqueta2.png" />}
                 color="warning" variant="outlined" />
         </div>
     </div>;
