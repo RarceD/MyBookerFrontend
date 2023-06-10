@@ -15,7 +15,7 @@ import { styleModalRaad } from '../util/util';
 import './pages.css';
 
 const Profile = () => {
-    const [profile, setProfile] = useState<ProfileInfo>({ floor: "", letter: "", name: "", plays: 1, urbaName: "", username: "" });
+    const [profile, setProfile] = useState<ProfileInfo>({ letter: "", name: "", plays: 1, urbaName: "", username: "" });
     const [firstUser, setFirstUser] = useState<string>(profile.username);
     const [secondUser, setSecondUser] = useState<string>("");
     const [firstPassword, setFirstPassword] = useState<string>("");
