@@ -109,12 +109,12 @@ export const Login = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link style={{color: "#ddd9d9"}} variant="body2" href="forget">
+              <Link style={{ color: "#ddd9d9" }} variant="body2" href="forget">
                 ¿He olvidado la contraseña?
               </Link>
             </Grid>
             <Grid item>
-              <Link style={{color: "#ddd9d9"}}variant="body2" href="number">
+              <Link style={{ color: "#ddd9d9" }} variant="body2" href="number">
                 Acceder con código
               </Link>
             </Grid>

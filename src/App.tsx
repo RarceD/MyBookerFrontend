@@ -6,6 +6,7 @@ import HeaderRaad from './components/HeaderRaad'
 import NoConnection from './pages/NoConnection'
 import { convertNumberToType, PageType, PageTypeNumber } from './interfaces/pages'
 import { responsiveCtr } from './util/responsiveService';
+import { APP_NAME } from './api/request'
 
 const Comunity = lazy(() => import('./pages/Comunity'));
 const Courts = lazy(() => import('./pages/Courts'));
@@ -118,9 +119,12 @@ function AppBase() {
 function App() {
 
   // Check http or https
-  //let urlPath = window.location.href;
-  //if(!urlPath.includes("https") && !urlPath.includes("localhost") )
-  //window.location.href ='https://meapunto.online';
+  let urlPath = window.location.href;
+  if(!urlPath.includes("https") && !urlPath.includes("localhost") && APP_NAME.includes("Online"))
+    window.location.href ='https://meapunto.online';
+
+  // Control page name:
+  document.title = APP_NAME;
 
   return <RouterProvider router={router} />
 }
