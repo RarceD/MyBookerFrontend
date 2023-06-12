@@ -1,6 +1,6 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import { Button, FormControlLabel, IconButton, Radio, RadioGroup, Slider, Snackbar, Stack } from '@mui/material';
+import { Alert, Button, FormControlLabel, IconButton, Radio, RadioGroup, Slider, Snackbar, Stack } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useRef, useState } from 'react';
 import { MakeBook } from '../api/actions';
@@ -15,6 +15,7 @@ import { Court, Timetable } from '../interfaces/Courts';
 import { areThereMultipleCourtTypes, getCourtType, getCourtTypesTabsList, getDateSelectorDtoListFromCourts, getMaxSliderValues, getSlider, getTypeNameCourt, styleModalRaad } from '../util/util';
 import { GenericResponse } from '../interfaces/GenericResponse';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface SelectedItem {
     courtId: number,
@@ -27,41 +28,26 @@ const Courts = () => {
     const [selectedItem, setSelectedItem] = useState<SelectedItem>({ courtId: 0, hour: 0, date: 0, time: 0 });
     const [showPopUp, setShowPopUp] = useState<boolean>(false);
     const [courtTypeSelected, setCourtTypeSelected] = useState<number>(0);
-
+    const navigate = useNavigate();
     const [hours, setHours] = useState<HourInfo[]>([]);
     const [open, setOpen] = useState(false);
-    const modalMsg = useRef("");    
-
-    const handleClick = () => {
-        setOpen(true);
-    };
+    const [openZeroTimeModal, setOpenZeroTimeModal] = useState(false);
+    const modalMsg = useRef("");
 
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
         setOpen(false);
-      };
-
-    const action = (
-        <React.Fragment>
-          <IconButton
-            size="small"
-            aria-label="close"
-            color="inherit"
-            onClick={handleClose}
-          >
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        </React.Fragment>
-      );
+        setOpenZeroTimeModal(false);
+    };
 
     useEffect(() => {
         GetCourts((n: Court[]) => {
             if (n.length > 0) setSelectedItem({ date: n[0].timetables[0].day, courtId: n[0].id, hour: -1, time: 0 })
             setCourts(n);
         });
-    }, [open]);
+    }, []);
 
     useEffect(() => {
         for (let c of courts) {
@@ -94,11 +80,12 @@ const Courts = () => {
         MakeBook(b, (resp: GenericResponse) => {
             if (resp.error == true) {
                 modalMsg.current = "No es posible llevar a cabo su reserva, por favor compruebe las fechas y que no haya reservado previamente ese día.";
-                handleClick();
+                setOpen(true);
             }
             else {
                 modalMsg.current = "Su reserva se ha guardado correctamente. Disfrute de su partida.";
-                handleClick();
+                setOpen(true);
+                setTimeout(() => navigate('/comunity'), 3000);
             }
         })
         setShowPopUp(false);
@@ -131,7 +118,7 @@ const Courts = () => {
                 <RadioGroup value={selectedItem.courtId} style={{ color: colorLetter }}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         let courtIdToBook: number = +(event.target as HTMLInputElement).value;
-                        setSelectedItem({ date: selectedItem.date, courtId: courtIdToBook, hour: -1, time: 1 })
+                        setSelectedItem({ date: selectedItem.date, courtId: courtIdToBook, hour: -1, time: 0 })
                     }}>
                     {courts.filter(c => c.type == courtTypeSelected).map((item, idx) => <FormControlLabel value={item.id} key={idx}
                         control={<Radio style={{ color: colorLogo }} />} label={item.name} />)}
@@ -144,7 +131,7 @@ const Courts = () => {
             <DateSelectorRaad iconType={getCourtType(courts, selectedItem.courtId)}
                 dateSelectorDto={getDateSelectorDtoListFromCourts(courts, selectedItem.courtId)}
                 selected={selectedItem.date} setSelected={function (n: number): void {
-                    setSelectedItem({ date: n, courtId: selectedItem.courtId, hour: -1, time: 1 })
+                    setSelectedItem({ date: n, courtId: selectedItem.courtId, hour: -1, time: 0 })
                 }} />
 
             <div className="comunity-text">
@@ -182,7 +169,11 @@ const Courts = () => {
             <div style={{ textAlign: "center" }}>
                 <Button variant="outlined"
                     onClick={() => {
-                        if (selectedItem.hour == -1 || selectedItem.time == 0) return;
+                        if (selectedItem.time == 0 || selectedItem.time == -1) {
+                            setOpenZeroTimeModal(true)
+                            return;
+                        }
+                        if (selectedItem.hour == -1) return;
                         setShowPopUp(true)
                     }}
                     style={{ background: colorLogo, color: "white" }}>
@@ -198,11 +189,29 @@ const Courts = () => {
                 confirmHandler={() => confirmBookAction()} />
             <Snackbar
                 open={open}
-                autoHideDuration={3000}
+                autoHideDuration={4000}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 onClose={handleClose}
                 message={modalMsg.current}
-                action={action}
+                action={
+                    <IconButton
+                        size="small"
+                        aria-label="close"
+                        color="inherit"
+                        onClick={handleClose}
+                    >
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                }
             />
+            <Snackbar open={openZeroTimeModal}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                autoHideDuration={4000}
+                onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    No olvide seleccionar el tiempo de reserva.
+                </Alert>
+            </Snackbar>
         </div>
     )
 }
