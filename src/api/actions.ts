@@ -1,9 +1,11 @@
 import { Booker } from "../interfaces/Booker";
 import { GenericResponse } from "../interfaces/GenericResponse";
+import { StatsDto } from "../interfaces/StatsDto";
 import { ProfileToChange } from "../interfaces/profile";
 import { GetTokenId } from "./auth";
 import { URL_REQUEST } from "./request";
 
+const STATS_SESSION_KEY = "stats";
 function getRequestOptions(data: any) {
     return {
         method: 'POST',
@@ -84,4 +86,32 @@ export async function updateUserPost(data: ProfileToChange, callback: (resp: any
         .then(response => response)
         .catch(error => console.error('Error:', error))
         .then(response => callback(response));
+}
+
+// Send stats to server every hour a person enter
+export function SendStatsInfo() {
+    let makeReport: boolean = false;
+    const sesionStats = sessionStorage.getItem(STATS_SESSION_KEY);
+    const currentTime = new Date().toLocaleTimeString().toString();
+    const [token, id] = GetTokenId();
+    if (token == "" || id == "") return; 
+
+    if (!sesionStats) {
+        sessionStorage.setItem(STATS_SESSION_KEY, currentTime)
+    } else {
+        const storeHour = sesionStats.split(":")[0];
+        const currentHour = currentTime.split(":")[0];
+        if (storeHour != currentHour ) {
+            makeReport = true;
+            sessionStorage.setItem(STATS_SESSION_KEY, currentTime)
+        }
+    }
+
+    if (makeReport) {
+        const data: StatsDto = { id: +id , token: token};
+        fetch(URL_REQUEST + "stats", getRequestOptions(data))
+            .then(response => response)
+            .catch(error => console.error('Error:', error))
+            .then(response => () => { });
+    }
 }
