@@ -6,6 +6,7 @@ import { RemoveBook } from '../../api/actions';
 import { colorDarkCard, colorLetter, colorLogo } from '../../interfaces/colors';
 import { CourtType } from '../../interfaces/Courts';
 import DialogRaad from '../DialogRaad';
+import { daysOfTheWeek } from '../../util/util';
 
 export default function ListRaad(props: {
     mainText: string,
@@ -16,7 +17,13 @@ export default function ListRaad(props: {
     toDelete: boolean
 }) {
     const [showPopUp, setShowPopUp] = useState(false);
+    const [showPassBookDelete, setShowPassBookDelete] = useState(false);
     const navigate = useNavigate();
+    const isPassedBook = (mainText: string): boolean => {
+        const weekday: string = mainText.split(" ")[0];
+        const hour: number = +mainText.split(" ")[1].split(":")[0];
+        return hour <= new Date().getHours() && daysOfTheWeek[weekday] == new Date().getDay();
+    }
     return (
         <List sx={{ width: '100%', bgcolor: colorDarkCard, marginTop: "8px", borderRadius: 5 }}>
             <ListItem sx={{ height: "60px" }}>
@@ -31,11 +38,14 @@ export default function ListRaad(props: {
                     primary={<div style={{ color: "white" }}>{props.mainText + " | " + props.courtName}</div>}
                     secondary={<div style={{ color: colorLetter }}>{props.secondText}</div>}
                 />
-                {props.toDelete ? <ListItemAvatar onClick={() => setShowPopUp(true)}>
-                    <Avatar sx={{ bgcolor: 'inherit' }}>
-                        <DeleteForeverIcon style={{ color: "#fff", cursor: "pointer" }} />
-                    </Avatar>
-                </ListItemAvatar> : <></>}
+                {props.toDelete ?
+                    <ListItemAvatar onClick={() => {
+                        isPassedBook(props.mainText) ? setShowPassBookDelete(true) : setShowPopUp(true);
+                    }}>
+                        <Avatar sx={{ bgcolor: 'inherit' }}>
+                            <DeleteForeverIcon style={{ color: isPassedBook(props.mainText) ? "black" : "white", cursor: "pointer" }} />
+                        </Avatar>
+                    </ListItemAvatar> : <></>}
             </ListItem>
             <DialogRaad
                 titleMsg={'Borrar reserva'}
@@ -49,7 +59,16 @@ export default function ListRaad(props: {
                     })
                     setShowPopUp(false);
                 }} />
-
+            <DialogRaad
+                titleMsg={'Borrar reserva'}
+                longMsg={'No es posible borrar una reserva de pista ya pasada.'}
+                activate={showPassBookDelete}
+                deactivate={function (): void {
+                    setShowPassBookDelete(false);
+                }}
+                confirmHandler={function (): void {
+                    setShowPassBookDelete(false);
+                }} />
         </List>
     );
 }

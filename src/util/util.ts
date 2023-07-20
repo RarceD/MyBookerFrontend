@@ -2,6 +2,17 @@ import { DateSelectorDto } from "../components/courts/DateSelectorRaad";
 import { colorBackground } from "../interfaces/colors";
 import { Court, CourtType, Timetable } from "../interfaces/Courts";
 
+export const daysOfTheWeek: {
+    [key: string]: number;
+} = {
+    "Lunes": 1,
+    "Martes": 2,
+    "Miércoles": 3,
+    "Jueves": 4,
+    "Viernes": 5,
+    "Sábado": 6,
+    "Domingo": 0
+};
 
 // TODO: almost all file should be a useCallback/useMemo approach
 export const getDateSelectorDtoListFromCourts = (courts: Court[], courtSelected: number): DateSelectorDto[] => {
@@ -11,7 +22,7 @@ export const getDateSelectorDtoListFromCourts = (courts: Court[], courtSelected:
     for (let court of courts) {
         if (court.id != courtSelected) continue;
         let currentDay = new Date();
-        for (let t of court.timetables.map(i=>i.day)) {
+        for (let t of court.timetables.map(i => i.day)) {
             s.push({
                 week: weekDays[currentDay.getDay()],
                 day: t.toString(),
@@ -77,7 +88,7 @@ export function addDays(date: any, days: any) {
 export function getSlider(courts: Court[]) {
     if (courts.length == 0) return 1;
     const times = courts[0].validTimes.split(";");
-    if (times.length > 2){
+    if (times.length > 2) {
         return 0.5;
     }
     else {
@@ -91,7 +102,7 @@ export function getSlider(courts: Court[]) {
 export function getMaxSliderValues(courts: Court[]) {
     if (courts.length == 0) return 1;
     const times = courts[0].validTimes.split(";");
-    if (times.length > 1){
+    if (times.length > 1) {
         return 1.5;
     }
     else {
