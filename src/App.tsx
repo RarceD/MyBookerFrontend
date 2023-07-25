@@ -7,6 +7,7 @@ import NoConnection from './pages/NoConnection'
 import { convertNumberToType, PageType, PageTypeNumber } from './interfaces/pages'
 import { responsiveCtr } from './util/responsiveService';
 import { APP_NAME } from './api/request'
+import { SendStatsInfo } from './api/actions'
 
 const Comunity = lazy(() => import('./pages/Comunity'));
 const Courts = lazy(() => import('./pages/Courts'));
@@ -91,6 +92,9 @@ function AppBase() {
   if (token == "" || id == "") {
     navigate("/");
   }
+  // Stats information when load app
+  // SendStatsInfo();
+
   return (
     <>
       <HeaderRaad />
