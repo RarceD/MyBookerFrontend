@@ -1,3 +1,4 @@
+import { AdminInfo } from "../interfaces/AdminInfo";
 import { Court } from "../interfaces/Courts";
 import { ClientBooks, MyBooks } from "../interfaces/MyBooks";
 import { NormativeList } from "../interfaces/NormativeList";
@@ -12,7 +13,7 @@ export const APP_NAME: string = "MeApunto.Online";
 export const URL_REQUEST: string = "https://localhost:5001/api/";
 
 
-export const getCorrectLogo = (url: string) : string  => {
+export const getCorrectLogo = (url: string): string => {
     let path: string = '/images/logo.png';
     if (url.toLowerCase().includes("online")) {
         path = '/images/logo1.png'
@@ -72,6 +73,28 @@ export async function GetBooks(callback: (n: ClientBooks[]) => void) {
         .catch(error => console.error('Error:', error))
         .then(response => {
             localStorage.setItem("books", JSON.stringify(response));
+            callback(response);
+        });
+}
+
+export async function GetAdminMatchItCode(matchStr: string, callback: (adminInfo: AdminInfo[]) => void) {
+    const [token, id] = GetTokenId();
+    if (token == "" || id == "") return;
+    fetch(URL_REQUEST + "admin/code?id=" + id + "&token=" + token + "&matchStr=" + matchStr)
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            callback(response);
+        });
+}
+
+export async function GetAdminMatchItEmail(matchStr: string, callback: (adminInfo: AdminInfo[]) => void) {
+    const [token, id] = GetTokenId();
+    if (token == "" || id == "") return;
+    fetch(URL_REQUEST + "admin/email?id=" + id + "&token=" + token + "&matchStr=" + matchStr)
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
             callback(response);
         });
 }
