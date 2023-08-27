@@ -9,10 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 const Admin = () => {
     const [itemToSearch, setItemToSearch] = useState<string>('');
     const [categoryToSearch, setCategoryToSearch] = useState<ItemCategory>('code');
-    const [foundResults, setFoundResults] = useState<AdminInfo[]>([{
-        code: 'JBL.2.32.1',
-        email: 'akimbo170@gmail.com'
-    }]);
+    const [foundResults, setFoundResults] = useState<AdminInfo[]>([]);
 
     const askForMatching = () => {
         if (categoryToSearch === 'code')
