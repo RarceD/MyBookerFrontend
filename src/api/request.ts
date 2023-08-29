@@ -3,6 +3,7 @@ import { Court } from "../interfaces/Courts";
 import { ClientBooks, MyBooks } from "../interfaces/MyBooks";
 import { NormativeList } from "../interfaces/NormativeList";
 import { ProfileInfo } from "../interfaces/ProfileInfo";
+import { StatsInfo } from "../interfaces/StatsDto";
 import { GetTokenId } from "./auth";
 
 // export const APP_NAME: string = "AppDeReservas";
@@ -77,21 +78,35 @@ export async function GetBooks(callback: (n: ClientBooks[]) => void) {
         });
 }
 
-export async function GetAdminMatchItCode(matchStr: string, callback: (adminInfo: AdminInfo[]) => void) {
+const getAdmin = (entity: string, matchStr: string, onError: () => void, callback: (adminInfo: AdminInfo[]) => void) => {
     const [token, id] = GetTokenId();
     if (token == "" || id == "") return;
-    fetch(URL_REQUEST + "admin/code?id=" + id + "&token=" + token + "&matchStr=" + matchStr)
-        .then(response => response.json())
+    fetch(URL_REQUEST + "admin/" + entity + "?id=" + id + "&token=" + token + "&matchStr=" + matchStr)
+        .then(response => response.ok ? response.json() : onError())
         .catch(error => console.error('Error:', error))
-        .then(response => {
-            callback(response);
-        });
+        .then(response => { if (response !== undefined) callback(response) });
 }
 
-export async function GetAdminMatchItEmail(matchStr: string, callback: (adminInfo: AdminInfo[]) => void) {
+export async function GetAdminMatchItCode(
+    matchStr: string,
+    callback: (adminInfo: AdminInfo[]) => void,
+    onError: () => void,
+) {
+    getAdmin("code", matchStr, onError, callback);
+}
+
+export async function GetAdminMatchItEmail(
+    matchStr: string,
+    callback: (adminInfo: AdminInfo[]) => void,
+    onError: () => void
+) {
+    getAdmin("email", matchStr, onError, callback);
+}
+
+export async function GetStats(callback: (output: StatsInfo[]) => void) {
     const [token, id] = GetTokenId();
     if (token == "" || id == "") return;
-    fetch(URL_REQUEST + "admin/email?id=" + id + "&token=" + token + "&matchStr=" + matchStr)
+    fetch(URL_REQUEST + "stats?id=" + id + "&token=" + token)
         .then(response => response.json())
         .catch(error => console.error('Error:', error))
         .then(response => {
