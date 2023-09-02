@@ -4,6 +4,7 @@ import { StatsInfo } from "../interfaces/StatsDto";
 import LineChartAdmin from "../components/admin/LineChartAdmin";
 import LineChartHours from "../components/admin/LineChartHours";
 import { useNavigate } from "react-router-dom";
+import ResponsiveHandler from "../components/ResponsiveHandler";
 
 const Stats = () => {
     const [statsData, setStatsData] = useState<StatsInfo[]>([]);
@@ -46,17 +47,15 @@ const Stats = () => {
     }, []);
 
     return (
-        <>
-            <h2>Logins sort by day:</h2>
-            <LineChartAdmin data={statsData} />
-            <h2>Logins sort by hour:</h2>
-            <LineChartHours data={statsHours} />
-        </>
+        <ResponsiveHandler
+            component={() => <>
+                <h2>Logins sort by day:</h2>
+                <LineChartAdmin data={statsData} />
+                <h2>Logins sort by hour:</h2>
+                <LineChartHours data={statsHours} />
+            </>
+            }
+        />
     )
 }
-
 export default Stats;
-function callback(output: StatsInfo[]): void {
-    throw new Error("Function not implemented.");
-}
-

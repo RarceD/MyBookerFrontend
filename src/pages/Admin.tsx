@@ -6,6 +6,7 @@ import { AdminInfo, ItemCategory } from "../interfaces/AdminInfo";
 import { GetAdminMatchItCode, GetAdminMatchItEmail } from "../api/request";
 import SendIcon from '@mui/icons-material/Send';
 import { useNavigate } from 'react-router-dom';
+import ResponsiveHandler from "../components/ResponsiveHandler";
 
 const Admin = () => {
     const [itemToSearch, setItemToSearch] = useState<string>('');
@@ -26,36 +27,40 @@ const Admin = () => {
     }
 
     return (
-        <>
-            <h1>Search For</h1>
+        <ResponsiveHandler
+            component={() =>
+                <>
+                    <h1>Search For</h1>
 
-            <RadioGroup value={categoryToSearch} style={{ color: colorLetter }}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCategoryToSearch(event.target.value as ItemCategory)}>
-                <FormControlLabel value={"code"} control={<Radio style={{ color: colorLogo }} />} label={'Code'} />
-                <FormControlLabel value={"email"} control={<Radio style={{ color: colorLogo }} />} label={'Email'} />
-            </RadioGroup >
+                    <RadioGroup value={categoryToSearch} style={{ color: colorLetter }}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => setCategoryToSearch(event.target.value as ItemCategory)}>
+                        <FormControlLabel value={"code"} control={<Radio style={{ color: colorLogo }} />} label={'Code'} />
+                        <FormControlLabel value={"email"} control={<Radio style={{ color: colorLogo }} />} label={'Email'} />
+                    </RadioGroup >
 
-            <TextFieldRaadCustom
-                value={itemToSearch}
-                label={"Searching..."}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setItemToSearch(e.target.value); }}
-            />
-            <Button variant="contained" endIcon={<SendIcon />} color="primary" onClick={askForMatching}>
-                Searching
-            </Button>
-            <div style={{ color: colorLogo, fontSize: 18, margin: 30 }}>
-                Found: {foundResults.length} items
-            </div>
+                    <TextFieldRaadCustom
+                        value={itemToSearch}
+                        label={"Searching..."}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setItemToSearch(e.target.value); }}
+                    />
+                    <Button variant="contained" endIcon={<SendIcon />} color="primary" onClick={askForMatching}>
+                        Searching
+                    </Button>
+                    <div style={{ color: colorLogo, fontSize: 18, margin: 30 }}>
+                        Found: {foundResults.length} items
+                    </div>
 
-            <List>
-                {foundResults.map((item) => <ListItem disablePadding key={item.code}>
-                    <ListItemButton>
-                        <ListItemText primary={`${item.code} - ${item.email}`} />
-                    </ListItemButton>
-                </ListItem>
-                )}
-            </List>
-        </>
+                    <List>
+                        {foundResults.map((item) => <ListItem disablePadding key={item.code}>
+                            <ListItemButton>
+                                <ListItemText primary={`${item.code} - ${item.email}`} />
+                            </ListItemButton>
+                        </ListItem>
+                        )}
+                    </List>
+                </>
+            }
+        />
     )
 }
 

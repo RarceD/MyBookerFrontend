@@ -5,9 +5,8 @@ import Footer from './components/Footer'
 import HeaderRaad from './components/HeaderRaad'
 import NoConnection from './pages/NoConnection'
 import { convertNumberToType, PageType, PageTypeNumber } from './interfaces/pages'
-import { responsiveCtr } from './util/responsiveService';
 import { APP_NAME } from './api/request'
-import { SendStatsInfo } from './api/actions'
+import ResponsiveHandler from './components/ResponsiveHandler'
 
 const Comunity = lazy(() => import('./pages/Comunity'));
 const Courts = lazy(() => import('./pages/Courts'));
@@ -116,12 +115,14 @@ function AppBase() {
   return (
     <>
       <HeaderRaad />
-      <div className="App" style={responsiveCtr.IsMobileDevice() ? {} : { paddingLeft: "25%", paddingRight: "25%" }}>
-        {page === "comunity" && <Comunity />}
-        {page === "courts" && <Courts />}
-        {page === "normative" && <Normative />}
-        {page === "profile" && <Profile />}
-      </div>
+      <ResponsiveHandler
+        component={() => <>
+          {page === "comunity" && <Comunity />}
+          {page === "courts" && <Courts />}
+          {page === "normative" && <Normative />}
+          {page === "profile" && <Profile />}
+        </>}
+      />
       < Footer
         pageToShow={page}
         setPageToShow={(t: PageTypeNumber): void => setPage(convertNumberToType(t))} />
