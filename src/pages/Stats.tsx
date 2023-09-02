@@ -3,10 +3,12 @@ import { GetStats } from "../api/request";
 import { StatsInfo } from "../interfaces/StatsDto";
 import LineChartAdmin from "../components/admin/LineChartAdmin";
 import LineChartHours from "../components/admin/LineChartHours";
+import { useNavigate } from "react-router-dom";
 
 const Stats = () => {
     const [statsData, setStatsData] = useState<StatsInfo[]>([]);
     const [statsHours, setStatsHours] = useState<StatsInfo[]>([]);
+    const navigator = useNavigate();
 
     const getStatsHours = (stats: StatsInfo[]): StatsInfo[] => {
         const distinctHours = [...new Set(stats.map(stat => stat.date.split(' ')[1].split(":")[0]))];
@@ -20,7 +22,7 @@ const Stats = () => {
     }
 
     const getStatsLogins = (stats: StatsInfo[]) => {
-        const  distictDates= new Set(stats.map(stat => stat.date.split(' ')[0]));
+        const distictDates = new Set(stats.map(stat => stat.date.split(' ')[0]));
         const newStats: StatsInfo[] = [];
         distictDates.forEach((date) => {
             newStats.push({
@@ -33,11 +35,14 @@ const Stats = () => {
         return newStats;
     };
 
+
     useEffect(() => {
-        GetStats((stats: StatsInfo[]) => {
+        const callback = (stats: StatsInfo[]) => {
             setStatsHours(getStatsHours(stats));
             setStatsData(getStatsLogins(stats));
-        })
+        }
+        const onError = () => navigator('/login');
+        GetStats(callback, onError);
     }, []);
 
     return (
@@ -51,3 +56,7 @@ const Stats = () => {
 }
 
 export default Stats;
+function callback(output: StatsInfo[]): void {
+    throw new Error("Function not implemented.");
+}
+

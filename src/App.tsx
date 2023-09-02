@@ -19,6 +19,8 @@ const ForgetCredentials = lazy(() => import('./pages/ForgetCredentials'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const NumberCreate = lazy(() => import('./pages/NumberCreate'));
 const Create = lazy(() => import('./pages/Create'));
+const Admin = lazy(() => import('./pages/Admin'));
+const Stats = lazy(() => import('./pages/Stats'));
 
 const router = createBrowserRouter([
   {
@@ -36,10 +38,26 @@ const router = createBrowserRouter([
       </Suspense>
   },
   {
+    path: "/stats",
+    element:
+      <Suspense fallback={<NoConnection />}>
+        <Stats />
+      </Suspense>,
+    errorElement: <NoConnection />
+  },
+  {
+    path: "/admin",
+    element:
+      <Suspense fallback={<NoConnection />}>
+        <Admin />
+      </Suspense>,
+    errorElement: <NoConnection />
+  },
+  {
     path: "/courts",
     element:
       <Suspense fallback={<NoConnection />}>
-        <AppBase/>
+        <AppBase />
       </Suspense>,
     errorElement: <NoConnection />
   },
@@ -98,22 +116,13 @@ function AppBase() {
   return (
     <>
       <HeaderRaad />
-      {responsiveCtr.IsMobileDevice()
-        ?
-        <div className="App" >
-          {page == "comunity" ? <Comunity /> : <></>}
-          {page == "courts" ? <Courts /> : <></>}
-          {page == "normative" ? <Normative /> : <></>}
-          {page == "profile" ? <Profile /> : <></>}
-        </div >
-        : <div className="App" style={{ paddingLeft: "25%", paddingRight: "25%" }}>
-          {page == "comunity" ? <Comunity /> : <></>}
-          {page == "courts" ? <Courts /> : <></>}
-          {page == "normative" ? <Normative /> : <></>}
-          {page == "profile" ? <Profile /> : <></>}
-        </div>
-      }
-      <Footer
+      <div className="App" style={responsiveCtr.IsMobileDevice() ? {} : { paddingLeft: "25%", paddingRight: "25%" }}>
+        {page === "comunity" && <Comunity />}
+        {page === "courts" && <Courts />}
+        {page === "normative" && <Normative />}
+        {page === "profile" && <Profile />}
+      </div>
+      < Footer
         pageToShow={page}
         setPageToShow={(t: PageTypeNumber): void => setPage(convertNumberToType(t))} />
     </>
@@ -124,8 +133,8 @@ function App() {
 
   // Check http or https
   let urlPath = window.location.href;
-  if(!urlPath.includes("https") && !urlPath.includes("localhost") && APP_NAME.includes("Online"))
-    window.location.href ='https://meapunto.online';
+  if (!urlPath.includes("https") && !urlPath.includes("localhost") && APP_NAME.includes("Online"))
+    window.location.href = 'https://meapunto.online';
 
   // Control page name:
   document.title = APP_NAME;

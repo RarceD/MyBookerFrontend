@@ -103,11 +103,11 @@ export async function GetAdminMatchItEmail(
     getAdmin("email", matchStr, onError, callback);
 }
 
-export async function GetStats(callback: (output: StatsInfo[]) => void) {
+export async function GetStats(callback: (output: StatsInfo[]) => void, onError: () => void) {
     const [token, id] = GetTokenId();
     if (token == "" || id == "") return;
     fetch(URL_REQUEST + "stats?id=" + id + "&token=" + token)
-        .then(response => response.json())
+        .then(response => response.ok ? response.json() : onError())
         .catch(error => console.error('Error:', error))
         .then(response => {
             callback(response);
