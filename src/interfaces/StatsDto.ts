@@ -9,3 +9,10 @@ export interface StatsInfo {
     count?: number,
     countNOK? : number
 }
+
+export interface StatsBooker {
+    courtId: number,
+    isDelete: boolean,
+    registerTime: string,
+    bookTime :string 
+}

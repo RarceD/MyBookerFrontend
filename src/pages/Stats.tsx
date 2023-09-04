@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { GetStats } from "../api/request";
-import { StatsInfo } from "../interfaces/StatsDto";
+import { GetStats, GetStatsBooker } from "../api/request";
+import { StatsBooker, StatsInfo } from "../interfaces/StatsDto";
 import LineChartAdmin from "../components/admin/LineChartAdmin";
 import LineChartHours from "../components/admin/LineChartHours";
 import { useNavigate } from "react-router-dom";
@@ -44,6 +44,9 @@ const Stats = () => {
         }
         const onError = () => navigator('/login');
         GetStats(callback, onError);
+        const bookerCallback = (stats: StatsBooker[]) => {
+        }
+        GetStatsBooker(bookerCallback, onError)
     }, []);
 
     return (

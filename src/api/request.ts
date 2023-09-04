@@ -3,7 +3,7 @@ import { Court } from "../interfaces/Courts";
 import { ClientBooks, MyBooks } from "../interfaces/MyBooks";
 import { NormativeList } from "../interfaces/NormativeList";
 import { ProfileInfo } from "../interfaces/ProfileInfo";
-import { StatsInfo } from "../interfaces/StatsDto";
+import { StatsBooker, StatsInfo } from "../interfaces/StatsDto";
 import { GetTokenId } from "./auth";
 
 // export const APP_NAME: string = "AppDeReservas";
@@ -107,6 +107,17 @@ export async function GetStats(callback: (output: StatsInfo[]) => void, onError:
     const [token, id] = GetTokenId();
     if (token == "" || id == "") return;
     fetch(URL_REQUEST + "stats?id=" + id + "&token=" + token)
+        .then(response => response.ok ? response.json() : onError())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            callback(response);
+        });
+}
+
+export async function GetStatsBooker(callback: (output: StatsBooker[]) => void, onError: () => void) {
+    const [token, id] = GetTokenId();
+    if (token == "" || id == "") return;
+    fetch(URL_REQUEST + "stats/booker?id=" + id + "&token=" + token)
         .then(response => response.ok ? response.json() : onError())
         .catch(error => console.error('Error:', error))
         .then(response => {
