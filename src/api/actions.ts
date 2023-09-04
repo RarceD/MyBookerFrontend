@@ -44,12 +44,13 @@ export async function MakeBook(bookerData: Booker, callback: (resp: GenericRespo
         })
 }
 
-export async function RemoveBook(idToRemove: number, callback: (resp: any) => void) {
+export async function RemoveBook(idToRemove: number, time: string, callback: (resp: any) => void) {
     const [token, client_id] = GetTokenId();
     const data = {
         bookId: idToRemove,
         token: token === null ? "" : token,
         id: client_id === null ? "" : client_id,
+        time
     }
     fetch(URL_REQUEST + "book/delete", getRequestOptions(data))
         .then(response => response.json())

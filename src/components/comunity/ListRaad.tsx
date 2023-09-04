@@ -54,7 +54,8 @@ export default function ListRaad(props: {
                 deactivate={function (): void {
                     setShowPopUp(false);
                 }} confirmHandler={function (): void {
-                    RemoveBook(props.id, function (resp: any) {
+                    const time = props.mainText.split(" ")[1];
+                    RemoveBook(props.id, time, function (resp: any) {
                         navigate("/");
                     })
                     setShowPopUp(false);
