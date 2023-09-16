@@ -116,3 +116,17 @@ export function SendStatsInfo() {
             .then(response => () => { });
     }
 }
+
+export async function makePayment(callback: (resp: any) => void) {
+    const [token, client_id] = GetTokenId();
+    const data = {
+        token: token === null ? "" : token,
+        id: client_id === null ? "" : client_id,
+    }
+    fetch(URL_REQUEST + "payment/pay", getRequestOptions(data))
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            callback(response);
+        });
+}
