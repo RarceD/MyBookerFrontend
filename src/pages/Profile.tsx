@@ -141,7 +141,7 @@ const Profile = () => {
             >
                 <Box sx={styleModalRaad}>
                     <Typography id="modal-modal-description" mx={{ xs: 12 }}>
-                        Sus datos han sido moficados con éxito.
+                        Sus datos han sido modificados con éxito.
                     </Typography>
                 </Box>
             </Modal>
