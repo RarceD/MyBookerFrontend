@@ -10,8 +10,17 @@ export const CreateWS = (
     ws.onopen = () => onOpen();
     ws.onclose = () => onClose();
     ws.onmessage = (msg) => {
-        const wsMsg: WSInteractionDto = JSON.parse(msg.data);
-        onMsg(wsMsg)
+        try {
+            const wsMsg: WSInteractionDto = JSON.parse(msg.data);
+            onMsg(wsMsg)
+        }
+        catch (e) {
+            onMsg({
+                payload: msg.data,
+                clientId: -1,
+                type: WS_MSG_TYPE.UNKNOWN
+            })
+        }
     }
     return ws;
 }

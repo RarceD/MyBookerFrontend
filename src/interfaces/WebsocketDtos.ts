@@ -1,5 +1,6 @@
 export enum WS_MSG_TYPE {
-    DEVICE_CTR = 1
+    DEVICE_CTR = 1,
+    UNKNOWN
 }
 
 export interface WSInteractionDto {
