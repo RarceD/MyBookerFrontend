@@ -5,6 +5,7 @@ import { NormativeList } from "../interfaces/NormativeList";
 import { ProfileInfo } from "../interfaces/ProfileInfo";
 import { StatsBooker, StatsInfo } from "../interfaces/StatsDto";
 import { GetTokenId } from "./auth";
+// rm -rf * && mv /home/ubuntu/assets.zip . && unzip assets.zip
 
 // export const APP_NAME: string = "AppDeReservas";
 export const APP_NAME: string = "MeApunto.Online";
@@ -66,6 +67,18 @@ export async function GetCourts(callback: (n: Court[]) => void) {
             let courts_original: Court[] = response;
             localStorage.setItem("courts", JSON.stringify(courts_original));
             callback(courts_original);
+        });
+}
+
+export async function GetUrbaDate(callback: (n: boolean) => void) {
+    const [token, id] = GetTokenId();
+    if (token == "" || id == "") return;
+    fetch(URL_REQUEST + "book/urbaDate?id=" + id + "&token=" + token, requestOptions)
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+            let success: boolean = response;
+            callback(success);
         });
 }
 
