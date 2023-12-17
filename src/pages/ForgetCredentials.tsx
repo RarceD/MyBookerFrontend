@@ -41,6 +41,7 @@ const ForgetCredentials = () => {
     return (
         <>
             <Grid container
+                style={{marginTop: '20%'}}
                 spacing={2}
                 direction="column"
                 alignContent="center"
@@ -48,7 +49,7 @@ const ForgetCredentials = () => {
                 justifyContent="center"
                 justifyItems="center"
             >
-                <Grid item style={{ marginTop: "50%" }}>
+                <Grid item>
                     <Typography variant="h5">
                         He olvidado mi contraseña
                     </Typography>
