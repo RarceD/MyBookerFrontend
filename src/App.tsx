@@ -5,7 +5,7 @@ import Footer from './components/Footer'
 import HeaderRaad from './components/HeaderRaad'
 import NoConnection from './pages/NoConnection'
 import { convertNumberToType, PageType, PageTypeNumber } from './interfaces/pages'
-import { APP_NAME } from './api/request'
+import { APP_NAME, getCorrectLogo } from './api/request'
 import ResponsiveHandler from './components/ResponsiveHandler'
 
 const Comunity = lazy(() => import('./pages/Comunity'));
@@ -130,6 +130,17 @@ function AppBase() {
   )
 }
 
+function ChangeTitleIconFromPage() {
+  document.title = APP_NAME;
+  let link = document.querySelector("link[rel~='icon']")
+  if (!link) {
+    link = document.createElement('link')
+    link.rel = 'icon'
+    document.head.appendChild(link)
+  }
+  link.href = getCorrectLogo(APP_NAME)
+}
+
 function App() {
 
   // Check http or https
@@ -138,7 +149,7 @@ function App() {
     window.location.href = 'https://meapunto.online';
 
   // Control page name:
-  document.title = APP_NAME;
+  ChangeTitleIconFromPage()
 
   return <RouterProvider router={router} />
 }
