@@ -73,12 +73,13 @@ const Create = () => {
         <>
             <Grid container
                 spacing={3}
+                style={{marginTop: '15%'}}
                 alignItems="center"
                 justifyContent="center"
                 justifyItems="center"
                 direction="column"
             >
-                <Grid item style={{ marginTop: "40%" }}>
+                <Grid item>
                     <Typography variant="h5">
                         Creación de nuevos usuarios:
                     </Typography>
