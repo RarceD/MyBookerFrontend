@@ -20,5 +20,10 @@
         "confirmBookQuestion": "¿Está seguro de que quiere reservar?",
         "forgetBookTime": "No olvide seleccionar el tiempo de reserva",
         "chooseCourt": "Selección de pista:"
+    },
+    "community": {
+        "myBooks": "Mis próximas reservas",
+        "noBooks": "No hay proximamente",
+        "otherUserBooks": "Reservas de otros usuarios"
     }
 }

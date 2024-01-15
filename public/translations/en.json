@@ -20,5 +20,10 @@
         "confirmBookQuestion": "Are you sure you want to book?",
         "forgetBookTime": "Don't forget to select the booking time",
         "chooseCourt": "Select a court:"
+    },
+    "community": {
+        "myBooks": "My upcoming reservations",
+        "noBooks": "No upcoming reservations",
+        "otherUserBooks": "Reservations by other users"
     }
 }
