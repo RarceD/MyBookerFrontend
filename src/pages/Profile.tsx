@@ -13,6 +13,7 @@ import { colorLogo } from '../interfaces/colors';
 import { ProfileToChange } from '../interfaces/profile';
 import { styleModalRaad } from '../util/util';
 import './pages.css';
+import { translate } from 'react-i18nify';
 
 const Profile = () => {
     const [profile, setProfile] = useState<ProfileInfo>({ letter: "", name: "", plays: 1, urbaName: "", username: "" });
@@ -63,11 +64,11 @@ const Profile = () => {
             passwordChanged = true;
 
         if (userChanged && passwordChanged)
-            modalMsg.current = "¿Desea llevar a cabo el cambio de correo electrónico y contraseña?"
+            modalMsg.current = translate('profile.surePassEmailChange');
         else if (userChanged && !passwordChanged)
-            modalMsg.current = "¿Desea llevar a cabo el cambio de correo electrónico?"
+            modalMsg.current = translate('profile.sureEmailChange');
         else if (!userChanged && passwordChanged)
-            modalMsg.current = "¿Desea llevar a cabo el cambio de contraseña?"
+            modalMsg.current = translate('profile.surePassChange');
         else
             return
 
@@ -87,25 +88,25 @@ const Profile = () => {
         <>
             <div style={{ marginTop: 80, marginBottom: 120, marginLeft: 20, marginRight: 20 }}>
                 <ProfileCardRaad name={profile.name} urbaName={profile.urbaName} numberPlays={profile.plays} />
-
-                {firstUser !== profile.username ? <h4>Cambio de correo electrónico</h4> : <h4>Correo electrónico</h4>}
+                <h4>
+                    {firstUser !== profile.username ? translate('profile.changeEmailHeader') : translate('profile.emailHeader')}
+                </h4>
                 <TextFieldRaadCustom
                     value={firstUser}
-                    label={firstUser == profile.username ? "Correo" : "Nuevo correo"}
+                    label={firstUser == profile.username ? translate('profile.email') : translate('profile.newEmail')}
                     onChange={(e: any) => { setFirstUser(e.target.value); }}
                 />
                 {firstUser !== profile.username &&
                     <TextFieldRaadCustom
                         value={secondUser}
-                        label="Repetición de correo"
+                        label={translate('profile.repeateEmail')}
                         onChange={(e: any) => { setSecondUser(e.target.value); }}
                     />
                 }
-
-                <h4>Cambio de contraseña</h4>
+                <h4>{translate('profile.passwordChange')} </h4>
                 <TextFieldRaadCustom
                     value={firstPassword}
-                    label="Nueva contraseña"
+                    label={translate('profile.newPassword')}
                     type="password"
                     onChange={(e: any) => { setFirstPassword(e.target.value); }}
                 />
@@ -113,7 +114,7 @@ const Profile = () => {
                     <TextFieldRaadCustom
                         value={secondPassword}
                         type="password"
-                        label="Repetición de contraseña"
+                        label={translate('profile.repeatePassword')}
                         onChange={(e: any) => { setSecondPassword(e.target.value); }}
                     />
                 }
@@ -121,7 +122,7 @@ const Profile = () => {
                     <Button variant="outlined" style={{ background: colorLogo, color: "white", borderRadius: "12px" }}
                         onClick={() => HandlerSaveNewValue()}
                     >
-                        Actualizar usuario
+                        {translate('profile.updateUser')}
                     </Button>
                 </div>
             </div>
@@ -141,7 +142,7 @@ const Profile = () => {
             >
                 <Box sx={styleModalRaad}>
                     <Typography id="modal-modal-description" mx={{ xs: 12 }}>
-                        Sus datos han sido modificados con éxito.
+                        {translate('profile.successOnEdit')}
                     </Typography>
                 </Box>
             </Modal>
@@ -150,7 +151,7 @@ const Profile = () => {
             >
                 <Box sx={styleModalRaad}>
                     <Typography id="modal-modal-description" mx={{ xs: 12 }}>
-                        No es posible modificar su correo o contraseña, pruebe más tarde.
+                        {translate('profile.errorOnEdit')}
                     </Typography>
                 </Box>
             </Modal>

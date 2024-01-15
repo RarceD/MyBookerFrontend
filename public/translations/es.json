@@ -25,5 +25,22 @@
         "myBooks": "Mis próximas reservas",
         "noBooks": "No hay proximamente",
         "otherUserBooks": "Reservas de otros usuarios"
+    },
+    "profile": {
+        "changeEmailHeader": "Cambio de correo electrónico",
+        "emailHeader": "Correo electrónico",
+        "passwordChange": "Cambio de contraseña",
+        "surePassEmailChange": "¿Desea llevar a cabo el cambio de correo electrónico y contraseña?",
+        "sureEmailChange": "¿Desea llevar a cabo el cambio de correo electrónico?",
+        "surePassChange": "¿Desea llevar a cabo el cambio de contraseña?",
+        "email": "Correo",
+        "newEmail": "Nuevo correo",
+        "repeateEmail": "Repetición de correo",
+        "newPassword": "Nueva contraseña",
+        "repeatePassword": "Repetición de contraseña",
+        "updateUser": "Actualizar usuario",
+        "successOnEdit": "Sus datos han sido modificados con éxito.",
+        "errorOnEdit": "No es posible modificar su correo o contraseña, pruebe más tarde.",
+        "updateProfile": "Actualización perfil"
     }
 }

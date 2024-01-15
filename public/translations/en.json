@@ -25,5 +25,22 @@
         "myBooks": "My upcoming reservations",
         "noBooks": "No upcoming reservations",
         "otherUserBooks": "Reservations by other users"
+    },
+    "profile": {
+        "changeEmailHeader": "Email Change",
+        "emailHeader": "Email",
+        "passwordChange": "Password Change",
+        "surePassEmailChange": "Do you want to proceed with the email and password change?",
+        "sureEmailChange": "Do you want to proceed with the email change?",
+        "surePassChange": "Do you want to proceed with the password change?",
+        "email": "Email",
+        "newEmail": "New email",
+        "repeateEmail": "Repeat email",
+        "newPassword": "New password",
+        "repeatePassword": "Repeat password",
+        "updateUser": "Update user",
+        "successOnEdit": "Your data has been successfully modified.",
+        "errorOnEdit": "It is not possible to modify your email or password, please try again later.",
+        "updateProfile": "Profile update"
     }
 }
