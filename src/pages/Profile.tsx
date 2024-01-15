@@ -129,7 +129,7 @@ const Profile = () => {
 
 
 
-            <DialogRaad titleMsg={"Actualización perfil"} longMsg={modalMsg.current} activate={open}
+            <DialogRaad titleMsg={translate("profile.updateProfile")} longMsg={modalMsg.current} activate={open}
                 deactivate={function (): void {
                     setOpen(false);
                 }} confirmHandler={function (): void {

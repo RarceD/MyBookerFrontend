@@ -1,4 +1,10 @@
 {
+    "components": {
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "logOutHeader": "Do you want to log out of your account?",
+        "logOutQuestion": "Your account will be closed, and you will need to enter the password again."
+    },
     "login": {
         "email": "Email",
         "password": "Password",
@@ -24,7 +30,10 @@
     "community": {
         "myBooks": "My upcoming reservations",
         "noBooks": "No upcoming reservations",
-        "otherUserBooks": "Reservations by other users"
+        "otherUserBooks": "Reservations by other users",
+        "deleteBook": "Delete reservation",
+        "deleteAskConfirmation": "Are you sure you want to delete your reservation?",
+        "deleteErrorBooking": "It is not possible to delete a booking for a past court."
     },
     "profile": {
         "changeEmailHeader": "Email Change",

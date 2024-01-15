@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DialogRaad from './DialogRaad';
 import { APP_NAME, getCorrectLogo } from '../api/request';
+import { translate } from 'react-i18nify';
 
 function HeaderRaad() {
     const [showPopUp, setShowPopUp] = useState<boolean>(false);
@@ -33,8 +34,8 @@ function HeaderRaad() {
                 </Toolbar>
             </Container>
             <DialogRaad
-                titleMsg={'¿Quiere salir de su cuenta?'}
-                longMsg={'Su cuenta se cerrará y deberá introducir la contraseña de nuevo'}
+                titleMsg={translate('components.logOutHeader')}
+                longMsg={translate('components.logOutQuestion')}
                 activate={showPopUp}
                 deactivate={function (): void {
                     setShowPopUp(false);

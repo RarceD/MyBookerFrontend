@@ -3,6 +3,7 @@ import { TransitionProps } from '@mui/material/transitions';
 import { withStyles } from '@mui/styles';
 import { forwardRef } from 'react';
 import { colorBackground, colorLogo } from '../interfaces/colors';
+import { translate } from 'react-i18nify';
 
 
 const Transition = forwardRef(function Transition(
@@ -46,10 +47,10 @@ export default function DialogRaad(props: DialogProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={() => props.deactivate()} style={{ color: colorLogo }}>
-          Cancelar</Button>
+          {translate('components.cancel')}</Button>
         <Button onClick={() => props.confirmHandler()} variant={"contained"}
           style={{ backgroundColor: colorLogo }}
-          autoFocus>Confirmar</Button>
+          autoFocus>{translate('components.confirm')}</Button>
       </DialogActions>
     </Dialogg>
   );

@@ -7,6 +7,7 @@ import { colorDarkCard, colorLetter, colorLogo } from '../../interfaces/colors';
 import { CourtType } from '../../interfaces/Courts';
 import DialogRaad from '../DialogRaad';
 import { daysOfTheWeek } from '../../util/util';
+import { translate } from 'react-i18nify';
 
 export default function ListRaad(props: {
     mainText: string,
@@ -48,8 +49,8 @@ export default function ListRaad(props: {
                     </ListItemAvatar> : <></>}
             </ListItem>
             <DialogRaad
-                titleMsg={'Borrar reserva'}
-                longMsg={'Está seguro de que quiere eliminar su reserva?'}
+                titleMsg={translate('community.deleteBook')}
+                longMsg={translate('community.deleteAskConfirmation')}
                 activate={showPopUp}
                 deactivate={function (): void {
                     setShowPopUp(false);
@@ -61,8 +62,8 @@ export default function ListRaad(props: {
                     setShowPopUp(false);
                 }} />
             <DialogRaad
-                titleMsg={'Borrar reserva'}
-                longMsg={'No es posible borrar una reserva de pista ya pasada.'}
+                titleMsg={translate('community.deleteBook')}
+                longMsg={translate('community.deleteErrorBooking')}
                 activate={showPassBookDelete}
                 deactivate={function (): void {
                     setShowPassBookDelete(false);

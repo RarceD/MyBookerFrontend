@@ -1,4 +1,10 @@
 {
+    "components": {
+        "confirm": "Confirmar",
+        "cancel": "Cancelar",
+        "logOutHeader": "¿Quiere salir de su cuenta?",
+        "logOutQuestion": "Su cuenta se cerrará y deberá introducir la contraseña de nuevo"
+    },
     "login": {
         "email": "Correo electrónico",
         "password": "Contraseña",
@@ -24,7 +30,10 @@
     "community": {
         "myBooks": "Mis próximas reservas",
         "noBooks": "No hay proximamente",
-        "otherUserBooks": "Reservas de otros usuarios"
+        "otherUserBooks": "Reservas de otros usuarios",
+        "deleteBook": "Borrar reserva",
+        "deleteAskConfirmation": "Está seguro de que quiere eliminar su reserva?",
+        "deleteErrorBooking": "No es posible borrar una reserva de pista ya pasada."
     },
     "profile": {
         "changeEmailHeader": "Cambio de correo electrónico",
