@@ -7,6 +7,7 @@ import NoConnection from './pages/NoConnection'
 import { convertNumberToType, PageType, PageTypeNumber } from './interfaces/pages'
 import { APP_NAME, getCorrectLogo } from './api/request'
 import ResponsiveHandler from './components/ResponsiveHandler'
+import { initTranslationModule } from './util/translationService'
 
 const Comunity = lazy(() => import('./pages/Comunity'));
 const Courts = lazy(() => import('./pages/Courts'));
@@ -132,7 +133,7 @@ function AppBase() {
 
 function ChangeTitleIconFromPage() {
   document.title = APP_NAME;
-  let link = document.querySelector("link[rel~='icon']")
+  let link: any = document.querySelector("link[rel~='icon']")
   if (!link) {
     link = document.createElement('link')
     link.rel = 'icon'
@@ -150,6 +151,9 @@ function App() {
 
   // Control page name:
   ChangeTitleIconFromPage()
+  
+  // Set translations
+  initTranslationModule();
 
   return <RouterProvider router={router} />
 }

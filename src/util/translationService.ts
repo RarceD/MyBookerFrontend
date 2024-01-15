@@ -1,4 +1,4 @@
-import { setTranslations, setLocale } from 'react-i18nify';
+import { I18n, setTranslations, setLocale  } from 'react-i18nify';
 
 const fetchTranslations = async (locale: string) => {
     try {
@@ -15,7 +15,11 @@ export const initTranslationModule = async () => {
         en: await fetchTranslations('en'),
         es: await fetchTranslations('es')
     });
-    setLocale('es');
+
+    // Detect language from the browser:
+    const userLang: string = navigator.language;
+    console.log(userLang)
+    userLang == 'es-ES' ? setLocale('es') : setLocale('en');
 }
 
 export const setTranslationLanguage = (locale: 'es' | 'en') => setLocale(locale);
