@@ -4,7 +4,7 @@ import { Alert, Button, FormControlLabel, IconButton, Radio, RadioGroup, Slider,
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useRef, useState } from 'react';
 import { MakeBook } from '../api/actions';
-import { GetCourts } from '../api/request';
+import { GetCourts, GetUrbaDate } from '../api/request';
 import DateSelectorRaad from '../components/courts/DateSelectorRaad';
 import SchedulRaad, { HourInfo } from '../components/courts/SchedulRaad';
 import DialogRaad from '../components/DialogRaad';
@@ -16,6 +16,7 @@ import { areThereMultipleCourtTypes, getCourtType, getCourtTypesTabsList, getDat
 import { GenericResponse } from '../interfaces/GenericResponse';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { translate } from 'react-i18nify';
 
 interface SelectedItem {
     courtId: number,
@@ -31,6 +32,8 @@ const Courts = () => {
     const navigate = useNavigate();
     const [hours, setHours] = useState<HourInfo[]>([]);
     const [open, setOpen] = useState(false);
+    const [isUrbaReadyForUse, setIsUrbaReadyForUse] = useState(true);
+    const [isUrbaReadyModal, setIsUrbaReadyModal] = useState(false);
     const [openZeroTimeModal, setOpenZeroTimeModal] = useState(false);
     const modalMsg = useRef("");
 
@@ -47,6 +50,7 @@ const Courts = () => {
             if (n.length > 0) setSelectedItem({ date: n[0].timetables[0].day, courtId: n[0].id, hour: -1, time: 0 })
             setCourts(n);
         });
+        // GetUrbaDate((isValidUrba: boolean) => setIsUrbaReadyForUse(isValidUrba));
     }, []);
 
     useEffect(() => {
@@ -79,11 +83,11 @@ const Courts = () => {
         }
         MakeBook(b, (resp: GenericResponse) => {
             if (resp.error == true) {
-                modalMsg.current = "No es posible llevar a cabo su reserva, por favor compruebe las fechas y que no haya reservado previamente ese día.";
+                modalMsg.current = translate('courts.bookingError');
                 setOpen(true);
             }
             else {
-                modalMsg.current = "Su reserva se ha guardado correctamente. Disfrute de su partida.";
+                modalMsg.current = translate('courts.bookingSuccess');
                 setOpen(true);
                 setTimeout(() => navigate('/comunity'), 3000);
             }
@@ -98,7 +102,7 @@ const Courts = () => {
                     {getTypeNameCourt(courtTypeSelected)}
                 </div> : <></>}
             <div className="comunity-text-center">
-                Selección de pista:
+                {translate('courts.chooseCourt')}
                 {areThereMultipleCourtTypes(courts) ?
                     <BasicTabsRaadUncontrolled
                         value={courtTypeSelected} listComponents={[]}
@@ -126,7 +130,7 @@ const Courts = () => {
             </div>
 
             <div className="comunity-text">
-                Fechas disponibles:
+                {translate('courts.availableDays')}
             </div>
             <DateSelectorRaad iconType={getCourtType(courts, selectedItem.courtId)}
                 dateSelectorDto={getDateSelectorDtoListFromCourts(courts, selectedItem.courtId)}
@@ -135,7 +139,7 @@ const Courts = () => {
                 }} />
 
             <div className="comunity-text">
-                Horario:
+                {translate('courts.schedule')}
             </div>
             <SchedulRaad hours={hours} selected={selectedItem.hour} daySelected={selectedItem.date}
                 changeSelectedHour={
@@ -144,7 +148,7 @@ const Courts = () => {
                     }} />
 
             <div className="comunity-text">
-                Tiempo de reserva:
+                {translate('courts.bookingTime')}
             </div>
             <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
                 <AccessTimeIcon style={{ color: colorLogo }} />
@@ -169,6 +173,10 @@ const Courts = () => {
             <div style={{ textAlign: "center" }}>
                 <Button variant="outlined"
                     onClick={() => {
+                        if (!isUrbaReadyForUse) {
+                            setIsUrbaReadyModal(true);
+                            return;
+                        }
                         if (selectedItem.time == 0 || selectedItem.time == -1) {
                             setOpenZeroTimeModal(true)
                             return;
@@ -177,13 +185,21 @@ const Courts = () => {
                         setShowPopUp(true)
                     }}
                     style={{ background: colorLogo, color: "white" }}>
-                    Confirmar reserva
+                    {translate('courts.confirm')}
                 </Button>
             </div>
 
+            <Snackbar open={isUrbaReadyModal} autoHideDuration={6000} onClose={() => setIsUrbaReadyModal(false)} anchorOrigin={{ vertical: 'top', horizontal: 'left' }}>
+                <Alert severity="warning" sx={{ width: '100%', marginTop: '80%' }}>
+                    <br />
+                    {translate('courts.invalidBookMsgError1')} <br /><br />
+                    {translate('courts.invalidBookMsgError2')} <br /><br />
+                    {translate('courts.invalidBookMsgError3')} <br /><br />
+                </Alert>
+            </Snackbar>
             <DialogRaad
-                titleMsg={'Confirmar reserva'}
-                longMsg={'¿Está seguro de que quiere reservar?'}
+                titleMsg={translate('courts.confirmBookTitle')}
+                longMsg={translate('courts.confirmBookQuestion')}
                 activate={showPopUp}
                 deactivate={() => setShowPopUp(false)}
                 confirmHandler={() => confirmBookAction()} />
@@ -209,7 +225,7 @@ const Courts = () => {
                 autoHideDuration={4000}
                 onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                    No olvide seleccionar el tiempo de reserva.
+                    {translate('courts.forgetBookTime')}
                 </Alert>
             </Snackbar>
         </div>

@@ -5,5 +5,20 @@
         "remember": "Remember me",
         "forgetPassword": "Forget password",
         "loginWithCode": "Enter using code"
+    },
+    "courts": {
+        "bookingError": "It is not possible to proceed with your reservation, please check the dates and ensure you have not booked on that day previously.",
+        "bookingSuccess": "Your reservation has been saved successfully. Enjoy your game.",
+        "availableDays": "Available dates:",
+        "schedule": "Schedule:",
+        "bookingTime": "Booking time:",
+        "confirm": "Confirm reservation",
+        "invalidBookMsgError1": "Your urbanization has not yet enabled the use of this application for booking.",
+        "invalidBookMsgError2": "You have received the letter and successfully created an account, let's give other users time to register.",
+        "invalidBookMsgError3": "Refer to the received letter for more information about the date when the system comes into effect.",
+        "confirmBookTitle": "Confirm reservation",
+        "confirmBookQuestion": "Are you sure you want to book?",
+        "forgetBookTime": "Don't forget to select the booking time",
+        "chooseCourt": "Select a court:"
     }
 }

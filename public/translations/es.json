@@ -5,5 +5,20 @@
         "remember": "Recordarme",
         "forgetPassword": "¿He olvidado la contraseña?",
         "loginWithCode": "Acceder con código"
+    },
+    "courts": {
+        "bookingError": "No es posible llevar a cabo su reserva, por favor compruebe las fechas y que no haya reservado previamente ese día.",
+        "bookingSucces": "Su reserva se ha guardado correctamente. Disfrute de su partida.",
+        "availableDays": "Fechas disponibles:",
+        "schedule": "Horario:",
+        "bookingTime": "Tiempo de reserva:",
+        "confirm": "Confirmar reserva",
+        "invalidBookMsgError1": "Su urbanización aún no ha habilitado el uso de esta aplicación para reservar.",
+        "invalidBookMsgError2": "Ha recibido la carta y ha llevado a cabo la creación de cuenta correctamente, demos tiempo a los demás usuarios a registrarse.",
+        "invalidBookMsgError3": "Consulte la carta recibida para obtener más información sobre la fecha en la que el sistema entra en vigor.",
+        "confirmBookTitle": "Confirmar reserva",
+        "confirmBookQuestion": "¿Está seguro de que quiere reservar?",
+        "forgetBookTime": "No olvide seleccionar el tiempo de reserva",
+        "chooseCourt": "Selección de pista:"
     }
 }
