@@ -1,6 +1,9 @@
 {
     "login": {
         "email": "Email",
-        "password": "Password"
+        "password": "Password",
+        "remember": "Remember me",
+        "forgetPassword": "Forget password",
+        "loginWithCode": "Enter using code"
     }
 }

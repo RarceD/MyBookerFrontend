@@ -1,6 +1,9 @@
-    {
-        "login": {
-            "email": "Correo electrónico",
-            "password": "Contraseña"
-        }
+{
+    "login": {
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "remember": "Recordarme",
+        "forgetPassword": "¿He olvidado la contraseña?",
+        "loginWithCode": "Acceder con código"
     }
+}

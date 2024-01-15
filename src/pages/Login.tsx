@@ -7,6 +7,7 @@ import TextFieldRaad from '../components/TextFieldRaad';
 import { colorLogo } from '../interfaces/colors';
 import "./pages.css";
 import { APP_NAME, getCorrectLogo } from '../api/request';
+import { translate } from 'react-i18nify';
 
 export const Login = () => {
   const [user, setUser] = useState("");
@@ -57,7 +58,7 @@ export const Login = () => {
         <Box component="form" sx={{ mt: 1 }} borderColor={"white"}>
           <TextFieldRaad
             InputLabelProps={{ style: { color: "white" } }}
-            label="Correo electrónico"
+            label={translate('login.email')}
             type="text"
             fullWidth
             autoComplete="current-password"
@@ -95,7 +96,7 @@ export const Login = () => {
           />
           <FormControlLabel
             control={<Checkbox value={autologin} color="warning" />}
-            label="Recordarme"
+            label={translate('login.remember')}
             onChange={handleChangeAutologin}
           />
           <Button
@@ -110,12 +111,12 @@ export const Login = () => {
           <Grid container>
             <Grid item xs>
               <Link style={{ color: "#ddd9d9" }} variant="body2" href="forget">
-                ¿He olvidado la contraseña?
+                {translate('login.forgetPassword')}
               </Link>
             </Grid>
             <Grid item>
               <Link style={{ color: "#ddd9d9" }} variant="body2" href="number">
-                Acceder con código
+                {translate('login.loginWithCode')}
               </Link>
             </Grid>
           </Grid>
