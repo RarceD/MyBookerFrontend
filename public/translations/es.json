@@ -3,7 +3,13 @@
         "confirm": "Confirmar",
         "cancel": "Cancelar",
         "logOutHeader": "¿Quiere salir de su cuenta?",
-        "logOutQuestion": "Su cuenta se cerrará y deberá introducir la contraseña de nuevo"
+        "logOutQuestion": "Su cuenta se cerrará y deberá introducir la contraseña de nuevo",
+        "footer" :{
+            "books": "Reservas",
+            "signIn": "Me Apunto",
+            "profile": "Perfil",
+            "normative": "Normativa"
+        }
     },
     "login": {
         "email": "Correo electrónico",

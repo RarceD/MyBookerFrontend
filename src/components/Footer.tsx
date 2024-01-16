@@ -7,6 +7,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { PageType, PageTypeNumber } from '../interfaces/pages';
 import { colorLetter, colorLogo } from '../interfaces/colors';
 import { useState } from 'react';
+import { translate } from 'react-i18nify';
 
 interface FooterProps {
     pageToShow: PageType
@@ -17,19 +18,19 @@ export default function Footer(props: FooterProps) {
     const calculateColor = (idx: number): string => value == idx ? colorLogo : colorLetter;
     const navigationList = [
         {
-            label: "Reservas",
+            label: translate('components.footer.books'),
             comp: <RestoreIcon style={{ color: calculateColor(0) }} />
         },
         {
-            label: "Me Apunto",
+            label: translate('components.footer.signIn'),
             comp: <SportsBaseballIcon style={{ color: calculateColor(1) }} />
         },
         {
-            label: "Perfil",
+            label: translate('components.footer.profile'),
             comp: <PersonIcon style={{ color: calculateColor(2) }} />
         },
         {
-            label: "Normativa",
+            label: translate('components.footer.normative'),
             comp: <MenuBookIcon style={{ color: calculateColor(3) }} />
         }
     ]

@@ -3,7 +3,13 @@
         "confirm": "Confirm",
         "cancel": "Cancel",
         "logOutHeader": "Do you want to log out of your account?",
-        "logOutQuestion": "Your account will be closed, and you will need to enter the password again."
+        "logOutQuestion": "Your account will be closed, and you will need to enter the password again.",
+        "footer": {
+            "books": "Books",
+            "signIn": "Sign In",
+            "profile": "Profile",
+            "normative": "Normative"
+        }
     },
     "login": {
         "email": "Email",
