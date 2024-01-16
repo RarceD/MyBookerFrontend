@@ -51,5 +51,15 @@
         "successOnEdit": "Sus datos han sido modificados con éxito.",
         "errorOnEdit": "No es posible modificar su correo o contraseña, pruebe más tarde.",
         "updateProfile": "Actualización perfil"
+    },
+    "create": {
+        "email": "Correo:",
+        "password": "Contraseña: ",
+        "repeatePassword": "Repita contraseña:",
+        "createNewUsers": "Creación de nuevos usuarios:",
+        "createUser": "Crear Usuario",
+        "return": "Volver",
+        "notPossibleGeneric": "No es posible crear su cuenta, por favor use otro correo o pruebe más tarde. Sentimos las molestias.",
+        "notPossiblePass": "No es posible crear su cuenta, por favor verifique que la contraseña coincide en ambos casos."
     }
 }

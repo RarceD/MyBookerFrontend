@@ -51,5 +51,15 @@
         "successOnEdit": "Your data has been successfully modified.",
         "errorOnEdit": "It is not possible to modify your email or password, please try again later.",
         "updateProfile": "Profile update"
+    },
+    "create": {
+        "email": "Email:",
+        "password": "Password",
+        "repeatePassword": "Repeate password:",
+        "createNewUsers": "Creating new user:",
+        "createUser": "Create User",
+        "return": "Return",
+        "notPossibleGeneric": "It is not possible to create your account, please use another email or try again later. We apologize for the inconvenience.",
+        "notPossiblePass": "It is not possible to create your account, please verify that the password matches in both cases."
     }
 }

@@ -10,6 +10,7 @@ import { tryCreateUser } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
 import { NewUser } from '../interfaces/NewUser';
 import { styleModalRaad } from '../util/util';
+import { translate } from 'react-i18nify';
 
 const Create = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -81,11 +82,11 @@ const Create = () => {
             >
                 <Grid item>
                     <Typography variant="h5">
-                        Creación de nuevos usuarios:
+                        {translate('create.createNewUsers')} 
                     </Typography>
                 </Grid>
                 <Grid item>
-                    <TextFieldRaad id="outlined-basic" label="Correo:" variant="outlined" fullWidth
+                    <TextFieldRaad id="outlined-basic" label={translate("create.email")} variant="outlined" fullWidth
                         InputLabelProps={{ style: { color: "grey" } }}
                         value={username}
                         inputProps={{
@@ -97,7 +98,7 @@ const Create = () => {
                         onChange={handleChangeUsername} />
                 </Grid>
                 <Grid item>
-                    <TextFieldRaad id="filled-basic" label="Contraseña" variant="outlined" fullWidth
+                    <TextFieldRaad id="filled-basic" label={translate("create.password")} variant="outlined" fullWidth
                         InputLabelProps={{ style: { color: "grey" } }}
                         value={pass}
                         onChange={handleChangePass}
@@ -110,7 +111,7 @@ const Create = () => {
                         type="password" />
                 </Grid>
                 <Grid item>
-                    <TextFieldRaad id="outline-basic" label="Repita contraseña" variant="outlined" fullWidth
+                    <TextFieldRaad id="outline-basic" label={translate("create.repeatePassword")} variant="outlined" fullWidth
                         InputLabelProps={{ style: { color: "grey" } }}
                         value={passSecond}
                         type="password"
@@ -125,12 +126,13 @@ const Create = () => {
 
                 <Grid item>
                     <Button variant="contained" endIcon={<SendIcon />} color="primary" onClick={createUser}>
-                        Crear Usuario
+                        {translate('create.createUser')} 
                     </Button>
                 </Grid>
                 <Grid item>
                     <Button variant="outlined" color="primary" onClick={() => navigate("/")}>
-                        Volver
+                        {translate('create.return')} 
+
                     </Button>
                 </Grid>
             </Grid>
@@ -138,7 +140,7 @@ const Create = () => {
             <Modal open={openModal} >
                 <Box sx={styleModalRaad}>
                     <Typography mx={{ xs: 12 }}>
-                        No es posible crear su cuenta, por favor use otro correo o pruebe más tarde. Sentimos las molestias.
+                        {translate('create.notPossibleGeneric')} 
                     </Typography>
                 </Box>
             </Modal>
@@ -146,7 +148,7 @@ const Create = () => {
             <Modal open={openModalErrorPass} >
                 <Box sx={styleModalRaad}>
                     <Typography mx={{ xs: 12 }}>
-                        No es posible crear su cuenta, por favor verifique que la contraseña coincide en ambos casos.
+                        {translate('create.notPossiblePass')} 
                     </Typography>
                 </Box>
             </Modal>
