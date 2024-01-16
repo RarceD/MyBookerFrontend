@@ -16,7 +16,8 @@
         "password": "Password",
         "remember": "Remember me",
         "forgetPassword": "Forget password",
-        "loginWithCode": "Enter using code"
+        "loginWithCode": "Enter using code",
+        "enter": "Enter"
     },
     "courts": {
         "bookingError": "It is not possible to proceed with your reservation, please check the dates and ensure you have not booked on that day previously.",
@@ -82,5 +83,9 @@
         "errorMsg": "This code does not exist, please try again with a valid one. We apologize for the inconvenience.",
         "btnCreateUser": "Create User",
         "btnReturn": "Back"
+    },
+    "noConnection": {
+        "loading": "Loading...",
+        "genericError": "It seems there are network issues, please check your internet connection."
     }
 }

@@ -1,11 +1,12 @@
 import { CircularProgress } from '@mui/material';
 import './pagesStyles.css'
+import { translate } from 'react-i18nify';
 
 export const NoConnection = () => {
     return (
         <div className="NoConnectionContainer">
             <div className="NoConnectionTxt">
-                Cargando ...
+                {translate('noConnection.loading')}
             </div>
             <div className="NoConnectionAnimation">
                 <CircularProgress  
@@ -16,7 +17,7 @@ export const NoConnection = () => {
             <div className="NoConnectionTxt"
             style={{fontSize:"20px"}}
             >
-                Parece que hay problemas de red, compruebe su conexión a internet.
+                {translate('noConnection.genericError')}
             </div>
         </div>
     )
