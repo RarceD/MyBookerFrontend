@@ -4,7 +4,7 @@
         "cancel": "Cancelar",
         "logOutHeader": "¿Quiere salir de su cuenta?",
         "logOutQuestion": "Su cuenta se cerrará y deberá introducir la contraseña de nuevo",
-        "footer" :{
+        "footer": {
             "books": "Reservas",
             "signIn": "Me Apunto",
             "profile": "Perfil",
@@ -75,5 +75,12 @@
         "returnBtn": "Volver",
         "errorMsgNoMail": "No existe este correo para restaurar la contraseña, compruebe que está correctamente escrito.",
         "successMsg": "Contraseña restablecida con éxito, compruebe su correo electrónico con la nueva contraseña."
+    },
+    "numberCreate": {
+        "newUserMsg": "Creación de nuevos usuarios:",
+        "code": "Código único:",
+        "errorMsg": "Este código no existe, pruebe de nuevo con uno válido. Sentimos las molestias.",
+        "btnCreateUser": "Crear Usuario",
+        "btnReturn": "Volver"
     }
 }

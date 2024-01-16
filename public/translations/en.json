@@ -75,5 +75,12 @@
         "returnBtn": "Back",
         "errorMsgNoMail": "This email does not exist for password restoration, please check that it is correctly written.",
         "successMsg": "Password successfully reset, check your email for the new password."
+    },
+    "numberCreate": {
+        "newUserMsg": "New user creation:",
+        "code": "Unique code:",
+        "errorMsg": "This code does not exist, please try again with a valid one. We apologize for the inconvenience.",
+        "btnCreateUser": "Create User",
+        "btnReturn": "Back"
     }
 }

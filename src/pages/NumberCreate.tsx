@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router';
 import { numberCreateCredentials } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
 import { styleModalRaad } from '../util/util';
+import { translate } from 'react-i18nify';
 
 
 const NumberCreate = () => {
@@ -43,7 +44,7 @@ const NumberCreate = () => {
             >
                 <Grid item style={{ marginTop: "60%" }}>
                     <Typography variant="h5">
-                        Creación de nuevos usuarios:
+                         {translate('numberCreate.newUserMsg')}
                     </Typography>
                 </Grid>
                 <Grid item>
@@ -58,17 +59,17 @@ const NumberCreate = () => {
                                 borderColor: "white",
                             }
                         }}
-                        label="Código único:"
+                        label={translate('numberCreate.code')}
                         onChange={handleSecretNumber}
                         variant="outlined"
                     />
                 </Grid>
 
                 <Grid item>
-                    <Button variant="contained" endIcon={<SendIcon />} color="warning" onClick={createUser}>Crear Usuario</Button>
+                    <Button variant="contained" endIcon={<SendIcon />} color="warning" onClick={createUser}>{translate('numberCreate.btnCreateUser')}</Button>
                 </Grid>
                 <Grid item>
-                    <Button variant="outlined" color="warning" onClick={() => navigate("/")}>Volver
+                    <Button variant="outlined" color="warning" onClick={() => navigate("/")}>{translate('numberCreate.btnReturn')}
                     </Button>
                 </Grid>
             </Grid>
@@ -76,12 +77,10 @@ const NumberCreate = () => {
             <Modal open={openModal}>
                 <Box sx={styleModalRaad}>
                     <Typography mx={{ xs: 12 }}>
-                        Este código no existe, pruebe de nuevo con uno válido. Sentimos las molestias.
+                        {translate('numberCreate.errorMsg')}
                     </Typography>
                 </Box>
             </Modal>
-
-
         </>
     )
 }
