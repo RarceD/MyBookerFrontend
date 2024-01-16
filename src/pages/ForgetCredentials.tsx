@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { forgetCredentials } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
 import { styleModalRaad } from '../util/util';
+import { translate } from 'react-i18nify';
 
 
 const ForgetCredentials = () => {
@@ -41,7 +42,7 @@ const ForgetCredentials = () => {
     return (
         <>
             <Grid container
-                style={{marginTop: '20%'}}
+                style={{ marginTop: '20%' }}
                 spacing={2}
                 direction="column"
                 alignContent="center"
@@ -51,13 +52,13 @@ const ForgetCredentials = () => {
             >
                 <Grid item>
                     <Typography variant="h5">
-                        He olvidado mi contraseña
+                        {translate('forget.forgetMyPassword')}
                     </Typography>
                 </Grid>
                 <Grid item>
                     <TextFieldRaad
                         value={secretNumber}
-                        label="Correo de reserva:" variant="outlined" fullWidth
+                        label={translate('forget.mailSignIn')} variant="outlined" fullWidth
                         InputLabelProps={{ style: { color: "grey" } }}
                         margin="normal"
                         inputProps={{
@@ -71,12 +72,12 @@ const ForgetCredentials = () => {
                 </Grid>
                 <Grid item>
                     <Button variant="contained" endIcon={<SendIcon />} color="warning" onClick={forgetPassRequest}>
-                        Solicitar una
+                        {translate('forget.requestOne')}
                     </Button>
                 </Grid>
                 <Grid item>
                     <Button variant="outlined" color="warning" onClick={() => navigate("/")}>
-                        Volver
+                        {translate('forget.return')}
                     </Button>
                 </Grid>
             </Grid>
@@ -84,7 +85,7 @@ const ForgetCredentials = () => {
             <Modal open={openModal}>
                 <Box sx={styleModalRaad}>
                     <Typography id="modal-modal-description" mx={{ xs: 12 }}>
-                        No existe este correo para restaurar la contraseña, compruebe que está correctamente escrito.
+                        {translate('forget.errorMsgNoMail')}
                     </Typography>
                 </Box>
             </Modal>
@@ -92,7 +93,7 @@ const ForgetCredentials = () => {
             <Modal open={openModalSuccess}>
                 <Box sx={styleModalRaad}>
                     <Typography id="modal-modal-description" mx={{ xs: 12 }}>
-                        Contraseña restablecida con éxito, compruebe su correo electrónico con la nueva contraseña.
+                        {translate('forget.successMsg')}
                     </Typography>
                 </Box>
             </Modal>

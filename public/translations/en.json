@@ -67,5 +67,13 @@
         "return": "Return",
         "notPossibleGeneric": "It is not possible to create your account, please use another email or try again later. We apologize for the inconvenience.",
         "notPossiblePass": "It is not possible to create your account, please verify that the password matches in both cases."
+    },
+    "forget": {
+        "forgetMyPassword": "Forgot my password",
+        "mailSignIn": "Reservation email:",
+        "requestOne": "Request one",
+        "returnBtn": "Back",
+        "errorMsgNoMail": "This email does not exist for password restoration, please check that it is correctly written.",
+        "successMsg": "Password successfully reset, check your email for the new password."
     }
 }

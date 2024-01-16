@@ -67,5 +67,13 @@
         "return": "Volver",
         "notPossibleGeneric": "No es posible crear su cuenta, por favor use otro correo o pruebe más tarde. Sentimos las molestias.",
         "notPossiblePass": "No es posible crear su cuenta, por favor verifique que la contraseña coincide en ambos casos."
+    },
+    "forget": {
+        "forgetMyPassword": "He olvidado mi contraseña",
+        "mailSignIn": "Correo de reserva:",
+        "requestOne": "Solicitar una",
+        "returnBtn": "Volver",
+        "errorMsgNoMail": "No existe este correo para restaurar la contraseña, compruebe que está correctamente escrito.",
+        "successMsg": "Contraseña restablecida con éxito, compruebe su correo electrónico con la nueva contraseña."
     }
 }
