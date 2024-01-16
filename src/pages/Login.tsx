@@ -87,7 +87,7 @@ export const Login = () => {
               }
             }}
             name="password"
-            label="Constraseña"
+            label={translate('login.password')}
             type="password"
             onChange={(e: any) => { setPass(e.target.value); }}
             onKeyPress={(e) => {
@@ -106,7 +106,7 @@ export const Login = () => {
             onClick={handleSubmit}
             sx={{ mt: 3, mb: 2 }}
           >
-            Acceder
+            {translate('login.enter')}
           </Button>
           <Grid container>
             <Grid item xs>
