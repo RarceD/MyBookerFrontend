@@ -146,8 +146,8 @@ function App() {
 
   // Check http or https
   let urlPath = window.location.href;
-  if (!urlPath.includes("https") && !urlPath.includes("localhost") && APP_NAME.includes("Online"))
-    window.location.href = 'https://meapunto.online';
+  // if (!urlPath.includes("https") && !urlPath.includes("localhost") && APP_NAME.includes("Online"))
+    // window.location.href = 'https://meapunto.online';
 
   // Control page name:
   ChangeTitleIconFromPage()

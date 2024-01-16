@@ -46,7 +46,7 @@ const Stats = () => {
         GetStats(callback, onError);
         const bookerCallback = (stats: StatsBooker[]) => {
         }
-        GetStatsBooker(bookerCallback, onError)
+        // GetStatsBooker(bookerCallback, onError)
     }, []);
 
     return (

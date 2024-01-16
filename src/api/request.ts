@@ -10,9 +10,9 @@ import { GetTokenId } from "./auth";
 // export const APP_NAME: string = "AppDeReservas";
 export const APP_NAME: string = "MeApunto.Online";
 
-// export const URL_REQUEST: string = "https://www.meapunto.online/api/";
+export const URL_REQUEST: string = "https://www.meapunto.online/api/";
 // export const URL_REQUEST: string = "http://www.appdereservas.es/api/";
-export const URL_REQUEST: string = "https://localhost:5001/api/";
+// export const URL_REQUEST: string = "https://localhost:5001/api/";
 
 // export const WS_REQUEST: string = "ws://192.168.0.19/ws";
 export const WS_REQUEST: string = "ws://127.0.0.1:5432";
