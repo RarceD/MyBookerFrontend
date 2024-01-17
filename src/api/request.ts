@@ -8,7 +8,7 @@ import { GetTokenId } from "./auth";
 // rm -rf * && mv /home/ubuntu/assets.zip . && unzip assets.zip
 
 // export const APP_NAME: string = "AppDeReservas";
-export const APP_NAME: string = "MeApunto.Online";
+export const APP_NAME: string = "Sports Club HIE";
 
 export const URL_REQUEST: string = "https://www.meapunto.online/api/";
 // export const URL_REQUEST: string = "http://www.appdereservas.es/api/";
