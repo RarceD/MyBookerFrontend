@@ -31,5 +31,6 @@ export enum CourtType {
     PADEL = 0,
     TENIS,
     SALAS,
-    OTHER 
+    OTHER,
+    FOOTBAL
 }
