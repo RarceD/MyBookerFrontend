@@ -59,11 +59,11 @@ export const getCourtTypesTabsList = (courts: Court[]): string[] => {
     let numberPool = courts.filter(c => c.type == CourtType.SALAS).length;
     let numberOther = courts.filter(c => c.type == CourtType.OTHER).length;
     if (numberPadel != 0)
-        courtsTypesNames.push("padel")
+        courtsTypesNames.push("paddle tennis")
     if (numberTenis != 0)
-        courtsTypesNames.push("tenis")
+        courtsTypesNames.push("tennis")
     if (numberPool != 0)
-        courtsTypesNames.push("Footbal")
+        courtsTypesNames.push("Football")
     if (numberOther != 0)
         courtsTypesNames.push("Merendero")
     return courtsTypesNames;
