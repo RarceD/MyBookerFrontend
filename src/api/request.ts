@@ -19,7 +19,7 @@ export const WS_REQUEST: string = "ws://127.0.0.1:5432";
 
 
 export const getCorrectLogo = (url: string): string => {
-    let path: string = '/images/logo.png';
+    let path: string = '/images/logoSports.png';
     if (url.toLowerCase().includes("online")) {
         path = '/images/logo1.png'
     }

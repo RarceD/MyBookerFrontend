@@ -16,7 +16,7 @@ function HeaderRaad() {
         <AppBar position="absolute" className="header" style={{ top: 0, left: 0 }} >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Avatar alt="Remy Sharp" src={getCorrectLogo(APP_NAME)} style={{ height: 65, width: 60, backgroundColor: "" }} />
+                    <Avatar alt="Remy Sharp" src={"/images/logoSportsWithout.png"} style={{ height: 50, width: 40, backgroundColor: "" }} />
                     <Typography
                         fontFamily={'sans-serif'}
                         sx={{

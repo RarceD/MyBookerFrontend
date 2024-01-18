@@ -53,7 +53,7 @@ export const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 2, width: 240, height: 180 }} variant="rounded" src={getCorrectLogo(APP_NAME)}> </Avatar>
+        <Avatar sx={{ m: 2, width: 350, height: 110 }} variant="rounded" src={getCorrectLogo(APP_NAME)}> </Avatar>
         <Typography component="h1" variant="h5"> {APP_NAME} </Typography>
         <Box component="form" sx={{ mt: 1 }} borderColor={"white"}>
           <TextFieldRaad

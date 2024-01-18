@@ -5,13 +5,13 @@ import { Court, CourtType, Timetable } from "../interfaces/Courts";
 export const daysOfTheWeek: {
     [key: string]: number;
 } = {
-    "Lunes": 1,
-    "Martes": 2,
-    "Miércoles": 3,
-    "Jueves": 4,
-    "Viernes": 5,
-    "Sábado": 6,
-    "Domingo": 0
+    "Monday": 1,
+    "Tuesday": 2,
+    "Wednesday": 3,
+    "Thursday": 4,
+    "Friday": 5,
+    "Saturday": 6,
+    "Sunday": 0
 };
 
 // TODO: almost all file should be a useCallback/useMemo approach
@@ -63,7 +63,7 @@ export const getCourtTypesTabsList = (courts: Court[]): string[] => {
     if (numberTenis != 0)
         courtsTypesNames.push("tenis")
     if (numberPool != 0)
-        courtsTypesNames.push("Salas")
+        courtsTypesNames.push("Footbal")
     if (numberOther != 0)
         courtsTypesNames.push("Merendero")
     return courtsTypesNames;

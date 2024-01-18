@@ -5,10 +5,10 @@
         "logOutHeader": "Do you want to log out of your account?",
         "logOutQuestion": "Your account will be closed, and you will need to enter the password again.",
         "footer": {
-            "books": "Books",
-            "signIn": "Sign In",
+            "books": "Schedule",
+            "signIn": "Booking",
             "profile": "Profile",
-            "normative": "Normative"
+            "normative": "Rules"
         }
     },
     "login": {

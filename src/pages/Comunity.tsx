@@ -6,12 +6,22 @@ import { ClientBooks } from "../interfaces/MyBooks";
 import './../components/components.css'
 import { translate } from "react-i18nify";
 
+const mapToSpainWeekdays: any = {
+    "Domingo" : "Sunday",
+    "Sábado" : "Saturday",
+    "Viernes" : "Friday",
+    "Jueves" : "Thursday",
+    "Miércoles" : "Wednesday",
+    "Martes" : "Tuesday",
+    "Lunes" : "Monday",
+}
 const Comunity = () => {
     const [books, setBooks] = useState<ClientBooks[]>([]);
     const [token, myClientId] = GetTokenId();
     useEffect(() => {
         GetBooks((n: ClientBooks[]) => {
-            setBooks(n);
+            const englishReservations = n.map(r => ({ ...r, weekday: mapToSpainWeekdays[r.weekday] }));
+            setBooks(englishReservations);
         })
     }, []);
 
