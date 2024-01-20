@@ -17,8 +17,11 @@ export const daysOfTheWeek: {
 // TODO: almost all file should be a useCallback/useMemo approach
 export const getDateSelectorDtoListFromCourts = (courts: Court[], courtSelected: number): DateSelectorDto[] => {
     let s: DateSelectorDto[] = [];
-    let weekDays = ['Dom.', 'Lun.', 'Mar.', 'Mie.', 'Jue.', 'Vie.', 'Sab.'];
-    let months = ['Ene.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.', 'Jul.', 'Ago.', 'Sep.', 'Oct.', 'Nov.', 'Dic.'];
+    //let weekDays = ['Dom.', 'Lun.', 'Mar.', 'Mie.', 'Jue.', 'Vie.', 'Sab.'];
+    // let months = ['Ene.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.', 'Jul.', 'Ago.', 'Sep.', 'Oct.', 'Nov.', 'Dic.'];
+    let weekDays = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
+    let months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
+
     for (let court of courts) {
         if (court.id != courtSelected) continue;
         let currentDay = new Date();
