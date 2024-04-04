@@ -21,7 +21,7 @@
     },
     "courts": {
         "bookingError": "No es posible llevar a cabo su reserva, por favor compruebe las fechas y que no haya reservado previamente ese día.",
-        "bookingSucces": "Su reserva se ha guardado correctamente. Disfrute de su partida.",
+        "bookingSuccess": "Su reserva se ha guardado correctamente. Disfrute de su partida.",
         "availableDays": "Fechas disponibles:",
         "schedule": "Horario:",
         "bookingTime": "Tiempo de reserva:",
