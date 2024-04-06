@@ -78,7 +78,7 @@ const ForgetCredentials = () => {
                 </Grid>
                 <Grid item>
                     <Button variant="outlined" color="warning" onClick={() => navigate("/")}>
-                        {translate('forget.return')}
+                        {translate('forget.returnBtn')}
                     </Button>
                 </Grid>
                 <Grid item>
