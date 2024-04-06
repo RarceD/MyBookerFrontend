@@ -10,6 +10,7 @@ import { forgetCredentials } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
 import { styleModalRaad } from '../util/util';
 import { translate } from 'react-i18nify';
+import './pages.css';
 
 
 const ForgetCredentials = () => {
@@ -42,7 +43,7 @@ const ForgetCredentials = () => {
     return (
         <>
             <Grid container
-                style={{ marginTop: '20%' }}
+                style={{ marginTop: '60%' }}
                 spacing={2}
                 direction="column"
                 alignContent="center"
@@ -79,6 +80,11 @@ const ForgetCredentials = () => {
                     <Button variant="outlined" color="warning" onClick={() => navigate("/")}>
                         {translate('forget.return')}
                     </Button>
+                </Grid>
+                <Grid item>
+                    <div className='informative-msg'>
+                        {translate('numberCreate.informativeMsg')}
+                    </div>
                 </Grid>
             </Grid>
 
