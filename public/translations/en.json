@@ -82,7 +82,8 @@
         "code": "Unique code:",
         "errorMsg": "This code does not exist, please try again with a valid one. We apologize for the inconvenience.",
         "btnCreateUser": "Create User",
-        "btnReturn": "Back"
+        "btnReturn": "Back",
+        "informativeMsg": "If you have not received a letter to register in the system, please contact your urbanization administrator."
     },
     "noConnection": {
         "loading": "Loading...",

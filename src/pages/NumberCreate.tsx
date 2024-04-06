@@ -9,6 +9,7 @@ import { numberCreateCredentials } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
 import { styleModalRaad } from '../util/util';
 import { translate } from 'react-i18nify';
+import './pages.css';
 
 
 const NumberCreate = () => {
@@ -71,6 +72,11 @@ const NumberCreate = () => {
                 <Grid item>
                     <Button variant="outlined" color="warning" onClick={() => navigate("/")}>{translate('numberCreate.btnReturn')}
                     </Button>
+                </Grid>
+                <Grid item>
+                    <div className='informative-msg'>
+                        {translate('numberCreate.informativeMsg')}
+                    </div>
                 </Grid>
             </Grid>
 
