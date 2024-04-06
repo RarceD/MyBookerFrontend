@@ -83,7 +83,7 @@
         "errorMsg": "Este código no existe, pruebe de nuevo con uno válido. Sentimos las molestias.",
         "btnCreateUser": "Crear Usuario",
         "btnReturn": "Volver",
-        "informativeMsg": "Si no ha recibido una carta para darse de alta en el sistema, póngase en contacto con su administrador de urbanización."
+        "informativeMsg": "Si no ha recibido una carta para darse de alta en el sistema, póngase en contacto con su administrador de fincas."
     },
     "noConnection": {
         "loading": "Cargando ...",
