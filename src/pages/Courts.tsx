@@ -17,6 +17,7 @@ import { GenericResponse } from '../interfaces/GenericResponse';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { translate } from 'react-i18nify';
+import NoConnection from './NoConnection';
 
 interface SelectedItem {
     courtId: number,
@@ -94,7 +95,9 @@ const Courts = () => {
         })
         setShowPopUp(false);
     }
-
+    if (courts.length === 0) {
+        return <NoConnection />
+    }
     return (
         <div style={{ marginTop: 100, marginBottom: 120 }}>
             {!areThereMultipleCourtTypes(courts) ?
@@ -228,7 +231,7 @@ const Courts = () => {
                     {translate('courts.forgetBookTime')}
                 </Alert>
             </Snackbar>
-        </div>
+        </div >
     )
 }
 
