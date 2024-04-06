@@ -14,6 +14,7 @@ import { ProfileToChange } from '../interfaces/profile';
 import { styleModalRaad } from '../util/util';
 import './pages.css';
 import { translate } from 'react-i18nify';
+import NoConnection from './NoConnection';
 
 const Profile = () => {
     const [profile, setProfile] = useState<ProfileInfo>({ letter: "", name: "", plays: 1, urbaName: "", username: "" });
@@ -84,6 +85,9 @@ const Profile = () => {
         setFirstUser(profile.username)
     }, [profile])
 
+    if (profile.name === "") {
+        return <NoConnection />
+    }
     return (
         <>
             <div style={{ marginTop: 80, marginBottom: 120, marginLeft: 20, marginRight: 20 }}>
