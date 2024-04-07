@@ -26,3 +26,7 @@ e incrementarlo junto con el versionCode para que nos lo detecte como diferente
 
 npx cap add ios
 npx cap open ios
+
+
+// Upgrade dependencies dinamically:
+yarn upgrade-interactive --latest
