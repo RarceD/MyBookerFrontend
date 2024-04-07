@@ -1,25 +1,20 @@
-name: CI
+name: Build and Test MyBookerFrontend
 on: [push]
 
 jobs:
   build:
     name: MyBookerFrontend
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [15.x, 16.x, 17.x, 18.x]
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Set Node.js 16.x
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
-          node-version: 16.x
-
-      - name: Run install
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install # will run `yarn install` command
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # if needed
-      - name: Build production bundle
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build # will run `yarn build` command
+          node-version: ${{ matrix.node-version }}
+      - name: npm ci, build and test
+        run: |
+          npm ci
+          npm run build --if-present
