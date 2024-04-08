@@ -44,7 +44,7 @@ interface TabsPropsUncontrolled {
 
 export function BasicTabsRaad(props: TabsProps) {
   const [value, setValue] = useState(0);
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
   return (
@@ -66,7 +66,7 @@ export function BasicTabsRaad(props: TabsProps) {
 }
 
 export function BasicTabsRaadUncontrolled(props: TabsPropsUncontrolled) {
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     if (props.setValue)
       props.setValue(newValue);
   };

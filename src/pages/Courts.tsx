@@ -4,7 +4,7 @@ import { Alert, Button, FormControlLabel, IconButton, Radio, RadioGroup, Slider,
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useRef, useState } from 'react';
 import { MakeBook } from '../api/actions';
-import { GetCourts, GetUrbaDate } from '../api/request';
+import { GetCourts } from '../api/request';
 import DateSelectorRaad from '../components/courts/DateSelectorRaad';
 import SchedulRaad, { HourInfo } from '../components/courts/SchedulRaad';
 import DialogRaad from '../components/DialogRaad';
@@ -12,7 +12,7 @@ import { BasicTabsRaadUncontrolled } from '../components/TabsRaad';
 import { Booker } from '../interfaces/Booker';
 import { colorDarkCard, colorLetter, colorLogo } from '../interfaces/colors';
 import { Court, Timetable } from '../interfaces/Courts';
-import { areThereMultipleCourtTypes, getCourtType, getCourtTypesTabsList, getDateSelectorDtoListFromCourts, getMaxSliderValues, getSlider, getTypeNameCourt, styleModalRaad } from '../util/util';
+import { areThereMultipleCourtTypes, getCourtType, getCourtTypesTabsList, getDateSelectorDtoListFromCourts, getMaxSliderValues, getSlider, getTypeNameCourt } from '../util/util';
 import { GenericResponse } from '../interfaces/GenericResponse';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -33,12 +33,12 @@ const Courts = () => {
     const navigate = useNavigate();
     const [hours, setHours] = useState<HourInfo[]>([]);
     const [open, setOpen] = useState(false);
-    const [isUrbaReadyForUse, setIsUrbaReadyForUse] = useState(true);
+    const [isUrbaReadyForUse, _] = useState(true);
     const [isUrbaReadyModal, setIsUrbaReadyModal] = useState(false);
     const [openZeroTimeModal, setOpenZeroTimeModal] = useState(false);
     const modalMsg = useRef("");
 
-    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+    const handleClose = (_event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;
         }
@@ -161,7 +161,7 @@ const Courts = () => {
                     min={0}
                     max={getMaxSliderValues(courts.filter(c => c.id == selectedItem.courtId))}
                     valueLabelDisplay={"auto"}
-                    onChange={function (event: Event, newValue: number | number[]): void {
+                    onChange={function (_event: Event, newValue: number | number[]): void {
                         let time: number = newValue as number;
                         setSelectedItem({
                             date: selectedItem.date,

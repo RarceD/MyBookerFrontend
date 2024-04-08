@@ -8,7 +8,7 @@ import { translate } from "react-i18nify";
 
 const Comunity = () => {
     const [books, setBooks] = useState<ClientBooks[]>([]);
-    const [token, myClientId] = GetTokenId();
+    const [_, myClientId] = GetTokenId();
     useEffect(() => {
         GetBooks((n: ClientBooks[]) => {
             setBooks(n);

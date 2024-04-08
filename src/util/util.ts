@@ -1,6 +1,6 @@
 import { DateSelectorDto } from "../components/courts/DateSelectorRaad";
 import { colorBackground } from "../interfaces/colors";
-import { Court, CourtType, Timetable } from "../interfaces/Courts";
+import { Court, CourtType } from "../interfaces/Courts";
 
 export const daysOfTheWeek: {
     [key: string]: number;

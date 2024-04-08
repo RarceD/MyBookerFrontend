@@ -3,7 +3,7 @@ import { Avatar, List, ListItem, ListItemAvatar, ListItemText } from '@mui/mater
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RemoveBook } from '../../api/actions';
-import { colorDarkCard, colorLetter, colorLogo } from '../../interfaces/colors';
+import { colorDarkCard, colorLetter } from '../../interfaces/colors';
 import { CourtType } from '../../interfaces/Courts';
 import DialogRaad from '../DialogRaad';
 import { daysOfTheWeek } from '../../util/util';
@@ -56,7 +56,7 @@ export default function ListRaad(props: {
                     setShowPopUp(false);
                 }} confirmHandler={function (): void {
                     const time = props.mainText.split(" ")[1];
-                    RemoveBook(props.id, time, function (resp: any) {
+                    RemoveBook(props.id, time, function (_resp: any) {
                         navigate("/");
                     })
                     setShowPopUp(false);
