@@ -15,7 +15,7 @@ export const Login = () => {
   const [errorSubmit, setErrorSubmit] = useState(false);
   const navigate = useNavigate();
   const [autologin, setAutologin] = useState(false);
-  const handleChangeAutologin = (e: any) => autologin ? setAutologin(false) : setAutologin(true);
+  const handleChangeAutologin = (_e: any) => autologin ? setAutologin(false) : setAutologin(true);
 
   useEffect(() => {
     // Implementado autologin:

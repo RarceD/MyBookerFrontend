@@ -13,7 +13,7 @@ import { styleModalRaad } from '../util/util';
 import { translate } from 'react-i18nify';
 
 const Create = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, _] = useSearchParams();
     const navigate = useNavigate();
 
     const [username, setUsername] = useState("");

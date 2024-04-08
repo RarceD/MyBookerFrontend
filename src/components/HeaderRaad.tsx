@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Container, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Avatar, Container, Toolbar, Typography } from '@mui/material';
 import LogoutIcon from "@mui/icons-material/Logout"
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

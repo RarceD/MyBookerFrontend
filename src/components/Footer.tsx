@@ -40,7 +40,7 @@ export default function Footer(props: FooterProps) {
                 style={{ backgroundColor: '#202123' }}
                 showLabels
                 value={value}
-                onChange={(event, newValue) => {
+                onChange={(_event, newValue) => {
                     let v: PageTypeNumber = newValue;
                     props.setPageToShow(v);
                     setValue(newValue);

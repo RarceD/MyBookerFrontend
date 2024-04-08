@@ -113,7 +113,7 @@ export function SendStatsInfo() {
         fetch(URL_REQUEST + "stats", getRequestOptions(data))
             .then(response => response)
             .catch(error => console.error('Error:', error))
-            .then(response => () => { });
+            .then(_response => () => { });
     }
 }
 

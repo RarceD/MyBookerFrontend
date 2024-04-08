@@ -44,7 +44,7 @@ const Stats = () => {
         }
         const onError = () => navigator('/login');
         GetStats(callback, onError);
-        const bookerCallback = (stats: StatsBooker[]) => {
+        const bookerCallback = (_stats: StatsBooker[]) => {
         }
         GetStatsBooker(bookerCallback, onError)
     }, []);
