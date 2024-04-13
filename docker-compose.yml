@@ -1,14 +1,6 @@
-version: "3.4"
+version: '3.4'
 services:
-  booker_frontend:
-    image: node:alpine
-    container_name: booker_frontend 
-    entrypoint: /bin/sh
+  frontend:
+    build: .
     ports:
-      - 8000:8000
-    working_dir: /srv/app
-    volumes:
-     - type: bind
-      source: ./
-      target: /srv/app
-    tty: true
+      - "8000:8000"
