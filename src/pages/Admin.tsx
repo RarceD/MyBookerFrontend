@@ -7,9 +7,11 @@ import { GetAdminMatchItCode, GetAdminMatchItEmail } from "../api/request";
 import SendIcon from '@mui/icons-material/Send';
 import { useNavigate } from 'react-router-dom';
 import ResponsiveHandler from "../components/ResponsiveHandler";
+import { deleteClientAsAnAdmin } from "../api/actions";
 
 const Admin = () => {
     const [itemToSearch, setItemToSearch] = useState<string>('');
+    const [itemToDelete, setItemToDelete] = useState<string>('');
     const [categoryToSearch, setCategoryToSearch] = useState<ItemCategory>('code');
     const [foundResults, setFoundResults] = useState<AdminInfo[]>([]);
     const navigator = useNavigate();
@@ -24,6 +26,11 @@ const Admin = () => {
         else {
             GetAdminMatchItEmail(itemToSearch, onSuccess(), onError);
         }
+    }
+    const deleteClient = () => {
+        deleteClientAsAnAdmin(itemToDelete, (response) => {
+            console.log(response);
+        });
     }
 
     return (
@@ -58,6 +65,16 @@ const Admin = () => {
                         </ListItem>
                         )}
                     </List>
+
+                    <h1>Delete: </h1>
+                    <TextFieldRaadCustom
+                        value={itemToDelete}
+                        label={"Type username to delete"}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setItemToDelete(e.target.value); }}
+                    />
+                    <Button variant="contained" endIcon={<SendIcon />} color="error" onClick={deleteClient}>
+                        Delete 
+                    </Button>
                 </>
             }
         />
