@@ -82,6 +82,15 @@ export async function numberCreateCredentials(code: string, callback: (resp: any
         .then(response => callback(response));
 }
 
+export async function deleteClientAsAnAdmin(username: string, callback: (resp: any) => void) {
+    const [token, id] = GetTokenId();
+    const data: any = { token, id, matchStr: username}
+    fetch(URL_REQUEST + "admin/delete", getRequestOptions(data))
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => callback(response));
+}
+
 export async function updateUserPost(data: ProfileToChange, callback: (resp: any) => void) {
     await fetch(URL_REQUEST + "profile", getRequestOptions(data))
         .then(response => response)
