@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TextFieldRaadCustom } from "../components/profile/TextFieldRaadCustom";
-import { Radio, RadioGroup, FormControlLabel, Button, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Radio, RadioGroup, FormControlLabel, Button, List, ListItem, ListItemButton, ListItemText, Modal, Typography, Box } from '@mui/material';
 import { colorLetter, colorLogo } from "../interfaces/colors";
 import { AdminInfo, ItemCategory } from "../interfaces/AdminInfo";
 import { GetAdminMatchItCode, GetAdminMatchItEmail } from "../api/request";
@@ -8,10 +8,13 @@ import SendIcon from '@mui/icons-material/Send';
 import { useNavigate } from 'react-router-dom';
 import ResponsiveHandler from "../components/ResponsiveHandler";
 import { deleteClientAsAnAdmin } from "../api/actions";
+import { styleModalRaad } from "../util/util";
 
 const Admin = () => {
     const [itemToSearch, setItemToSearch] = useState<string>('');
     const [itemToDelete, setItemToDelete] = useState<string>('');
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [modalMsg, setModalMsg] = useState<string>('');
     const [categoryToSearch, setCategoryToSearch] = useState<ItemCategory>('code');
     const [foundResults, setFoundResults] = useState<AdminInfo[]>([]);
     const navigator = useNavigate();
@@ -29,7 +32,12 @@ const Admin = () => {
     }
     const deleteClient = () => {
         deleteClientAsAnAdmin(itemToDelete, (response) => {
-            console.log(response);
+            const responseMsg = response.error ? 'This user does not exist' : 'User deleted successfully!';
+            setModalMsg(responseMsg);
+            setOpenModal(true);
+            setTimeout(() => {
+                setOpenModal(false);
+            }, 3000)
         });
     }
 
@@ -73,8 +81,15 @@ const Admin = () => {
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setItemToDelete(e.target.value); }}
                     />
                     <Button variant="contained" endIcon={<SendIcon />} color="error" onClick={deleteClient}>
-                        Delete 
+                        Delete
                     </Button>
+                    <Modal open={openModal} >
+                        <Box sx={styleModalRaad}>
+                            <Typography mx={{ xs: 12 }}>
+                                {modalMsg}
+                            </Typography>
+                        </Box>
+                    </Modal>
                 </>
             }
         />
