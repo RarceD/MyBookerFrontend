@@ -5,6 +5,7 @@ import { colorLetter, colorLogo } from "../interfaces/colors";
 import { AdminInfo, ItemCategory } from "../interfaces/AdminInfo";
 import { GetAdminMatchItCode, GetAdminMatchItEmail } from "../api/request";
 import SendIcon from '@mui/icons-material/Send';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import ResponsiveHandler from "../components/ResponsiveHandler";
 import { deleteClientAsAnAdmin } from "../api/actions";
@@ -74,13 +75,13 @@ const Admin = () => {
                         )}
                     </List>
 
-                    <h1>Delete: </h1>
+                    <h1>Reset clients: </h1>
                     <TextFieldRaadCustom
                         value={itemToDelete}
-                        label={"Type username to delete"}
+                        label={"Type email to reset"}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setItemToDelete(e.target.value); }}
                     />
-                    <Button variant="contained" endIcon={<SendIcon />} color="error" onClick={deleteClient}>
+                    <Button variant="contained" endIcon={<DeleteIcon />} color="error" onClick={deleteClient}>
                         Delete
                     </Button>
                     <Modal open={openModal} >
