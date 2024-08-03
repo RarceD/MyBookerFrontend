@@ -12,11 +12,13 @@ npm install capacitor-resources
 ```sh
 npx cap add android
 npx cap open android
+yarn run resources
 ```
 
 Si ya existe el android se ha de:
 
 ```sh
+yarn build
 npx cap copy android
 ```
 
