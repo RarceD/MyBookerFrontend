@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.de.reservas',
-  appName: 'appdereservas',
+  appId: 'meApunto.online',
+  appName: 'MeApunto.Online',
   webDir: 'dist',
   server: {
     androidScheme: 'https'

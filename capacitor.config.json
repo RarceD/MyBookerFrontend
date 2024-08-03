@@ -1,8 +1,8 @@
 {
-    "appId": "AppDeReservas.es",
-    "appName": "AppDeReservas.es",
+    "appId": "meApunto.online",
+    "appName": "MeApunto.Online",
     "bundledWebRuntime": false,
     "npmClient": "npm",
     "webDir": "build",
     "cordova": {}
-}
+  }
