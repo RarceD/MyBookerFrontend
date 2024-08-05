@@ -94,7 +94,7 @@ export async function deleteClientAsAnAdmin(username: string, callback: (resp: a
 export async function updateUserPost(data: ProfileToChange, callback: (resp: any) => void) {
     await fetch(URL_REQUEST + "profile", getRequestOptions(data))
         .then(response => response)
-        .catch(error => console.error('Error:', error))
+        .catch(error => callback(error))
         .then(response => callback(response));
 }
 

@@ -33,7 +33,9 @@ const Admin = () => {
     }
     const deleteClient = () => {
         deleteClientAsAnAdmin(itemToDelete, (response) => {
-            const responseMsg = response.error ? 'This user does not exist' : 'User deleted successfully!';
+            const responseMsg = response === undefined || response.error ?
+                'This user does not exist' :
+                'User deleted successfully!';
             setModalMsg(responseMsg);
             setOpenModal(true);
             setTimeout(() => {
