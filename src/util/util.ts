@@ -99,7 +99,7 @@ export function getSlider(courts: Court[]) {
     }
 }
 
-export function getMaxSliderValues(courts: Court[]) {
+export function getMaxSliderValues(courts: Court[], selectedItem: any) {
     if (courts.length == 0) return 1;
     const times = courts[0].validTimes.split(";");
     if (times.length > 1) {
