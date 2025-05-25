@@ -101,6 +101,15 @@ export function getSlider(courts: Court[]) {
 
 export function getMaxSliderValues(courts: Court[], selectedItem: any) {
     if (courts.length == 0) return 1;
+
+    // EXCEPTION PIECE OF SHIT
+    console.log("courts", courts, selectedItem);
+    if (courts[0].id == 21) {
+      if (selectedItem.hour == 8)
+        return 1;
+      return 1.5
+    }
+
     const times = courts[0].validTimes.split(";");
     if (times.length > 1) {
         return 1.5;
