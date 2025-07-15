@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import { responsiveCtr } from "../util/responsiveService";
 
  const ResponsiveHandler = (props: {component: () => JSX.Element}) => {
