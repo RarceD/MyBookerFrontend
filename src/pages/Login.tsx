@@ -1,128 +1,166 @@
-import { Avatar, Box, Button, Checkbox, FormControlLabel, Grid, Link, Typography } from '@mui/material';
+import {
+    Avatar,
+    Box,
+    Button,
+    Checkbox,
+    FormControlLabel,
+    Link,
+    Typography,
+    Stack,
+    Divider,
+} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Md5 } from 'ts-md5';
 import { tryLogin } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
-import { colorLogo } from '../interfaces/colors';
-import "./pages.css";
 import { APP_NAME, getCorrectLogo } from '../api/request';
 import { translate } from 'react-i18nify';
 
 export const Login = () => {
-  const [user, setUser] = useState("");
-  const [pass, setPass] = useState("");
-  const [errorSubmit, setErrorSubmit] = useState(false);
-  const navigate = useNavigate();
-  const [autologin, setAutologin] = useState(false);
-  const handleChangeAutologin = (_e: any) => autologin ? setAutologin(false) : setAutologin(true);
+    const [user, setUser] = useState('');
+    const [pass, setPass] = useState('');
+    const [errorSubmit, setErrorSubmit] = useState(false);
+    const navigate = useNavigate();
+    const [autologin, setAutologin] = useState(false);
 
-  useEffect(() => {
-    // Implementado autologin:
-    let autoLogin: string | null = localStorage.getItem("autologin")
-    if (autoLogin != null)
-      navigate("/courts")
-  }, [navigate]);
+    useEffect(() => {
+        const autoLogin = localStorage.getItem('autologin');
+        if (autoLogin != null) navigate('/courts');
+    }, [navigate]);
 
-  const handleSubmit = () => {
-    if (user === "" || pass === "") return;
-    let passServer = new Md5().appendStr(pass).end()?.toString();
-    let data = { user: user, pass: passServer }
-    tryLogin(data, (response: any) => {
-      if (response["success"]) {
-        localStorage.setItem("id", response["id"]);
-        localStorage.setItem("token", response["token"]);
-        if (autologin)
-          localStorage.setItem("autologin", "1");
-        else
-          localStorage.setItem("autologin", "0");
-        navigate('/courts');
-      }
-      else
-        setErrorSubmit(true);
-    })
-  }
+    const handleSubmit = () => {
+        if (user === '' || pass === '') return;
+        const passServer = new Md5().appendStr(pass).end()?.toString();
+        tryLogin({ user, pass: passServer }, (response: any) => {
+            if (response['success']) {
+                localStorage.setItem('id', response['id']);
+                localStorage.setItem('token', response['token']);
+                localStorage.setItem('autologin', autologin ? '1' : '0');
+                navigate('/courts');
+            } else {
+                setErrorSubmit(true);
+            }
+        });
+    };
 
-  return (
-    <>
-      <Box
-        sx={{
-          marginTop: 20,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Avatar sx={{ m: 2, width: 240, height: 180 }} variant="rounded" src={getCorrectLogo(APP_NAME)}> </Avatar>
-        <Typography component="h1" variant="h5"> {APP_NAME} </Typography>
-        <Box component="form" sx={{ mt: 1 }} borderColor={"white"}>
-          <TextFieldRaad
-            InputLabelProps={{ style: { color: "white" } }}
-            label={translate('login.email')}
-            type="text"
-            fullWidth
-            autoComplete="current-password"
-            margin="normal"
-            inputProps={{
-              style: {
-                color: 'white',
-                borderColor: "white",
-              }
+    return (
+        <Box
+            sx={{
+                minHeight: '100dvh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                px: 2,
+                py: 4,
+                bgcolor: 'background.default',
             }}
-            error={errorSubmit}
-            name="email"
-            autoFocus
-            onChange={(e: any) => { setUser(e.target.value); }}
-          />
+        >
+            {/* Card */}
+            <Box
+                sx={{
+                    width: '100%',
+                    maxWidth: 400,
+                    bgcolor: 'background.paper',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    borderRadius: 4,
+                    p: { xs: 3, sm: 4 },
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.55)',
+                }}
+            >
+                {/* Logo + app name */}
+                <Stack alignItems="center" spacing={1.5} mb={4}>
+                    <Avatar
+                        alt={APP_NAME}
+                        src={getCorrectLogo(APP_NAME)}
+                        variant="rounded"
+                        sx={{
+                            width: 72,
+                            height: 72,
+                            borderRadius: '18px',
+                            bgcolor: 'transparent',
+                            border: '1px solid',
+                            borderColor: 'divider',
+                        }}
+                    />
+                    <Typography variant="h5" fontWeight={700} letterSpacing="-0.02em">
+                        {APP_NAME}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {translate('login.subtitle') || 'Sign in to your account'}
+                    </Typography>
+                </Stack>
 
-          <TextFieldRaad
-            InputLabelProps={{ style: { color: "#fffff0" } }}
-            margin="normal"
-            fullWidth
-            error={errorSubmit}
-            inputProps={{
-              style: {
-                color: 'white',
-                borderColor: "white",
-              }
-            }}
-            name="password"
-            label={translate('login.password')}
-            type="password"
-            onChange={(e: any) => { setPass(e.target.value); }}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') handleSubmit()
-            }}
-          />
-          <FormControlLabel
-            control={<Checkbox value={autologin} color="warning" />}
-            label={translate('login.remember')}
-            onChange={handleChangeAutologin}
-          />
-          <Button
-            fullWidth
-            style={{ background: colorLogo }}
-            variant="contained"
-            onClick={handleSubmit}
-            sx={{ mt: 3, mb: 2 }}
-          >
-            {translate('login.enter')}
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link style={{ color: "#ddd9d9" }} variant="body2" href="forget">
-                {translate('login.forgetPassword')}
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link style={{ color: "#ddd9d9" }} variant="body2" href="number">
-                {translate('login.loginWithCode')}
-              </Link>
-            </Grid>
-          </Grid>
+                {/* Form */}
+                <Stack spacing={2} component="form">
+                    <TextFieldRaad
+                        label={translate('login.email')}
+                        type="text"
+                        fullWidth
+                        autoComplete="email"
+                        error={errorSubmit}
+                        name="email"
+                        autoFocus
+                        onChange={(e: any) => {
+                            setUser(e.target.value);
+                            setErrorSubmit(false);
+                        }}
+                    />
+
+                    <TextFieldRaad
+                        fullWidth
+                        error={errorSubmit}
+                        helperText={errorSubmit ? translate('login.invalidCredentials') || 'Invalid email or password' : ''}
+                        name="password"
+                        label={translate('login.password')}
+                        type="password"
+                        onChange={(e: any) => {
+                            setPass(e.target.value);
+                            setErrorSubmit(false);
+                        }}
+                        onKeyPress={(e: any) => {
+                            if (e.key === 'Enter') handleSubmit();
+                        }}
+                    />
+
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={autologin}
+                                onChange={() => setAutologin(v => !v)}
+                                size="small"
+                            />
+                        }
+                        label={translate('login.remember')}
+                        sx={{ '& .MuiFormControlLabel-label': { fontSize: '0.85rem' } }}
+                    />
+
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        size="large"
+                        onClick={handleSubmit}
+                        sx={{ mt: 1, py: 1.4 }}
+                    >
+                        {translate('login.enter')}
+                    </Button>
+                </Stack>
+
+                <Divider sx={{ my: 3, borderColor: 'divider' }} />
+
+                {/* Links */}
+                <Stack direction="row" justifyContent="space-between">
+                    <Link href="forget" variant="body2" underline="hover">
+                        {translate('login.forgetPassword')}
+                    </Link>
+                    <Link href="number" variant="body2" underline="hover">
+                        {translate('login.loginWithCode')}
+                    </Link>
+                </Stack>
+            </Box>
         </Box>
-      </Box>
-    </>
-  )
-}
+    );
+};
+
 export default Login;

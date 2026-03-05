@@ -38,7 +38,7 @@ export async function GetNormative(callback: (n: NormativeList[]) => void) {
     if (token == "" || id == "") return;
     await fetch(URL_REQUEST + "normative?id=" + id + "&token=" + token, requestOptions)
         .then(response => response.json())
-        .catch(error => { })
+        .catch(_error => { })
         .then(response => {
             let r: NormativeList[] = response;
             callback(r);
@@ -50,7 +50,7 @@ export async function GetProfileInfo(callback: (n: ProfileInfo) => void) {
     if (token == "" || id == "") return;
     fetch(URL_REQUEST + "profile?id=" + id + "&token=" + token, requestOptions)
         .then(response => response.json())
-        .catch(error => { })
+        .catch(_error => { })
         .then(response => {
             let r: ProfileInfo = response;
             callback(r);

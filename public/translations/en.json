@@ -17,7 +17,8 @@
         "remember": "Remember me",
         "forgetPassword": "Forget password",
         "loginWithCode": "Enter using code",
-        "enter": "Enter"
+        "enter": "Enter",
+        "subtitle": "Sign in to your account"
     },
     "courts": {
         "bookingError": "It is not possible to proceed with your reservation, please check the dates and ensure you have not booked on that day previously.",

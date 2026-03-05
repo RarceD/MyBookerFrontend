@@ -1,89 +1,85 @@
-import { colorDarkCard, colorLogo } from '../../interfaces/colors';
 import { CourtType } from '../../interfaces/Courts';
-import { responsiveCtr } from '../../util/responsiveService';
 import './../components.css';
 
 export interface DateSelectorDto {
-  week: string,
-  day: string,
-  letter: string
+    week: string;
+    day: string;
+    letter: string;
 }
+
+const courtIcons: Partial<Record<CourtType, { src: string; alt: string }>> = {
+    [CourtType.PADEL]: { src: './images/raqueta2.png',          alt: 'Padel' },
+    [CourtType.TENIS]: { src: './images/imagesNuno/tenis.png',  alt: 'Tenis' },
+    [CourtType.SALAS]: { src: './images/imagesNuno/gym.png',    alt: 'Salas' },
+    [CourtType.OTHER]: { src: './images/imagesNuno/merendero.png', alt: 'Other' },
+};
+
 export default function DateSelectorRaad(props: {
-  iconType: CourtType,
-  dateSelectorDto: DateSelectorDto[],
-  selected: number,
-  setSelected: (n: number) => void
+    iconType: CourtType;
+    dateSelectorDto: DateSelectorDto[];
+    selected: number;
+    setSelected: (n: number) => void;
 }) {
-  if (responsiveCtr.IsMobileDevice())
-    return (
-      <div className="date-selector">
-        <div className="date-selector-icon">
-          <div>
-            {props.iconType == CourtType.PADEL ? <img alt="Padel" src={"./images/raqueta2.png"} width={"50"} height={"50"} /> : <></>}
-            {props.iconType == CourtType.TENIS ? <img alt="Tenis" src={"./images/imagesNuno/tenis.png"} width={"50"} height={"50"} /> : <></>}
-            {props.iconType == CourtType.SALAS ? <img alt="Other" src={"./images/imagesNuno/gym.png"} width={"60"} height={"70"} /> : <></>}
-            {props.iconType == CourtType.OTHER ? <img alt="Merendero" src={"./images/imagesNuno/merendero.png"} width={"50"} height={"55"} /> : <></>}
-          </div>
-        </div>
+    const icon = courtIcons[props.iconType];
 
-        <div className="date-selector-items">
-          {props.dateSelectorDto.map((item, idx) =>
-            <DateSelectorItemRaad
-              key={idx}
-              week={item.week} day={item.day} letter={item.letter} selected={props.selected == +item.day}
-              changeSelectedItem={() => props.setSelected(+item.day)}
-            />)}
-        </div>
-      </div>
-    );
-  else
     return (
-      <div>
-        <div className="date-selector-desktop">
-          <div className="date-selector-icon">
-            <div>
-              {props.iconType == CourtType.PADEL ? <img alt="Padel" src={"./images/raqueta2.png"} width={"50"} height={"50"} /> : <></>}
-              {props.iconType == CourtType.TENIS ? <img alt="Tenis" src={"./images/imagesNuno/tenis.png"} width={"50"} height={"50"} /> : <></>}
-              {props.iconType == CourtType.SALAS ? <img alt="Other" src={"./images/imagesNuno/gym.png"} width={"60"} height={"70"} /> : <></>}
-              {props.iconType == CourtType.OTHER ? <img alt="Merendero" src={"./images/imagesNuno/merendero.png"} width={"50"} height={"55"} /> : <></>}
+        <div className="date-selector">
+            {/* Sport icon */}
+            {icon && (
+                <div className="date-selector-icon">
+                    <div>
+                        <img alt={icon.alt} src={icon.src} width={36} height={36}
+                            style={{ objectFit: 'contain' }} />
+                    </div>
+                </div>
+            )}
+
+            {/* Scrollable date items */}
+            <div className="date-selector-items">
+                {props.dateSelectorDto.map((item, idx) => (
+                    <DateSelectorItemRaad
+                        key={idx}
+                        week={item.week}
+                        day={item.day}
+                        letter={item.letter}
+                        selected={props.selected === +item.day}
+                        changeSelectedItem={() => props.setSelected(+item.day)}
+                    />
+                ))}
             </div>
-          </div>
-
-          <div className="date-selector-items">
-            {props.dateSelectorDto.map((item, idx) =>
-              <DateSelectorItemRaad
-                key={idx}
-                week={item.week} day={item.day} letter={item.letter} selected={props.selected == +item.day}
-                changeSelectedItem={() => props.setSelected(+item.day)}
-              />)}
-          </div>
         </div>
-      </div>
     );
 }
-
 
 function DateSelectorItemRaad(props: {
-  week: string,
-  day: string,
-  letter: string,
-  selected?: boolean
-  changeSelectedItem: () => void
+    week: string;
+    day: string;
+    letter: string;
+    selected?: boolean;
+    changeSelectedItem: () => void;
 }) {
-  return (
-    <div className="date-selector-item">
-      <div className="date-selector-item-week">
-        {props.week}
-      </div>
-      <button
-        className="date-selector-item-day"
-        onClick={() => props.changeSelectedItem()}
-        style={{ backgroundColor: props.selected ? colorLogo : colorDarkCard }}>
-        {props.day}
-      </button>
-      <div className="date-selector-item-letter">
-        {props.letter}
-      </div>
-    </div>
-  );
+    return (
+        <div
+            className="date-selector-item"
+            onClick={() => props.changeSelectedItem()}
+            style={{
+                backgroundColor: props.selected
+                    ? 'rgba(255, 132, 0, 0.15)'
+                    : 'transparent',
+                outline: props.selected ? '1.5px solid #FF8400' : '1.5px solid transparent',
+            }}
+        >
+            <span className="date-selector-item-week">{props.week}</span>
+            <span
+                className="date-selector-item-day"
+                style={{
+                    color: props.selected ? '#FF8400' : 'var(--color-text-primary)',
+                    fontWeight: props.selected ? 800 : 700,
+                }}
+            >
+                {props.day}
+            </span>
+            <span className="date-selector-item-letter">{props.letter}</span>
+        </div>
+    );
 }

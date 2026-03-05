@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Typography } from '@mui/material';
+import { Box, Button, Divider, Modal, Typography } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Md5 } from 'ts-md5';
@@ -7,25 +7,46 @@ import { GetTokenId } from '../api/auth';
 import { GetProfileInfo } from '../api/request';
 import DialogRaad from '../components/DialogRaad';
 import ProfileCardRaad from '../components/profile/ProfileCardRaad';
-import { TextFieldRaadCustom } from "../components/profile/TextFieldRaadCustom";
+import { TextFieldRaadCustom } from '../components/profile/TextFieldRaadCustom';
 import { ProfileInfo } from '../interfaces/ProfileInfo';
-import { colorLogo } from '../interfaces/colors';
 import { ProfileToChange } from '../interfaces/profile';
 import { styleModalRaad } from '../util/util';
-import './pages.css';
 import { translate } from 'react-i18nify';
 import NoConnection from './NoConnection';
 
-const Profile = () => {
-    const [profile, setProfile] = useState<ProfileInfo>({ letter: "", name: "", plays: 1, urbaName: "", username: "" });
-    const [firstUser, setFirstUser] = useState<string>(profile.username);
-    const [secondUser, setSecondUser] = useState<string>("");
-    const [firstPassword, setFirstPassword] = useState<string>("");
-    const [secondPassword, setSecondPassword] = useState<string>("");
-    const [open, setOpen] = useState(false);
-    const modalMsg = useRef("");
-    const navigate = useNavigate();
+function SectionLabel({ children }: { children: React.ReactNode }) {
+    return (
+        <Typography
+            variant="caption"
+            sx={{
+                display: 'block',
+                fontWeight: 600,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: 'text.secondary',
+                mb: 1.5,
+            }}
+        >
+            {children}
+        </Typography>
+    );
+}
 
+const Profile = () => {
+    const [profile, setProfile] = useState<ProfileInfo>({
+        letter: '',
+        name: '',
+        plays: 1,
+        urbaName: '',
+        username: '',
+    });
+    const [firstUser, setFirstUser] = useState<string>(profile.username);
+    const [secondUser, setSecondUser] = useState<string>('');
+    const [firstPassword, setFirstPassword] = useState<string>('');
+    const [secondPassword, setSecondPassword] = useState<string>('');
+    const [open, setOpen] = useState(false);
+    const modalMsg = useRef('');
+    const navigate = useNavigate();
     const [openModalError, setOpenModalError] = useState(false);
     const [openModalOk, setOpenModalOk] = useState(false);
 
@@ -33,134 +54,143 @@ const Profile = () => {
         const [token, id] = GetTokenId();
         const data: ProfileToChange = {
             id: +id,
-            password: new Md5().appendStr(firstPassword).end()?.toString() ?? "",
-            token: token == null ? "" : token,
-            username: firstUser != profile.username ? firstUser : ""
-        }
+            password: new Md5().appendStr(firstPassword).end()?.toString() ?? '',
+            token: token ?? '',
+            username: firstUser !== profile.username ? firstUser : '',
+        };
         updateUserPost(data, (response) => {
-            let r: any = response;
+            const r: any = response;
             if (r.status === 200) {
                 setOpenModalOk(true);
-                setTimeout(() => {
-                    setOpenModalOk(false);
-                    navigate("/");
-                }, 3500)
-            }
-            else {
+                setTimeout(() => { setOpenModalOk(false); navigate('/'); }, 3500);
+            } else {
                 setOpenModalError(true);
-                setTimeout(() => {
-                    setOpenModalError(false);
-                }, 3500)
+                setTimeout(() => setOpenModalError(false), 3500);
             }
         });
     };
 
     const HandlerSaveNewValue = () => {
-        let userChanged, passwordChanged = false;
+        const userChanged =
+            firstUser === secondUser && firstUser !== '' && firstUser !== profile.username;
+        const passwordChanged = firstPassword === secondPassword && firstPassword !== '';
 
-        if ((firstUser == secondUser) && (firstUser != "") && (firstUser != profile.username))
-            userChanged = true;
-
-        if ((firstPassword == secondPassword) && (firstPassword != ""))
-            passwordChanged = true;
-
-        if (userChanged && passwordChanged)
-            modalMsg.current = translate('profile.surePassEmailChange');
-        else if (userChanged && !passwordChanged)
-            modalMsg.current = translate('profile.sureEmailChange');
-        else if (!userChanged && passwordChanged)
-            modalMsg.current = translate('profile.surePassChange');
-        else
-            return
-
+        if (userChanged && passwordChanged) modalMsg.current = translate('profile.surePassEmailChange');
+        else if (userChanged) modalMsg.current = translate('profile.sureEmailChange');
+        else if (passwordChanged) modalMsg.current = translate('profile.surePassChange');
+        else return;
 
         setOpen(true);
-    }
+    };
 
-    useEffect(() => {
-        GetProfileInfo((n: ProfileInfo) => setProfile(n));
-    }, [])
+    useEffect(() => { GetProfileInfo((n: ProfileInfo) => setProfile(n)); }, []);
+    useEffect(() => { setFirstUser(profile.username); }, [profile]);
 
-    useEffect(() => {
-        setFirstUser(profile.username)
-    }, [profile])
+    if (profile.name === '') return <NoConnection />;
 
-    if (profile.name === "") {
-        return <NoConnection />
-    }
     return (
-        <>
-            <div style={{ marginTop: 80, marginBottom: 120, marginLeft: 20, marginRight: 20 }}>
-                <ProfileCardRaad name={profile.name} urbaName={profile.urbaName} numberPlays={profile.plays} />
-                <h4>
-                    {firstUser !== profile.username ? translate('profile.changeEmailHeader') : translate('profile.emailHeader')}
-                </h4>
+        <Box sx={{ pt: '80px', pb: '80px', px: 2 }}>
+            {/* Profile card */}
+            <ProfileCardRaad
+                name={profile.name}
+                urbaName={profile.urbaName}
+                numberPlays={profile.plays}
+            />
+
+            {/* Email section */}
+            <Box
+                sx={{
+                    bgcolor: 'background.paper',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    borderRadius: 3,
+                    p: 2.5,
+                    mb: 2,
+                }}
+            >
+                <SectionLabel>
+                    {firstUser !== profile.username
+                        ? translate('profile.changeEmailHeader')
+                        : translate('profile.emailHeader')}
+                </SectionLabel>
                 <TextFieldRaadCustom
                     value={firstUser}
-                    label={firstUser == profile.username ? translate('profile.email') : translate('profile.newEmail')}
-                    onChange={(e: any) => { setFirstUser(e.target.value); }}
+                    label={
+                        firstUser === profile.username
+                            ? translate('profile.email')
+                            : translate('profile.newEmail')
+                    }
+                    onChange={(e: any) => setFirstUser(e.target.value)}
                 />
-                {firstUser !== profile.username &&
+                {firstUser !== profile.username && (
                     <TextFieldRaadCustom
                         value={secondUser}
                         label={translate('profile.repeateEmail')}
-                        onChange={(e: any) => { setSecondUser(e.target.value); }}
+                        onChange={(e: any) => setSecondUser(e.target.value)}
                     />
-                }
-                <h4>{translate('profile.passwordChange')} </h4>
+                )}
+            </Box>
+
+            {/* Password section */}
+            <Box
+                sx={{
+                    bgcolor: 'background.paper',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    borderRadius: 3,
+                    p: 2.5,
+                    mb: 3,
+                }}
+            >
+                <SectionLabel>{translate('profile.passwordChange')}</SectionLabel>
                 <TextFieldRaadCustom
                     value={firstPassword}
                     label={translate('profile.newPassword')}
                     type="password"
-                    onChange={(e: any) => { setFirstPassword(e.target.value); }}
+                    onChange={(e: any) => setFirstPassword(e.target.value)}
                 />
-                {firstPassword != '' &&
+                {firstPassword !== '' && (
                     <TextFieldRaadCustom
                         value={secondPassword}
                         type="password"
                         label={translate('profile.repeatePassword')}
-                        onChange={(e: any) => { setSecondPassword(e.target.value); }}
+                        onChange={(e: any) => setSecondPassword(e.target.value)}
                     />
-                }
-                <div style={{ textAlign: "center", marginTop: 20 }}>
-                    <Button variant="outlined" style={{ background: colorLogo, color: "white", borderRadius: "12px" }}
-                        onClick={() => HandlerSaveNewValue()}
-                    >
-                        {translate('profile.updateUser')}
-                    </Button>
-                </div>
-            </div>
+                )}
+            </Box>
 
-
-
-            <DialogRaad titleMsg={translate("profile.updateProfile")} longMsg={modalMsg.current} activate={open}
-                deactivate={function (): void {
-                    setOpen(false);
-                }} confirmHandler={function (): void {
-                    updateUser();
-                    setOpen(false);
-                }} />
-
-            <Modal
-                open={openModalOk}
+            {/* Save button */}
+            <Button
+                fullWidth
+                variant="contained"
+                size="large"
+                sx={{ py: 1.5 }}
+                onClick={HandlerSaveNewValue}
             >
+                {translate('profile.updateUser')}
+            </Button>
+
+            {/* Dialogs */}
+            <DialogRaad
+                titleMsg={translate('profile.updateProfile')}
+                longMsg={modalMsg.current}
+                activate={open}
+                deactivate={() => setOpen(false)}
+                confirmHandler={() => { updateUser(); setOpen(false); }}
+            />
+
+            <Modal open={openModalOk}>
                 <Box sx={styleModalRaad}>
-                    <Typography id="modal-modal-description" mx={{ xs: 12 }}>
-                        {translate('profile.successOnEdit')}
-                    </Typography>
+                    <Typography>{translate('profile.successOnEdit')}</Typography>
                 </Box>
             </Modal>
-            <Modal
-                open={openModalError}
-            >
+            <Modal open={openModalError}>
                 <Box sx={styleModalRaad}>
-                    <Typography id="modal-modal-description" mx={{ xs: 12 }}>
-                        {translate('profile.errorOnEdit')}
-                    </Typography>
+                    <Typography>{translate('profile.errorOnEdit')}</Typography>
                 </Box>
             </Modal>
-        </>
-    )
-}
+        </Box>
+    );
+};
 
 export default Profile;

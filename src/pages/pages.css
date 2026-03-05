@@ -1,28 +1,28 @@
-/* PROFILE STYLES: */
+/* ── Profile card ────────────────────────────────────────────────────────── */
 .card-profile {
-    height: 200px;
     width: 100%;
     text-align: center;
-    font-size: 25px;
 }
 
 .card-urb {
-    font-size: 13px;
-    color: '#b0b0b0';
+    font-size: 0.8rem;
+    color: var(--color-text-muted); /* was: color: '#b0b0b0' — string, not valid CSS */
     margin-top: 6px;
 }
 
 .card-plays {
-    font-size: 12px;
-    color: #a9a9a9;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
     margin-top: 10px;
 }
 
+/* ── Informative empty state ─────────────────────────────────────────────── */
 .informative-msg {
-    font-size: 12px;
-    color: #a9a9a9;
-    width: 200px;
-    height: 100px;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    max-width: 240px;
+    margin: 0 auto;
     margin-top: 20%;
     text-align: center;
+    line-height: 1.6;
 }

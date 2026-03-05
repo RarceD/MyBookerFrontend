@@ -1,4 +1,4 @@
-import TextFieldRaad from "../TextFieldRaad";
+import TextFieldRaad from '../TextFieldRaad';
 
 interface TextFieldRaadCustomProps {
     value: string;
@@ -6,6 +6,7 @@ interface TextFieldRaadCustomProps {
     type?: string;
     onChange: (e: any) => void;
 }
+
 export const TextFieldRaadCustom: React.FC<TextFieldRaadCustomProps> = ({
     value,
     label,
@@ -13,15 +14,8 @@ export const TextFieldRaadCustom: React.FC<TextFieldRaadCustomProps> = ({
     onChange,
 }) => (
     <TextFieldRaad
-        style={{ marginBottom: "18px" }}
-        InputLabelProps={{ style: { color: "grey" } }}
         fullWidth
-        inputProps={{
-            style: {
-                color: "white",
-                borderColor: "white",
-            },
-        }}
+        sx={{ mb: 2 }}
         value={value}
         label={label}
         type={type}

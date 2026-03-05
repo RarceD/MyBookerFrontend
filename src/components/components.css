@@ -1,125 +1,243 @@
-.header {
-  background-color: var(--dark-header-footer) !important;
+/* ── App content wrapper ─────────────────────────────────────────────────── */
+.app-content {
+  width: 100%;
+  max-width: 100%;
 }
 
+@media (min-width: 993px) {
+  .app-content {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--sp-4);
+    padding-right: var(--sp-4);
+  }
+}
+
+@media (min-width: 1280px) {
+  .app-content {
+    max-width: 720px;
+  }
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.header {
+  background-color: var(--color-surface) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+/* ── Section labels ──────────────────────────────────────────────────────── */
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin: var(--sp-6) 0 var(--sp-3) var(--sp-4);
+}
+
+/* ── Community text (legacy) ─────────────────────────────────────────────── */
 .comunity-text {
-  color: var(--text);
-  font-size: 22px;
-  align-items: center;
-  margin-top: 24px;
-  margin-left: 10px;
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: var(--sp-6);
+  margin-left: var(--sp-4);
+  margin-bottom: var(--sp-3);
 }
 
 .comunity-text-center {
-  color: var(--text);
-  font-size: 22px;
-  align-items: center;
-  margin-top: -20px;
-  margin-left: 10px;
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: var(--sp-3);
+  margin-left: var(--sp-4);
+  margin-bottom: var(--sp-3);
 }
 
+/* ── Schedule / hour grid ────────────────────────────────────────────────── */
 .hours-courts {
-  margin: 2px;
   display: grid;
-  font-size: 18px;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-2);
+  padding: 0 var(--sp-3);
 }
 
 .hours-courts div {
-  display: block;
-  background-color: var(--dark-card);
-  color: var(--text);
-  margin: 5px;
-  height: 35px;
-  width: 60px;
+  display: flex;
   align-items: center;
-  text-align: center;
-  padding-top: 10px;
-  border-radius: 10px;
+  justify-content: center;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  height: 44px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.1s;
+  user-select: none;
 }
 
+.hours-courts div:hover {
+  border-color: var(--color-border-strong);
+  background-color: var(--color-card-elevated);
+}
+
+.hours-courts div:active {
+  transform: scale(0.96);
+}
+
+/* responsive columns: 5 on small phones, 6 on tablets+ */
+@media (min-width: 480px) {
+  .hours-courts {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .hours-courts {
+    grid-template-columns: repeat(6, 1fr);
+    padding: 0 var(--sp-4);
+  }
+  .hours-courts div {
+    height: 48px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 993px) {
+  .hours-courts {
+    grid-template-columns: repeat(7, 1fr);
+    padding: 0 var(--sp-6);
+    gap: var(--sp-3);
+  }
+  .hours-courts div {
+    height: 52px;
+  }
+}
+
+/* ─── Legacy desktop class aliases → same as .hours-courts now ─────────── */
 .hours-courts-desktop {
-  margin: 2px;
   display: grid;
-  font-size: 18px;
-  margin-left: 200px;
-  margin-right: 200px;
-  grid-template-columns: repeat(6, auto);
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--sp-3);
+  padding: 0 var(--sp-4);
 }
 
 .hours-courts-desktop div {
-  display: block;
-  background-color: var(--dark-card);
-  color: var(--text);
-  margin: 10px;
-  height: 35px;
-  width: 80%;
+  display: flex;
   align-items: center;
-  text-align: center;
-  padding-top: 10px;
-  border-radius: 10px;
+  justify-content: center;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  height: 48px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.1s;
 }
 
+/* ── Date selector ───────────────────────────────────────────────────────── */
+.date-selector,
 .date-selector-desktop {
   display: flex;
-  background-color: var(--dark-card);
-  border-radius: 20px;
-  margin-top: 10px;
-  width: 80%;
-  margin-left: 200px;
-  margin-right: 200px;
-}
-
-.date-selector {
-  display: flex;
-  background-color: var(--dark-card);
-  border-radius: 20px;
-  margin-top: 10px;
+  align-items: center;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  margin-top: var(--sp-2);
+  overflow: hidden;
 }
 
 .date-selector-items {
   display: flex;
-  border: 1px solid var(--dark-card);
-  border-radius: 10px;
+  overflow-x: auto;
   overflow-y: hidden;
-  overflow-x: unset;
   scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  gap: var(--sp-1);
+  padding: var(--sp-2) var(--sp-3);
+  flex: 1;
+}
+
+.date-selector-items::-webkit-scrollbar {
+  display: none;
 }
 
 .date-selector-item {
-  height: 80px;
-  min-width: 50px;
+  height: 72px;
+  min-width: 52px;
   text-align: center;
-  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-1);
+  border-radius: var(--radius-md);
+  padding: var(--sp-1) var(--sp-2);
+  transition: background-color 0.15s;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.date-selector-item:hover {
+  background-color: var(--color-card-elevated);
 }
 
 .date-selector-item-week {
-  font-size: 12px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 
 .date-selector-item-day {
-  font-size: 30px;
-  border: 0px solid var(--dark-card);
-  border-radius: 80px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-text-primary);
+  border-radius: var(--radius-full);
   cursor: pointer;
+  transition: color 0.15s;
 }
 
 .date-selector-item-letter {
-  font-size: 12px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
 }
 
 .date-selector-icon {
   display: flex;
-  width: 80px;
   align-items: center;
-  text-align: center;
+  justify-content: center;
+  width: 56px;
+  flex-shrink: 0;
+  padding: var(--sp-2);
 }
 
 .date-selector-icon div {
-  display: inline;
-  width: 80px;
-  vertical-align: center;
-  border: 1px solid var(--text);
-  margin-left: 10px;
-  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-card-elevated);
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.date-selector-icon div:hover {
+  border-color: var(--color-accent);
+  background-color: rgba(255, 132, 0, 0.1);
 }
