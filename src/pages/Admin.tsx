@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import ResponsiveHandler from "../components/ResponsiveHandler";
 import { deleteClientAsAnAdmin } from "../api/actions";
 import { styleModalRaad } from "../util/util";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const Admin = () => {
     const [itemToSearch, setItemToSearch] = useState<string>('');
@@ -47,7 +48,7 @@ const Admin = () => {
     return (
         <ResponsiveHandler
             component={() =>
-                <>
+                <div style={{ padding: 20 }}>
                     <h1>Search For</h1>
 
                     <RadioGroup value={categoryToSearch} style={{ color: colorLetter }}
@@ -72,6 +73,10 @@ const Admin = () => {
                         {foundResults.map((item) => <ListItem disablePadding key={item.code}>
                             <ListItemButton>
                                 <ListItemText primary={`${item.code} - ${item.email}`} />
+                                <Button endIcon={<ContentCopyIcon />} onClick={async (e) => {
+                                  e.stopPropagation();
+                                  await window.navigator.clipboard.writeText(item.email);
+                                }} />
                             </ListItemButton>
                         </ListItem>
                         )}
@@ -93,7 +98,7 @@ const Admin = () => {
                             </Typography>
                         </Box>
                     </Modal>
-                </>
+                </div>
             }
         />
     )
