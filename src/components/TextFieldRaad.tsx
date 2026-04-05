@@ -1,29 +1,9 @@
 import { TextField } from "@mui/material";
-import { withStyles } from '@mui/styles'
+import { styled } from "@mui/material/styles";
 
-const TextFieldRaad = withStyles({
-    root: {
-        '& label.Mui-focused': {
-            color: 'white',
-        },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: 'white',
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: 'white',
-            },
-            '&:hover fieldset': {
-                borderColor: 'white',
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: 'white',
-            },
-            "&.Mui-focused": {
-                color: "red"
-            }
-        },
-    },
-})(TextField);
+// Replaces the deprecated withStyles()(TextField) pattern.
+// The MUI theme already applies proper field styles; this component
+// is kept as a named export for backward-compat with existing imports.
+const TextFieldRaad = styled(TextField)({});
 
 export default TextFieldRaad;

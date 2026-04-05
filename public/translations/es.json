@@ -17,7 +17,8 @@
         "remember": "Recordarme",
         "forgetPassword": "¿He olvidado la contraseña?",
         "loginWithCode": "Acceder con código",
-        "enter": "Acceder"
+        "enter": "Acceder",
+        "subtitle": "Inicie sesión"
     },
     "courts": {
         "bookingError": "No es posible llevar a cabo su reserva, por favor compruebe las fechas y que no haya reservado previamente ese día.",

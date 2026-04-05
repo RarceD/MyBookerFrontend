@@ -1,5 +1,4 @@
 import { DateSelectorDto } from "../components/courts/DateSelectorRaad";
-import { colorBackground } from "../interfaces/colors";
 import { Court, CourtType } from "../interfaces/Courts";
 
 export const daysOfTheWeek: {
@@ -124,13 +123,16 @@ export function getMaxSliderValues(courts: Court[], selectedItem: any) {
 
 export const styleModalRaad = {
     position: 'absolute' as 'absolute',
-    color: "white",
+    color: 'text.primary',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: colorBackground,
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+    width: { xs: '90vw', sm: 400 },
+    maxWidth: 400,
+    bgcolor: '#272a35',
+    border: '1px solid',
+    borderColor: '#2c2f3e',
+    borderRadius: 3,
+    boxShadow: '0 24px 64px rgba(0,0,0,0.75)',
+    p: 3,
 };

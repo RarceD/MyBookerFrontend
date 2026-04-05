@@ -5,49 +5,85 @@ import PersonIcon from '@mui/icons-material/Person';
 import SportsBaseballIcon from '@mui/icons-material/SportsBaseball';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { PageType, PageTypeNumber } from '../interfaces/pages';
-import { colorLetter, colorLogo } from '../interfaces/colors';
 import { useState } from 'react';
 import { translate } from 'react-i18nify';
+import { Box } from '@mui/material';
 
 interface FooterProps {
-    pageToShow: PageType
-    setPageToShow: (t: PageTypeNumber) => void
+    pageToShow: PageType;
+    setPageToShow: (t: PageTypeNumber) => void;
 }
+
 export default function Footer(props: FooterProps) {
-    const [value, setValue] = useState(0);
-    const calculateColor = (idx: number): string => value == idx ? colorLogo : colorLetter;
-    const navigationList = [
+    const [value, setValue] = useState<number>(0);
+
+    const navItems = [
         {
-            label: translate('components.footer.books'),
-            comp: <RestoreIcon style={{ color: calculateColor(0) }} />
+            label: () => translate('components.footer.books'),
+            icon: <RestoreIcon sx={{ fontSize: 22 }} />,
         },
         {
-            label: translate('components.footer.signIn'),
-            comp: <SportsBaseballIcon style={{ color: calculateColor(1) }} />
+            label: () => translate('components.footer.signIn'),
+            icon: <SportsBaseballIcon sx={{ fontSize: 22 }} />,
         },
         {
-            label: translate('components.footer.profile'),
-            comp: <PersonIcon style={{ color: calculateColor(2) }} />
+            label: () => translate('components.footer.profile'),
+            icon: <PersonIcon sx={{ fontSize: 22 }} />,
         },
         {
-            label: translate('components.footer.normative'),
-            comp: <MenuBookIcon style={{ color: calculateColor(3) }} />
-        }
-    ]
+            label: () => translate('components.footer.normative'),
+            icon: <MenuBookIcon sx={{ fontSize: 22 }} />,
+        },
+    ];
+
     return (
-        <div style={{ width: "100%", position: "fixed", bottom: 0, left: 0 }}>
+        <Box
+            sx={{
+                width: '100%',
+                position: 'fixed',
+                bottom: 0,
+                left: 0,
+                zIndex: 1200,
+            }}
+        >
             <BottomNavigation
-                style={{ backgroundColor: '#202123' }}
                 showLabels
                 value={value}
-                onChange={(_event, newValue) => {
-                    let v: PageTypeNumber = newValue;
-                    props.setPageToShow(v);
+                onChange={(_event, newValue: number) => {
+                    props.setPageToShow(newValue as PageTypeNumber);
                     setValue(newValue);
                 }}
+                sx={{
+                    bgcolor: 'background.paper',
+                    borderTop: '1px solid',
+                    borderColor: 'divider',
+                    height: 64,
+                    '& .MuiBottomNavigationAction-root': {
+                        color: 'text.disabled',
+                        minWidth: 56,
+                        py: 1,
+                        transition: 'color 0.2s',
+                    },
+                    '& .MuiBottomNavigationAction-root.Mui-selected': {
+                        color: 'primary.main',
+                    },
+                }}
             >
-                {navigationList.map((item, idx) => <BottomNavigationAction key={idx} label={item.label} style={{ color: calculateColor(idx) }} icon={item.comp} />)}
+                {navItems.map((item, idx) => (
+                    <BottomNavigationAction
+                        key={idx}
+                        label={item.label()}
+                        icon={item.icon}
+                        sx={{
+                            '& .MuiBottomNavigationAction-label': {
+                                fontSize: '0.65rem',
+                                fontWeight: value === idx ? 600 : 400,
+                                mt: '2px',
+                            },
+                        }}
+                    />
+                ))}
             </BottomNavigation>
-        </div>
+        </Box>
     );
 }

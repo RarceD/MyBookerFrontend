@@ -1,22 +1,108 @@
+/* ── Google Fonts: Inter ─────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ── Design tokens ───────────────────────────────────────────────────────── */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Surfaces */
+  --color-base:             #0f1117;
+  --color-surface:          #16181f;
+  --color-card:             #1e2028;
+  --color-card-elevated:    #272a35;
+
+  /* Brand */
+  --color-accent:           #FF8400;
+  --color-accent-light:     #ffb347;
+  --color-accent-dim:       #7a3e00;
+
+  /* Text */
+  --color-text-primary:     #f0f0f5;
+  --color-text-secondary:   #a0a3b1;
+  --color-text-muted:       #5c6070;
+
+  /* Borders */
+  --color-border:           #2c2f3e;
+  --color-border-strong:    #3d4154;
+
+  /* Semantic */
+  --color-success:          #22c55e;
+  --color-error:            #ef4444;
+  --color-warning:          #f59e0b;
+
+  /* Spacing scale */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+
+  /* Border radii */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  18px;
+  --radius-xl:  24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.45);
+  --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.6);
+
+  /* Legacy aliases (for gradual migration) */
+  --dark-header-footer: var(--color-surface);
+  --background-app:     var(--color-base);
+  --dark-card:          var(--color-card);
+  --details:            #FAE69E;
+  --text:               var(--color-text-primary);
+}
+
+/* ── Global reset & base ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  font-size: 16px;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: var(--background-app);
-
+  color: var(--color-text-primary);
+  background-color: var(--color-base);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
-  /* Custom colors app: */
-  --dark-header-footer: #121212;
-  --background-app: #2a2929;
-  --dark-card: #545151;
-  --details: #FAE69E;
+  color-scheme: dark;
 }
 
+/* ── Scrollbar styling ───────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ── Selection ───────────────────────────────────────────────────────────── */
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
