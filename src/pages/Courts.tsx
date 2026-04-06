@@ -131,7 +131,7 @@ const Courts = () => {
     if (courts.length === 0) return <NoConnection />;
 
     return (
-        <Box sx={{ pt: '80px', pb: '80px' }}>
+        <Box sx={{ paddingTop: 'var(--header-height)', pb: '80px' }}>
 
             {/* Court type tabs (if multiple types exist) */}
             {areThereMultipleCourtTypes(courts) ? (

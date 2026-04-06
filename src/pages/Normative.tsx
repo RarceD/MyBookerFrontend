@@ -12,7 +12,7 @@ const Normative = () => {
     }, []);
 
     return (
-        <Box sx={{ pt: '80px', pb: '80px', px: 2 }}>
+        <Box sx={{ paddingTop: 'var(--header-height)', pb: '80px', px: 2 }}>
             {normative.map((item, idx) => (
                 <NormativeAccordion
                     key={idx}

@@ -54,7 +54,7 @@ const Comunity = () => {
     const otherBooks = books.filter((item: ClientBooks) => item.clientId !== +myClientId);
 
     return (
-        <Box sx={{ pt: '80px', pb: '80px' }}>
+        <Box sx={{ paddingTop: 'var(--header-height)', pb: '80px' }}>
             {/* My bookings */}
             <SectionLabel>{translate('community.myBooks')}</SectionLabel>
             <Box sx={{ px: 2 }}>
