@@ -51,6 +51,9 @@
   --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.45);
   --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.6);
 
+  /* Header height: toolbar (64px) + Android/iOS status bar safe area + 8px breathing room */
+  --header-height: calc(64px + env(safe-area-inset-top, 0px) + 8px);
+
   /* Legacy aliases (for gradual migration) */
   --dark-header-footer: var(--color-surface);
   --background-app:     var(--color-base);
