@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { createBrowserRouter, RouterProvider, useNavigate } from 'react-router-dom'
 import { GetTokenId } from './api/auth'
 import Footer from './components/Footer'
@@ -143,6 +143,7 @@ function ChangeTitleIconFromPage() {
 }
 
 function App() {
+  const [translationsLoaded, setTranslationsLoaded] = useState(false);
 
   // Check http or https
   let urlPath = window.location.href;
@@ -151,10 +152,15 @@ function App() {
 
   // Control page name:
   ChangeTitleIconFromPage()
-  
-  // Set translations
-  initTranslationModule();
 
-  return <RouterProvider router={router} />
+  useEffect(() => {
+    initTranslationModule()
+      .then(() => setTranslationsLoaded(true))
+      .catch(console.error);
+  }, []);
+
+  return translationsLoaded
+    ? <RouterProvider router={router} />
+    : <NoConnection />;
 }
 export default App

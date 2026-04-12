@@ -18,7 +18,7 @@ export const initTranslationModule = async () => {
 
     // Detect language from the browser:
     const userLang: string = navigator.language;
-    //userLang == 'es-ES' ? setLocale('es') : setLocale('en');
+    userLang == 'es-ES' ? setLocale('es') : setLocale('en');
     setLocale('es')
 }
 
