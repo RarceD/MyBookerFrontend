@@ -2,6 +2,7 @@
 android/
 ios/
 publishStore/*
+.env
 
 
 # Logs
@@ -15,6 +16,7 @@ lerna-debug.log*
 
 node_modules
 dist
+dist.zip
 dist-ssr
 *.local
 

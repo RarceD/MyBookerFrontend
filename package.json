@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "update-version": "node update-version.js"
   },
   "dependencies": {
     "@capacitor/android": "^7.6.1",
