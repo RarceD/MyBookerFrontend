@@ -1,4 +1,5 @@
-import { Box, Button, Divider, Modal, Typography } from '@mui/material';
+import { Alert, Box, Button, Modal, Stack, Typography } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Md5 } from 'ts-md5';
@@ -44,12 +45,31 @@ const Profile = () => {
     const [secondUser, setSecondUser] = useState<string>('');
     const [firstPassword, setFirstPassword] = useState<string>('');
     const [secondPassword, setSecondPassword] = useState<string>('');
+    const [editingEmail, setEditingEmail] = useState<boolean>(false);
+    const [editingPassword, setEditingPassword] = useState<boolean>(false);
+    const [emailError, setEmailError] = useState<string>('');
+    const [passwordError, setPasswordError] = useState<string>('');
     const [open, setOpen] = useState(false);
     const modalMsg = useRef('');
     const navigate = useNavigate();
     const [openModalError, setOpenModalError] = useState(false);
     const [openModalOk, setOpenModalOk] = useState(false);
 
+    const cancelEmailEdit = () => {
+        setFirstUser(profile.username);
+        setSecondUser('');
+        setEmailError('');
+        setEditingEmail(false);
+    };
+    const cancelPasswordEdit = () => {
+        setFirstPassword('');
+        setSecondPassword('');
+        setPasswordError('');
+        setEditingPassword(false);
+    };
+
+    // Sends the profile change. Same payload the app already used in production:
+    // the username only when it actually changed, and the (MD5) password.
     const updateUser = () => {
         const [token, id] = GetTokenId();
         const data: ProfileToChange = {
@@ -70,16 +90,20 @@ const Profile = () => {
         });
     };
 
-    const HandlerSaveNewValue = () => {
-        const userChanged =
-            firstUser === secondUser && firstUser !== '' && firstUser !== profile.username;
-        const passwordChanged = firstPassword === secondPassword && firstPassword !== '';
+    const handlerSaveEmail = () => {
+        if (firstUser.trim() === '') { setEmailError(translate('profile.errorEmailEmpty')); return; }
+        if (secondUser.trim() === '' || firstUser !== secondUser) { setEmailError(translate('profile.errorEmailMismatch')); return; }
+        if (firstUser === profile.username) { setEmailError(translate('profile.errorEmailSame')); return; }
+        setEmailError('');
+        modalMsg.current = translate('profile.sureEmailChange');
+        setOpen(true);
+    };
 
-        if (userChanged && passwordChanged) modalMsg.current = translate('profile.surePassEmailChange');
-        else if (userChanged) modalMsg.current = translate('profile.sureEmailChange');
-        else if (passwordChanged) modalMsg.current = translate('profile.surePassChange');
-        else return;
-
+    const handlerSavePassword = () => {
+        if (firstPassword === '') { setPasswordError(translate('profile.errorPasswordEmpty')); return; }
+        if (secondPassword === '' || firstPassword !== secondPassword) { setPasswordError(translate('profile.errorPasswordMismatch')); return; }
+        setPasswordError('');
+        modalMsg.current = translate('profile.surePassChange');
         setOpen(true);
     };
 
@@ -109,25 +133,52 @@ const Profile = () => {
                 }}
             >
                 <SectionLabel>
-                    {firstUser !== profile.username
+                    {editingEmail
                         ? translate('profile.changeEmailHeader')
                         : translate('profile.emailHeader')}
                 </SectionLabel>
-                <TextFieldRaadCustom
-                    value={firstUser}
-                    label={
-                        firstUser === profile.username
-                            ? translate('profile.email')
-                            : translate('profile.newEmail')
-                    }
-                    onChange={(e: any) => setFirstUser(e.target.value)}
-                />
-                {firstUser !== profile.username && (
-                    <TextFieldRaadCustom
-                        value={secondUser}
-                        label={translate('profile.repeateEmail')}
-                        onChange={(e: any) => setSecondUser(e.target.value)}
-                    />
+
+                {!editingEmail ? (
+                    <>
+                        <Typography variant="body1" sx={{ mb: 2, wordBreak: 'break-all' }}>
+                            {profile.username}
+                        </Typography>
+                        <Button
+                            variant="outlined"
+                            startIcon={<EditIcon />}
+                            onClick={() => setEditingEmail(true)}
+                        >
+                            {translate('profile.editEmail')}
+                        </Button>
+                    </>
+                ) : (
+                    <>
+                        <TextFieldRaadCustom
+                            value={firstUser}
+                            label={translate('profile.newEmail')}
+                            error={emailError !== ''}
+                            onChange={(e: any) => { setFirstUser(e.target.value); if (emailError) setEmailError(''); }}
+                        />
+                        <TextFieldRaadCustom
+                            value={secondUser}
+                            label={translate('profile.repeateEmail')}
+                            error={emailError !== ''}
+                            onChange={(e: any) => { setSecondUser(e.target.value); if (emailError) setEmailError(''); }}
+                        />
+                        {emailError && (
+                            <Alert severity="error" variant="outlined" sx={{ mb: 2 }}>
+                                {emailError}
+                            </Alert>
+                        )}
+                        <Stack direction="row" spacing={2} alignItems="center">
+                            <Button variant="contained" onClick={handlerSaveEmail}>
+                                {translate('profile.updateUser')}
+                            </Button>
+                            <Button variant="text" color="inherit" onClick={cancelEmailEdit}>
+                                {translate('components.cancel')}
+                            </Button>
+                        </Stack>
+                    </>
                 )}
             </Box>
 
@@ -143,34 +194,49 @@ const Profile = () => {
                 }}
             >
                 <SectionLabel>{translate('profile.passwordChange')}</SectionLabel>
-                <TextFieldRaadCustom
-                    value={firstPassword}
-                    label={translate('profile.newPassword')}
-                    type="password"
-                    onChange={(e: any) => setFirstPassword(e.target.value)}
-                />
-                {firstPassword !== '' && (
-                    <TextFieldRaadCustom
-                        value={secondPassword}
-                        type="password"
-                        label={translate('profile.repeatePassword')}
-                        onChange={(e: any) => setSecondPassword(e.target.value)}
-                    />
+
+                {!editingPassword ? (
+                    <Button
+                        variant="outlined"
+                        startIcon={<EditIcon />}
+                        onClick={() => setEditingPassword(true)}
+                    >
+                        {translate('profile.editPassword')}
+                    </Button>
+                ) : (
+                    <>
+                        <TextFieldRaadCustom
+                            value={firstPassword}
+                            label={translate('profile.newPassword')}
+                            type="password"
+                            error={passwordError !== ''}
+                            onChange={(e: any) => { setFirstPassword(e.target.value); if (passwordError) setPasswordError(''); }}
+                        />
+                        <TextFieldRaadCustom
+                            value={secondPassword}
+                            type="password"
+                            label={translate('profile.repeatePassword')}
+                            error={passwordError !== ''}
+                            onChange={(e: any) => { setSecondPassword(e.target.value); if (passwordError) setPasswordError(''); }}
+                        />
+                        {passwordError && (
+                            <Alert severity="error" variant="outlined" sx={{ mb: 2 }}>
+                                {passwordError}
+                            </Alert>
+                        )}
+                        <Stack direction="row" spacing={2} alignItems="center">
+                            <Button variant="contained" onClick={handlerSavePassword}>
+                                {translate('profile.updateUser')}
+                            </Button>
+                            <Button variant="text" color="inherit" onClick={cancelPasswordEdit}>
+                                {translate('components.cancel')}
+                            </Button>
+                        </Stack>
+                    </>
                 )}
             </Box>
 
-            {/* Save button */}
-            <Button
-                fullWidth
-                variant="contained"
-                size="large"
-                sx={{ py: 1.5 }}
-                onClick={HandlerSaveNewValue}
-            >
-                {translate('profile.updateUser')}
-            </Button>
-
-            {/* Dialogs */}
+            {/* Confirm dialog + result modals */}
             <DialogRaad
                 titleMsg={translate('profile.updateProfile')}
                 longMsg={modalMsg.current}

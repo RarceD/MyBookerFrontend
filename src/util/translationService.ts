@@ -1,25 +1,18 @@
 import { setTranslations, setLocale } from 'react-i18nify';
+import en from '../translations/en.json';
+import es from '../translations/es.json';
 
-const fetchTranslations = async (locale: string) => {
-    try {
-        const response = await fetch(`/translations/${locale}.json`);
-        const translations = await response.json();
-        return translations;
-    } catch (error) {
-        console.error(`Error loading ${locale} translations:`, error);
-    }
-};
+// Translations are bundled with the app (imported, not fetched at runtime) so
+// the code and its texts always ship together. This prevents the raw keys from
+// ever showing up because of a cache mismatch between the JS and a separate
+// translations file.
+export const initTranslationModule = () => {
+    setTranslations({ en, es });
 
-export const initTranslationModule = async () => {
-    setTranslations({
-        en: await fetchTranslations('en'),
-        es: await fetchTranslations('es')
-    });
-
-    // Detect language from the browser:
+    // Detect language from the browser (currently forced to Spanish):
     const userLang: string = navigator.language;
-    userLang == 'es-ES' ? setLocale('es') : setLocale('en');
-    setLocale('es')
-}
+    userLang === 'es-ES' ? setLocale('es') : setLocale('en');
+    setLocale('es');
+};
 
 export const setTranslationLanguage = (locale: 'es' | 'en') => setLocale(locale);

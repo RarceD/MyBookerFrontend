@@ -18,7 +18,8 @@
         "forgetPassword": "¿He olvidado la contraseña?",
         "loginWithCode": "Acceder con código",
         "enter": "Acceder",
-        "subtitle": "Inicie sesión"
+        "subtitle": "Inicie sesión",
+        "invalidCredentials": "Correo o contraseña incorrectos"
     },
     "courts": {
         "bookingError": "No es posible llevar a cabo su reserva, por favor compruebe las fechas y que no haya reservado previamente ese día.",
@@ -55,25 +56,36 @@
         "repeateEmail": "Repetición de correo",
         "newPassword": "Nueva contraseña",
         "repeatePassword": "Repetición de contraseña",
+        "editEmail": "Editar correo",
+        "editPassword": "Editar contraseña",
         "updateUser": "Actualizar usuario",
+        "errorEmailEmpty": "Introduce el correo nuevo.",
+        "errorEmailMismatch": "Los correos no coinciden, revísalos.",
+        "errorEmailSame": "El correo es el mismo, no hay ningún cambio.",
+        "errorPasswordEmpty": "Introduce la contraseña nueva.",
+        "errorPasswordMismatch": "Las contraseñas no coinciden, revísalas.",
         "successOnEdit": "Sus datos han sido modificados con éxito.",
         "errorOnEdit": "No es posible modificar su correo o contraseña, pruebe más tarde.",
         "updateProfile": "Actualización perfil"
     },
     "create": {
         "email": "Correo:",
+        "repeateEmail": "Repite el correo:",
         "password": "Contraseña: ",
         "repeatePassword": "Repita contraseña:",
         "createNewUsers": "Creación de nuevos usuarios:",
         "createUser": "Crear Usuario",
         "return": "Volver",
         "notPossibleGeneric": "No es posible crear su cuenta, por favor use otro correo o pruebe más tarde. Sentimos las molestias.",
-        "notPossiblePass": "No es posible crear su cuenta, por favor verifique que la contraseña coincide en ambos casos."
+        "notPossiblePass": "No es posible crear su cuenta, por favor verifique que la contraseña coincide en ambos casos.",
+        "notPossibleEmail": "Los correos no coinciden, por favor verifique que ha escrito el mismo en ambos campos."
     },
     "forget": {
         "forgetMyPassword": "He olvidado mi contraseña",
+        "informativeMsg": "Esta opción sirve para restablecer la contraseña de cuentas ya creadas.",
+        "informativeMsg2": "Si todavía no tienes una cuenta, ponte en contacto con el administrador de tu finca para que te facilite las instrucciones para crearla.",
         "mailSignIn": "Correo de reserva:",
-        "requestOne": "Solicitar una",
+        "requestOne": "Pedir nueva contraseña",
         "returnBtn": "Volver",
         "errorMsgNoMail": "No existe este correo para restaurar la contraseña, compruebe que está correctamente escrito.",
         "successMsg": "Contraseña restablecida con éxito, compruebe su correo electrónico con la nueva contraseña."
@@ -89,5 +101,24 @@
     "noConnection": {
         "loading": "Cargando ...",
         "genericError": "Parece que hay problemas de red, compruebe su conexión a internet."
+    },
+    "admin": {
+        "searchFor": "Buscar por",
+        "code": "Código",
+        "email": "Correo",
+        "searchPlaceholder": "Buscar...",
+        "searchBtn": "Buscar",
+        "found": "Resultados: %{count}",
+        "noResults": "No se ha encontrado ninguna cuenta con ese dato.",
+        "matches": "Partidos",
+        "editAria": "Editar cuenta",
+        "deleteAria": "Eliminar cuenta",
+        "copyAria": "Copiar correo",
+        "deleteConfirm": "¿Seguro que quieres eliminar la cuenta %{code}?",
+        "resetTitle": "Restablecer clientes:",
+        "resetPlaceholder": "Escribe el correo a restablecer",
+        "deleteBtn": "Eliminar",
+        "userDeleted": "Cuenta eliminada correctamente.",
+        "userNotExist": "Esta cuenta no existe."
     }
 }

@@ -4,6 +4,7 @@ interface TextFieldRaadCustomProps {
     value: string;
     label: string;
     type?: string;
+    error?: boolean;
     onChange: (e: any) => void;
 }
 
@@ -11,6 +12,7 @@ export const TextFieldRaadCustom: React.FC<TextFieldRaadCustomProps> = ({
     value,
     label,
     type,
+    error,
     onChange,
 }) => (
     <TextFieldRaad
@@ -19,6 +21,7 @@ export const TextFieldRaadCustom: React.FC<TextFieldRaadCustomProps> = ({
         value={value}
         label={label}
         type={type}
+        error={error}
         onChange={onChange}
     />
 );

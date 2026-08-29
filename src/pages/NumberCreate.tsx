@@ -1,25 +1,24 @@
 import SendIcon from '@mui/icons-material/Send';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Button, Modal, Stack, Typography } from '@mui/material';
+import { Alert, Box, Button, Collapse, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { numberCreateCredentials } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
-import { styleModalRaad } from '../util/util';
 import { translate } from 'react-i18nify';
 
 const NumberCreate = () => {
     const navigate = useNavigate();
     const [secretNumber, setSecretNumber] = useState('');
-    const [openModal, setOpenModal] = useState(false);
+    const [error, setError] = useState(false);
 
     const createUser = () => {
+        if (secretNumber.length === 0) return;
         numberCreateCredentials(secretNumber, (response: any) => {
             if (response.success) {
                 window.location.href = response['url'];
             } else {
-                setOpenModal(true);
-                setTimeout(() => setOpenModal(false), 2500);
+                setError(true);
             }
         });
     };
@@ -57,10 +56,15 @@ const NumberCreate = () => {
                     <TextFieldRaad
                         fullWidth
                         value={secretNumber}
+                        error={error}
                         label={translate('numberCreate.code')}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setSecretNumber(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            setSecretNumber(e.target.value);
+                            if (error) setError(false);
+                        }}
+                        onKeyDown={(e: React.KeyboardEvent) => {
+                            if (e.key === 'Enter') createUser();
+                        }}
                     />
                     <Button
                         fullWidth
@@ -80,14 +84,14 @@ const NumberCreate = () => {
                     >
                         {translate('numberCreate.btnReturn')}
                     </Button>
+
+                    <Collapse in={error}>
+                        <Alert severity="error" variant="outlined" sx={{ mt: 1 }}>
+                            {translate('numberCreate.errorMsg')}
+                        </Alert>
+                    </Collapse>
                 </Stack>
             </Box>
-
-            <Modal open={openModal}>
-                <Box sx={styleModalRaad}>
-                    <Typography>{translate('numberCreate.errorMsg')}</Typography>
-                </Box>
-            </Modal>
         </Box>
     );
 };

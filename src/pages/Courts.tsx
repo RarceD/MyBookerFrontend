@@ -1,5 +1,3 @@
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import {
     Alert,
     Box,
@@ -8,7 +6,6 @@ import {
     IconButton,
     Radio,
     RadioGroup,
-    Slider,
     Snackbar,
     Stack,
     Typography,
@@ -19,20 +16,18 @@ import { useNavigate } from 'react-router-dom';
 import { MakeBook } from '../api/actions';
 import { GetCourts } from '../api/request';
 import DateSelectorRaad from '../components/courts/DateSelectorRaad';
-import SchedulRaad, { HourInfo } from '../components/courts/SchedulRaad';
+import SchedulRaad, { HourInfo, HourState } from '../components/courts/SchedulRaad';
 import DialogRaad from '../components/DialogRaad';
 import { BasicTabsRaadUncontrolled } from '../components/TabsRaad';
 import { Booker } from '../interfaces/Booker';
-import { colorDarkCard } from '../interfaces/colors';
 import { Court, Timetable } from '../interfaces/Courts';
 import {
     areThereMultipleCourtTypes,
     getCourtType,
     getCourtTypesTabsList,
     getDateSelectorDtoListFromCourts,
-    getMaxSliderValues,
-    getSlider,
-    getTypeNameCourt,
+    getBookingTimeOptions,
+    formatBookingTime,
 } from '../util/util';
 import { GenericResponse } from '../interfaces/GenericResponse';
 import { translate } from 'react-i18nify';
@@ -56,8 +51,8 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
                 color: 'text.secondary',
-                mt: 3,
-                mb: 1,
+                mt: 1.5,
+                mb: 0.5,
                 px: 2,
             }}
         >
@@ -97,11 +92,33 @@ const Courts = () => {
         for (const c of courts) {
             if (c.id !== selectedItem.courtId) continue;
             const currentDay = c.timetables.filter(t => t.day === selectedItem.date)[0];
-            const listOfTimes: HourInfo[] = currentDay.availability.map(v => ({
-                color: v.valid ? colorDarkCard : '#000',
-                title: v.time,
-            }));
+            if (!currentDay) continue;
+            // timetables[0] is always today, so the selected day is "today" when it matches.
+            const isToday = c.timetables.length > 0 && currentDay.day === c.timetables[0].day;
+            const nowHour = new Date().getHours();
+            const listOfTimes: HourInfo[] = currentDay.availability.map(v => {
+                const hour = +v.time.split(':')[0];
+                let state: HourState;
+                if (isToday && nowHour >= hour) state = 'past';   // already passed -> grey
+                else if (v.valid) state = 'free';                 // available -> green
+                else state = 'booked';                            // taken -> red
+                return { title: v.time, state };
+            });
             setHours(listOfTimes);
+        }
+    }, [courts, selectedItem]);
+
+    // Keep the booking duration pre-selected (never left at 0) so the user does
+    // not have to pick it manually: default to the longest available option
+    // (e.g. 1h30 when a court offers 30min / 1h / 1h30).
+    useEffect(() => {
+        if (selectedItem.courtId === 0) return;
+        const filtered = courts.filter(c => c.id === selectedItem.courtId);
+        if (filtered.length === 0) return;
+        const opts = getBookingTimeOptions(filtered, selectedItem);
+        const def = opts.length ? opts[opts.length - 1] : 0;
+        if (selectedItem.time === 0 && def !== 0) {
+            setSelectedItem(prev => ({ ...prev, time: def }));
         }
     }, [courts, selectedItem]);
 
@@ -152,26 +169,11 @@ const Courts = () => {
                         listLabels={getCourtTypesTabsList(courts)}
                     />
                 </Box>
-            ) : (
-                <Box sx={{ px: 2, pt: 2 }}>
-                    <Typography variant="caption" color="text.muted" sx={{ fontWeight: 500 }}>
-                        {getTypeNameCourt(courtTypeSelected)}
-                    </Typography>
-                </Box>
-            )}
+            ) : null}
 
             {/* Court selector */}
             <SectionLabel>{translate('courts.chooseCourt')}</SectionLabel>
-            <Box
-                sx={{
-                    mx: 2,
-                    p: 2,
-                    bgcolor: 'background.paper',
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    borderRadius: 3,
-                }}
-            >
+            <Box sx={{ px: 2 }}>
                 <RadioGroup
                     value={selectedItem.courtId}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -221,27 +223,27 @@ const Courts = () => {
                 }
             />
 
-            {/* Duration slider */}
+            {/* Duration selector */}
             <SectionLabel>{translate('courts.bookingTime')}</SectionLabel>
-            <Stack spacing={2} direction="row" alignItems="center" sx={{ px: 3, pb: 1 }}>
-                <AccessTimeIcon color="primary" sx={{ fontSize: 20, flexShrink: 0 }} />
-                <Slider
-                    value={selectedItem.time}
-                    step={getSlider(courts.filter(c => c.id === selectedItem.courtId))}
-                    marks
-                    min={0}
-                    max={getMaxSliderValues(courts.filter(c => c.id === selectedItem.courtId), selectedItem)}
-                    valueLabelDisplay="auto"
-                    onChange={(_event: Event, newValue: number | number[]) => {
-                        setSelectedItem({
-                            date: selectedItem.date,
-                            courtId: selectedItem.courtId,
-                            hour: selectedItem.hour,
-                            time: newValue as number,
-                        });
-                    }}
-                />
-                <AccessTimeFilledIcon color="primary" sx={{ fontSize: 20, flexShrink: 0 }} />
+            <Stack direction="row" sx={{ px: 2, pb: 1, flexWrap: 'wrap', gap: 1 }}>
+                {getBookingTimeOptions(courts.filter(c => c.id === selectedItem.courtId), selectedItem).map(opt => (
+                    <Button
+                        key={opt}
+                        variant={selectedItem.time === opt ? 'contained' : 'outlined'}
+                        size="small"
+                        onClick={() =>
+                            setSelectedItem({
+                                date: selectedItem.date,
+                                courtId: selectedItem.courtId,
+                                hour: selectedItem.hour,
+                                time: opt,
+                            })
+                        }
+                        sx={{ minWidth: 78, py: 0.8 }}
+                    >
+                        {formatBookingTime(opt)}
+                    </Button>
+                ))}
             </Stack>
 
             {/* Confirm button */}

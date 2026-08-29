@@ -20,24 +20,36 @@ const Create = () => {
     const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value);
     };
+    const [usernameSecond, setUsernameSecond] = useState("");
+    const handleChangeUsernameSecond = (event: ChangeEvent<HTMLInputElement>) => {
+        setUsernameSecond(event.target.value);
+    };
     const [pass, setPass] = useState("");
     const handleChangePass = (event: ChangeEvent<HTMLInputElement>) => {
         setPass(event.target.value);
     };
     const [passSecond, setPassSecond] = useState("");
-    const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleChangePassSecond = (event: ChangeEvent<HTMLInputElement>) => {
         setPassSecond(event.target.value);
     };
     const [openModal, setOpenModal] = useState(false);
     const [openModalErrorPass, setOpenModalErrorPass] = useState(false);
+    const [openModalErrorEmail, setOpenModalErrorEmail] = useState(false);
 
     const createUser = () => {
-        if (username === "" || pass === "" || passSecond === "") return;
+        if (username === "" || usernameSecond === "" || pass === "" || passSecond === "") return;
         let floor = searchParams.get("f");
         let door = searchParams.get("d");
         let key = searchParams.get("k");
         let house = searchParams.get("h");
         let name_id = searchParams.get("i");
+        if (username !== usernameSecond) {
+            setOpenModalErrorEmail(true);
+            setTimeout(() => {
+                setOpenModalErrorEmail(false);
+            }, 2500)
+            return;
+        }
         if (pass !== passSecond) {
             setOpenModalErrorPass(true);
             setTimeout(() => {
@@ -82,7 +94,7 @@ const Create = () => {
             >
                 <Grid item>
                     <Typography variant="h5">
-                        {translate('create.createNewUsers')} 
+                        {translate('create.createNewUsers')}
                     </Typography>
                 </Grid>
                 <Grid item>
@@ -96,6 +108,19 @@ const Create = () => {
                             }
                         }}
                         onChange={handleChangeUsername} />
+                </Grid>
+                <Grid item>
+                    <TextFieldRaad id="outlined-basic-email-2" label={translate("create.repeateEmail")} variant="outlined" fullWidth
+                        InputLabelProps={{ style: { color: "grey" } }}
+                        value={usernameSecond}
+                        error={usernameSecond !== "" && usernameSecond !== username}
+                        inputProps={{
+                            style: {
+                                color: 'white',
+                                borderColor: "white",
+                            }
+                        }}
+                        onChange={handleChangeUsernameSecond} />
                 </Grid>
                 <Grid item>
                     <TextFieldRaad id="filled-basic" label={translate("create.password")} variant="outlined" fullWidth
@@ -115,23 +140,24 @@ const Create = () => {
                         InputLabelProps={{ style: { color: "grey" } }}
                         value={passSecond}
                         type="password"
+                        error={passSecond !== "" && passSecond !== pass}
                         inputProps={{
                             style: {
                                 color: 'white',
                                 borderColor: "white",
                             }
                         }}
-                        onChange={handleChangeName} />
+                        onChange={handleChangePassSecond} />
                 </Grid>
 
                 <Grid item>
                     <Button variant="contained" endIcon={<SendIcon />} color="primary" onClick={createUser}>
-                        {translate('create.createUser')} 
+                        {translate('create.createUser')}
                     </Button>
                 </Grid>
                 <Grid item>
                     <Button variant="outlined" color="primary" onClick={() => navigate("/")}>
-                        {translate('create.return')} 
+                        {translate('create.return')}
 
                     </Button>
                 </Grid>
@@ -140,7 +166,15 @@ const Create = () => {
             <Modal open={openModal} >
                 <Box sx={styleModalRaad}>
                     <Typography mx={{ xs: 12 }}>
-                        {translate('create.notPossibleGeneric')} 
+                        {translate('create.notPossibleGeneric')}
+                    </Typography>
+                </Box>
+            </Modal>
+
+            <Modal open={openModalErrorEmail} >
+                <Box sx={styleModalRaad}>
+                    <Typography mx={{ xs: 12 }}>
+                        {translate('create.notPossibleEmail')}
                     </Typography>
                 </Box>
             </Modal>
@@ -148,7 +182,7 @@ const Create = () => {
             <Modal open={openModalErrorPass} >
                 <Box sx={styleModalRaad}>
                     <Typography mx={{ xs: 12 }}>
-                        {translate('create.notPossiblePass')} 
+                        {translate('create.notPossiblePass')}
                     </Typography>
                 </Box>
             </Modal>
