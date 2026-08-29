@@ -10,7 +10,11 @@ import { GetTokenId } from "./auth";
 // export const APP_NAME: string = "AppDeReservas";
 export const APP_NAME: string = "MeApunto.Online";
 
-export const URL_REQUEST: string = "https://www.meapunto.online/api/";
+// This IP is from raw VPN without dns revolver, so it is not recommended to use it in production. Use the domain name instead.
+export const URL_REQUEST: string = "http://151.80.56.216/api/";
+// export const URL_REQUEST: string = "http://164.68.122.107:5010/api/";
+
+// export const URL_REQUEST: string = "https://www.meapunto.online/api/";
 // export const URL_REQUEST: string = "http://www.appdereservas.es/api/";
 // export const URL_REQUEST: string = "https://localhost:5001/api/";
 
