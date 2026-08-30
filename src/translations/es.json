@@ -119,6 +119,24 @@
         "resetPlaceholder": "Escribe el correo a restablecer",
         "deleteBtn": "Eliminar",
         "userDeleted": "Cuenta eliminada correctamente.",
-        "userNotExist": "Esta cuenta no existe."
+        "userNotExist": "Esta cuenta no existe.",
+        "editTitle": "Editar cuenta %{code}",
+        "editNewEmail": "Nuevo correo (dejar vacío para no cambiar)",
+        "editNewPassword": "Nueva contraseña (dejar vacío para no cambiar)",
+        "editSave": "Guardar",
+        "editEmpty": "Introduce un correo o una contraseña nueva.",
+        "userUpdated": "Cuenta actualizada correctamente.",
+        "updateError": "No se ha podido actualizar la cuenta.",
+        "createTitle": "Crear cuenta",
+        "createCodePlaceholder": "Código (ej. CLA.5.2.B)",
+        "checkBtn": "Comprobar",
+        "codeFree": "Código libre, se puede crear.",
+        "codeTaken": "Código ocupado.",
+        "createEmailPlaceholder": "Correo",
+        "createPassPlaceholder": "Contraseña",
+        "createBtn": "Crear cuenta",
+        "createEmpty": "Rellena el código, el correo y la contraseña.",
+        "userCreated": "Cuenta creada correctamente.",
+        "createError": "No se ha podido crear la cuenta. Revisa que el código esté libre y el correo sea válido."
     }
 }
