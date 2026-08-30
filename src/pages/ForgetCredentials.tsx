@@ -1,28 +1,27 @@
 import SendIcon from '@mui/icons-material/Send';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Button, Modal, Stack, Typography } from '@mui/material';
+import { Alert, Box, Button, Collapse, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { forgetCredentials } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
-import { styleModalRaad } from '../util/util';
 import { translate } from 'react-i18nify';
+
+type Status = 'idle' | 'error' | 'success';
 
 const ForgetCredentials = () => {
     const navigate = useNavigate();
     const [secretNumber, setSecretNumber] = useState('');
-    const [openModal, setOpenModal] = useState(false);
-    const [openModalSuccess, setOpenModalSuccess] = useState(false);
+    const [status, setStatus] = useState<Status>('idle');
 
     const forgetPassRequest = () => {
         if (secretNumber.length === 0) return;
         forgetCredentials(secretNumber, (response: any) => {
             if (response['success'] === false) {
-                setOpenModal(true);
-                setTimeout(() => setOpenModal(false), 4500);
+                setStatus('error');
             } else {
-                setOpenModalSuccess(true);
-                setTimeout(() => { setOpenModalSuccess(false); navigate('/login'); }, 2500);
+                setStatus('success');
+                setTimeout(() => navigate('/login'), 2500);
             }
         });
     };
@@ -52,18 +51,26 @@ const ForgetCredentials = () => {
                 <Typography variant="h5" fontWeight={700} mb={0.5} letterSpacing="-0.02em">
                     {translate('forget.forgetMyPassword')}
                 </Typography>
+                <Typography variant="body2" color="text.secondary" mb={1.5}>
+                    {translate('forget.informativeMsg')}
+                </Typography>
                 <Typography variant="body2" color="text.secondary" mb={3}>
-                    {translate('numberCreate.informativeMsg')}
+                    {translate('forget.informativeMsg2')}
                 </Typography>
 
                 <Stack spacing={2}>
                     <TextFieldRaad
                         fullWidth
                         value={secretNumber}
+                        error={status === 'error'}
                         label={translate('forget.mailSignIn')}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setSecretNumber(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            setSecretNumber(e.target.value);
+                            if (status !== 'idle') setStatus('idle');
+                        }}
+                        onKeyDown={(e: React.KeyboardEvent) => {
+                            if (e.key === 'Enter') forgetPassRequest();
+                        }}
                     />
                     <Button
                         fullWidth
@@ -83,19 +90,21 @@ const ForgetCredentials = () => {
                     >
                         {translate('forget.returnBtn')}
                     </Button>
+
+                    <Collapse in={status !== 'idle'}>
+                        {status === 'error' && (
+                            <Alert severity="error" variant="outlined" sx={{ mt: 1 }}>
+                                {translate('forget.errorMsgNoMail')}
+                            </Alert>
+                        )}
+                        {status === 'success' && (
+                            <Alert severity="success" variant="outlined" sx={{ mt: 1 }}>
+                                {translate('forget.successMsg')}
+                            </Alert>
+                        )}
+                    </Collapse>
                 </Stack>
             </Box>
-
-            <Modal open={openModal}>
-                <Box sx={styleModalRaad}>
-                    <Typography>{translate('forget.errorMsgNoMail')}</Typography>
-                </Box>
-            </Modal>
-            <Modal open={openModalSuccess}>
-                <Box sx={styleModalRaad}>
-                    <Typography>{translate('forget.successMsg')}</Typography>
-                </Box>
-            </Modal>
         </Box>
     );
 };

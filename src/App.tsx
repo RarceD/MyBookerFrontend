@@ -104,7 +104,7 @@ const router = createBrowserRouter([
 ]);
 
 function AppBase() {
-  const [page, setPage] = useState<PageType>('comunity');
+  const [page, setPage] = useState<PageType>('courts');
   const navigate = useNavigate();
   const [token, id] = GetTokenId();
   if (token == "" || id == "") {
@@ -154,9 +154,10 @@ function App() {
   ChangeTitleIconFromPage()
 
   useEffect(() => {
-    initTranslationModule()
-      .then(() => setTranslationsLoaded(true))
-      .catch(console.error);
+    // Synchronous now (translations are bundled), so they are ready before the
+    // router renders and no raw translation keys can ever flash on screen.
+    initTranslationModule();
+    setTranslationsLoaded(true);
   }, []);
 
   return translationsLoaded

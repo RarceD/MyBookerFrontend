@@ -98,6 +98,32 @@ export function getSlider(courts: Court[]) {
     }
 }
 
+// Booking durations available for a court, as selectable options (e.g. 0.5, 1, 1.5).
+export function getBookingTimeOptions(courts: Court[], selectedItem: any): number[] {
+    if (courts.length === 0) return [];
+    const step = getSlider(courts) ?? 1;
+    const max = getMaxSliderValues(courts, selectedItem) ?? 1;
+    if (!step || !max) return max ? [max] : [];
+    const opts: number[] = [];
+    for (let v = step; v <= max + 1e-9; v += step) {
+        opts.push(Math.round(v * 100) / 100);
+    }
+    // Make sure the maximum is always offered even if it is not a multiple of step
+    if (opts.length === 0 || Math.abs(opts[opts.length - 1] - max) > 1e-9) {
+        if (max > 0) opts.push(Math.round(max * 100) / 100);
+    }
+    return Array.from(new Set(opts)).sort((a, b) => a - b);
+}
+
+// Human label for a booking duration: 0.5 -> "30 min", 1 -> "1 h", 1.5 -> "1 h 30 min".
+export function formatBookingTime(v: number): string {
+    const hours = Math.floor(v);
+    const mins = Math.round((v - hours) * 60);
+    if (hours === 0) return `${mins} min`;
+    if (mins === 0) return `${hours} h`;
+    return `${hours} h ${mins} min`;
+}
+
 export function getMaxSliderValues(courts: Court[], selectedItem: any) {
     if (courts.length == 0) return 1;
 

@@ -1,9 +1,18 @@
 import { colorLogo } from '../../interfaces/colors';
 
+export type HourState = 'free' | 'booked' | 'past';
+
 export interface HourInfo {
     title: string;
-    color: string;
+    state: HourState;
 }
+
+// Palette per slot state (dark theme friendly)
+const styleByState: Record<HourState, { bg: string; fg: string; edge: string }> = {
+    free: { bg: 'rgba(34,197,94,0.12)', fg: '#22c55e', edge: 'rgba(34,197,94,0.55)' },
+    booked: { bg: 'rgba(239,68,68,0.07)', fg: 'rgba(239,68,68,0.6)', edge: 'rgba(239,68,68,0.3)' },
+    past: { bg: '#141414', fg: 'var(--color-text-muted)', edge: 'var(--color-border)' },
+};
 
 export default function SchedulRaad(props: {
     hours: HourInfo[];
@@ -11,42 +20,29 @@ export default function SchedulRaad(props: {
     daySelected: number;
     changeSelectedHour: (index: number) => void;
 }) {
-    const getBackgroundColor = (c: HourInfo, index: number): string => {
-        const time = +c.title.split(':')[0];
-        const currentTime = new Date().getHours();
-        // Past hour on today
-        if (currentTime >= time && props.daySelected === 0) return '#1a1a1a';
-        // Selected by user
-        if (index === props.selected) return colorLogo;
-        return c.color;
-    };
-
-    const isPast = (c: HourInfo): boolean => {
-        const time = +c.title.split(':')[0];
-        return new Date().getHours() >= time && props.daySelected === 0;
-    };
-
-    const isBlocked = (c: HourInfo): boolean => c.color === '#000';
-
     return (
         <div className="hours-courts">
             {props.hours.map((item, idx) => {
-                const past = isPast(item);
-                const blocked = isBlocked(item);
                 const selected = idx === props.selected;
+                const disabled = item.state !== 'free';
+                const palette = styleByState[item.state];
+
+                const bg = selected ? colorLogo : palette.bg;
+                const fg = selected ? '#fff' : palette.fg;
+                const edge = selected ? 'var(--color-accent)' : palette.edge;
 
                 return (
                     <div
                         key={idx}
                         onClick={() => {
-                            if (!blocked && !past) props.changeSelectedHour(idx);
+                            if (!disabled) props.changeSelectedHour(idx);
                         }}
                         style={{
-                            backgroundColor: getBackgroundColor(item, idx),
-                            color: selected ? '#fff' : blocked || past ? 'var(--color-text-muted)' : 'var(--color-text-primary)',
-                            cursor: blocked || past ? 'not-allowed' : 'pointer',
-                            opacity: past ? 0.4 : 1,
-                            border: selected ? '1.5px solid var(--color-accent)' : '1px solid var(--color-border)',
+                            backgroundColor: bg,
+                            color: fg,
+                            cursor: disabled ? 'not-allowed' : 'pointer',
+                            opacity: item.state === 'past' ? 0.4 : 1,
+                            border: `${selected ? 1.5 : 1}px solid ${edge}`,
                             boxShadow: selected ? '0 0 0 3px rgba(255,132,0,0.2)' : 'none',
                             fontWeight: selected ? 700 : 500,
                         }}

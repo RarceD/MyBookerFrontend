@@ -5,7 +5,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import SportsBaseballIcon from '@mui/icons-material/SportsBaseball';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { PageType, PageTypeNumber } from '../interfaces/pages';
-import { useState } from 'react';
 import { translate } from 'react-i18nify';
 import { Box } from '@mui/material';
 
@@ -14,8 +13,19 @@ interface FooterProps {
     setPageToShow: (t: PageTypeNumber) => void;
 }
 
+// Keep the highlighted tab in sync with the page actually shown.
+const pageToIndex = (p: PageType): number => {
+    switch (p) {
+        case 'comunity': return 0;
+        case 'courts': return 1;
+        case 'profile': return 2;
+        case 'normative': return 3;
+        default: return 1;
+    }
+};
+
 export default function Footer(props: FooterProps) {
-    const [value, setValue] = useState<number>(0);
+    const value = pageToIndex(props.pageToShow);
 
     const navItems = [
         {
@@ -51,7 +61,6 @@ export default function Footer(props: FooterProps) {
                 value={value}
                 onChange={(_event, newValue: number) => {
                     props.setPageToShow(newValue as PageTypeNumber);
-                    setValue(newValue);
                 }}
                 sx={{
                     bgcolor: 'background.paper',

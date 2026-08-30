@@ -18,7 +18,8 @@
         "forgetPassword": "Forget password",
         "loginWithCode": "Enter using code",
         "enter": "Enter",
-        "subtitle": "Sign in to your account"
+        "subtitle": "Sign in to your account",
+        "invalidCredentials": "Invalid email or password"
     },
     "courts": {
         "bookingError": "It is not possible to proceed with your reservation, please check the dates and ensure you have not booked on that day previously.",
@@ -55,25 +56,36 @@
         "repeateEmail": "Repeat email",
         "newPassword": "New password",
         "repeatePassword": "Repeat password",
+        "editEmail": "Edit email",
+        "editPassword": "Edit password",
         "updateUser": "Update user",
+        "errorEmailEmpty": "Enter the new email.",
+        "errorEmailMismatch": "The emails do not match, please check them.",
+        "errorEmailSame": "The email is the same, there are no changes.",
+        "errorPasswordEmpty": "Enter the new password.",
+        "errorPasswordMismatch": "The passwords do not match, please check them.",
         "successOnEdit": "Your data has been successfully modified.",
         "errorOnEdit": "It is not possible to modify your email or password, please try again later.",
         "updateProfile": "Profile update"
     },
     "create": {
         "email": "Email:",
+        "repeateEmail": "Repeat email:",
         "password": "Password",
         "repeatePassword": "Repeate password:",
         "createNewUsers": "Creating new user:",
         "createUser": "Create User",
         "return": "Return",
         "notPossibleGeneric": "It is not possible to create your account, please use another email or try again later. We apologize for the inconvenience.",
-        "notPossiblePass": "It is not possible to create your account, please verify that the password matches in both cases."
+        "notPossiblePass": "It is not possible to create your account, please verify that the password matches in both cases.",
+        "notPossibleEmail": "The emails do not match, please make sure you typed the same one in both fields."
     },
     "forget": {
         "forgetMyPassword": "Forgot my password",
+        "informativeMsg": "This option resets the password of accounts that already exist.",
+        "informativeMsg2": "If you don't have an account yet, contact your building administrator to get the instructions to create one.",
         "mailSignIn": "Reservation email:",
-        "requestOne": "Request one",
+        "requestOne": "Request a new password",
         "returnBtn": "Back",
         "errorMsgNoMail": "This email does not exist for password restoration, please check that it is correctly written.",
         "successMsg": "Password successfully reset, check your email for the new password."
@@ -89,5 +101,24 @@
     "noConnection": {
         "loading": "Loading...",
         "genericError": "It seems there are network issues, please check your internet connection."
+    },
+    "admin": {
+        "searchFor": "Search by",
+        "code": "Code",
+        "email": "Email",
+        "searchPlaceholder": "Search...",
+        "searchBtn": "Search",
+        "found": "Results: %{count}",
+        "noResults": "No account was found with that value.",
+        "matches": "Matches",
+        "editAria": "Edit account",
+        "deleteAria": "Delete account",
+        "copyAria": "Copy email",
+        "deleteConfirm": "Are you sure you want to delete account %{code}?",
+        "resetTitle": "Reset clients:",
+        "resetPlaceholder": "Type the email to reset",
+        "deleteBtn": "Delete",
+        "userDeleted": "Account deleted successfully.",
+        "userNotExist": "This account does not exist."
     }
 }
