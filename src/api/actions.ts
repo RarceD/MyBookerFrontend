@@ -100,19 +100,19 @@ export async function updateUserPost(data: ProfileToChange, callback: (resp: any
 
 export async function updateClientAsAdmin(matchStr: string, newEmail: string, newPass: string, callback: (resp: any) => void) {
     const [token, id] = GetTokenId();
-    const data: any = { token, id, matchStr, newEmail, newPass };
+    const data: any = { token, id: +id, matchStr, newEmail, newPass };
     fetch(URL_REQUEST + "admin/update", getRequestOptions(data))
-        .then(response => response.json())
-        .catch(error => console.error('Error:', error))
+        .then(response => response.ok ? response.json() : { error: true })
+        .catch(error => { console.error('Error:', error); return { error: true }; })
         .then(response => callback(response));
 }
 
 export async function createClientAsAdmin(code: string, email: string, pass: string, callback: (resp: any) => void) {
     const [token, id] = GetTokenId();
-    const data: any = { token, id, code, email, pass };
+    const data: any = { token, id: +id, code, email, pass };
     fetch(URL_REQUEST + "admin/create", getRequestOptions(data))
-        .then(response => response.json())
-        .catch(error => console.error('Error:', error))
+        .then(response => response.ok ? response.json() : { error: true })
+        .catch(error => { console.error('Error:', error); return { error: true }; })
         .then(response => callback(response));
 }
 
