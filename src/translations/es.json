@@ -84,7 +84,7 @@
         "forgetMyPassword": "He olvidado mi contraseña",
         "informativeMsg": "Esta opción sirve para restablecer la contraseña de cuentas ya creadas.",
         "informativeMsg2": "Si todavía no tienes una cuenta, ponte en contacto con el administrador de tu finca para que te facilite las instrucciones para crearla.",
-        "mailSignIn": "Correo de reserva:",
+        "mailSignIn": "Correo electrónico",
         "requestOne": "Pedir nueva contraseña",
         "returnBtn": "Volver",
         "errorMsgNoMail": "No existe este correo para restaurar la contraseña, compruebe que está correctamente escrito.",
