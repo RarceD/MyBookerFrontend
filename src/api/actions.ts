@@ -98,6 +98,32 @@ export async function updateUserPost(data: ProfileToChange, callback: (resp: any
         .then(response => callback(response));
 }
 
+export async function updateClientAsAdmin(matchStr: string, newEmail: string, newPass: string, callback: (resp: any) => void) {
+    const [token, id] = GetTokenId();
+    const data: any = { token, id: +id, matchStr, newEmail, newPass };
+    fetch(URL_REQUEST + "admin/update", getRequestOptions(data))
+        .then(response => response.ok ? response.json() : { error: true })
+        .catch(error => { console.error('Error:', error); return { error: true }; })
+        .then(response => callback(response));
+}
+
+export async function createClientAsAdmin(code: string, email: string, pass: string, callback: (resp: any) => void) {
+    const [token, id] = GetTokenId();
+    const data: any = { token, id: +id, code, email, pass };
+    fetch(URL_REQUEST + "admin/create", getRequestOptions(data))
+        .then(response => response.ok ? response.json() : { error: true })
+        .catch(error => { console.error('Error:', error); return { error: true }; })
+        .then(response => callback(response));
+}
+
+export async function checkCodeFree(code: string, callback: (free: boolean) => void) {
+    const [token, id] = GetTokenId();
+    fetch(URL_REQUEST + "admin/check?id=" + id + "&token=" + token + "&code=" + encodeURIComponent(code))
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => callback(response?.free === true));
+}
+
 // Send stats to server every hour a person enter
 export function SendStatsInfo() {
     let makeReport: boolean = false;

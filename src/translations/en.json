@@ -119,6 +119,24 @@
         "resetPlaceholder": "Type the email to reset",
         "deleteBtn": "Delete",
         "userDeleted": "Account deleted successfully.",
-        "userNotExist": "This account does not exist."
+        "userNotExist": "This account does not exist.",
+        "editTitle": "Edit account %{code}",
+        "editNewEmail": "New email (leave empty to keep it)",
+        "editNewPassword": "New password (leave empty to keep it)",
+        "editSave": "Save",
+        "editEmpty": "Enter a new email or a new password.",
+        "userUpdated": "Account updated successfully.",
+        "updateError": "The account could not be updated.",
+        "createTitle": "Create account",
+        "createCodePlaceholder": "Code (e.g. CLA.5.2.B)",
+        "checkBtn": "Check",
+        "codeFree": "Code available, you can create it.",
+        "codeTaken": "Code already taken.",
+        "createEmailPlaceholder": "Email",
+        "createPassPlaceholder": "Password",
+        "createBtn": "Create account",
+        "createEmpty": "Fill in the code, email and password.",
+        "userCreated": "Account created successfully.",
+        "createError": "The account could not be created. Check that the code is free and the email is valid."
     }
 }
