@@ -84,7 +84,7 @@
         "forgetMyPassword": "Forgot my password",
         "informativeMsg": "This option resets the password of accounts that already exist.",
         "informativeMsg2": "If you don't have an account yet, contact your building administrator to get the instructions to create one.",
-        "mailSignIn": "Reservation email:",
+        "mailSignIn": "Email",
         "requestOne": "Request a new password",
         "returnBtn": "Back",
         "errorMsgNoMail": "This email does not exist for password restoration, please check that it is correctly written.",
