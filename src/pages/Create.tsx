@@ -1,12 +1,12 @@
 
 import SendIcon from '@mui/icons-material/Send';
-import { Box, Button, Modal } from '@mui/material';
+import { Alert, Box, Button, Modal } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Md5 } from 'ts-md5';
-import { tryCreateUser } from '../api/actions';
+import { numberCreateCredentials, tryCreateUser } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
 import { NewUser } from '../interfaces/NewUser';
 import { styleModalRaad } from '../util/util';
@@ -35,6 +35,17 @@ const Create = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalErrorPass, setOpenModalErrorPass] = useState(false);
     const [openModalErrorEmail, setOpenModalErrorEmail] = useState(false);
+    // Masked email of the account the house already has (e.g. "clau****@gmail.com"), if any
+    const [existingAccount, setExistingAccount] = useState<string | null>(null);
+
+    // Coming from the QR: if the house already has an account, say so before the neighbour fills the form
+    useEffect(() => {
+        const code = searchParams.get("i");
+        if (!code) return;
+        numberCreateCredentials(code, (response: any) => {
+            if (response && !response.success && response.existingAccount) setExistingAccount(response.existingAccount);
+        });
+    }, [searchParams]);
 
     const createUser = () => {
         if (username === "" || usernameSecond === "" || pass === "" || passSecond === "") return;
@@ -72,6 +83,9 @@ const Create = () => {
                 const r: any = response;
                 if (r.status === 200)
                     navigate('/login');
+                else if (r.status === 409) {
+                    r.json().then((body: any) => setExistingAccount(body?.existingAccount ?? null)).catch(() => setOpenModal(true));
+                }
                 else {
                     setOpenModal(true);
                     setTimeout(() => {
@@ -97,6 +111,16 @@ const Create = () => {
                         {translate('create.createNewUsers')}
                     </Typography>
                 </Grid>
+                {existingAccount !== null &&
+                    <Grid item sx={{ maxWidth: 420 }}>
+                        <Alert severity="info" variant="outlined">
+                            {translate('create.existingAccount', { email: existingAccount })}
+                            <Button size="small" variant="outlined" sx={{ mt: 1.5, display: 'block' }} onClick={() => navigate('/forget')}>
+                                {translate('create.btnReset')}
+                            </Button>
+                        </Alert>
+                    </Grid>
+                }
                 <Grid item>
                     <TextFieldRaad id="outlined-basic" label={translate("create.email")} variant="outlined" fullWidth
                         InputLabelProps={{ style: { color: "grey" } }}

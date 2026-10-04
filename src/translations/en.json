@@ -76,7 +76,9 @@
         "createNewUsers": "Creating new user:",
         "createUser": "Create User",
         "return": "Return",
-        "notPossibleGeneric": "It is not possible to create your account, please use another email or try again later. We apologize for the inconvenience.",
+        "notPossibleGeneric": "It is not possible to create your account, please use another email or try again later.",
+        "existingAccount": "This home already has an account with the email %{email}. If it is yours or someone's in your household, sign in with it or reset the password. If you do not recognise that email, write to us at meapunto.online@gmail.com.",
+        "btnReset": "Reset password",
         "notPossiblePass": "It is not possible to create your account, please verify that the password matches in both cases.",
         "notPossibleEmail": "The emails do not match, please make sure you typed the same one in both fields."
     },
@@ -93,7 +95,9 @@
     "numberCreate": {
         "newUserMsg": "New user creation:",
         "code": "Unique code:",
-        "errorMsg": "This code does not exist, please try again with a valid one. We apologize for the inconvenience.",
+        "errorMsg": "This code does not exist, please try again with a valid one.",
+        "existingAccount": "This home already has an account with the email %{email}. If it is yours or someone's in your household, sign in with it or reset the password. If you do not recognise that email, write to us at meapunto.online@gmail.com.",
+        "btnReset": "Reset password",
         "btnCreateUser": "Create User",
         "btnReturn": "Back",
         "informativeMsg": "If you have not received a letter to register in the system, please contact your urbanization administrator."
