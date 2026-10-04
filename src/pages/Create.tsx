@@ -113,7 +113,7 @@ const Create = () => {
                 </Grid>
                 {existingAccount !== null &&
                     <Grid item sx={{ maxWidth: 420 }}>
-                        <Alert severity="info" variant="outlined">
+                        <Alert severity="info" variant="outlined" sx={{ mx: 2 }}>
                             {translate('create.existingAccount', { email: existingAccount })}
                             <Button size="small" variant="outlined" sx={{ mt: 1.5, display: 'block' }} onClick={() => navigate('/forget')}>
                                 {translate('create.btnReset')}
