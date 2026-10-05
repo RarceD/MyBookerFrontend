@@ -11,12 +11,16 @@ const NumberCreate = () => {
     const navigate = useNavigate();
     const [secretNumber, setSecretNumber] = useState('');
     const [error, setError] = useState(false);
+    // Masked email of the account the house already has (e.g. "clau****@gmail.com"), if any
+    const [existingAccount, setExistingAccount] = useState<string | null>(null);
 
     const createUser = () => {
         if (secretNumber.length === 0) return;
         numberCreateCredentials(secretNumber, (response: any) => {
-            if (response.success) {
+            if (response?.success) {
                 window.location.href = response['url'];
+            } else if (response?.existingAccount) {
+                setExistingAccount(response.existingAccount);
             } else {
                 setError(true);
             }
@@ -61,6 +65,7 @@ const NumberCreate = () => {
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             setSecretNumber(e.target.value);
                             if (error) setError(false);
+                            if (existingAccount) setExistingAccount(null);
                         }}
                         onKeyDown={(e: React.KeyboardEvent) => {
                             if (e.key === 'Enter') createUser();
@@ -88,6 +93,15 @@ const NumberCreate = () => {
                     <Collapse in={error}>
                         <Alert severity="error" variant="outlined" sx={{ mt: 1 }}>
                             {translate('numberCreate.errorMsg')}
+                        </Alert>
+                    </Collapse>
+
+                    <Collapse in={existingAccount !== null}>
+                        <Alert severity="info" variant="outlined" sx={{ mt: 1 }}>
+                            {translate('numberCreate.existingAccount', { email: existingAccount ?? '' })}
+                            <Button size="small" variant="outlined" sx={{ mt: 1.5, display: 'block' }} onClick={() => navigate('/forget')}>
+                                {translate('numberCreate.btnReset')}
+                            </Button>
                         </Alert>
                     </Collapse>
                 </Stack>
