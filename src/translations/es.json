@@ -19,7 +19,8 @@
         "loginWithCode": "Acceder con código",
         "enter": "Acceder",
         "subtitle": "Inicie sesión",
-        "invalidCredentials": "Correo o contraseña incorrectos"
+        "invalidCredentials": "Correo o contraseña incorrectos",
+        "forCommunities": "¿Gestionas una comunidad? Conoce MeApunto"
     },
     "courts": {
         "bookingError": "No es posible llevar a cabo su reserva, por favor compruebe las fechas y que no haya reservado previamente ese día.",

@@ -19,7 +19,8 @@
         "loginWithCode": "Enter using code",
         "enter": "Enter",
         "subtitle": "Sign in to your account",
-        "invalidCredentials": "Invalid email or password"
+        "invalidCredentials": "Invalid email or password",
+        "forCommunities": "Managing a community? Discover MeApunto"
     },
     "courts": {
         "bookingError": "It is not possible to proceed with your reservation, please check the dates and ensure you have not booked on that day previously.",

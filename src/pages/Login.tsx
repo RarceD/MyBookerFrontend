@@ -158,6 +158,11 @@ export const Login = () => {
                         {translate('login.loginWithCode')}
                     </Link>
                 </Stack>
+
+                {/* Enlace discreto a la web comercial (páginas estáticas en public/, generadas con web/generar.mjs) */}
+                <Link href="/comunidades/" variant="caption" underline="hover" sx={{ display: 'block', textAlign: 'center', mt: 3, color: 'text.secondary' }}>
+                    {translate('login.forCommunities')}
+                </Link>
             </Box>
         </Box>
     );
