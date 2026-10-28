@@ -1,0 +1,18 @@
+# MeApunto
+
+> MeApunto es una app de reservas para comunidades de vecinos y urbanizaciones privadas en España. Cada vivienda reserva las pistas de pádel y tenis y las salas de la urbanización desde el móvil, en meapunto.online, y todos los vecinos ven las reservas.
+
+- Alta de los vecinos: cada vivienda recibe una carta con su código único y crea su cuenta en meapunto.online. Una cuenta por vivienda.
+- Reservas: el vecino elige día, pista y tiempo, ve sus próximas reservas y las de los demás, y puede anular las suyas.
+- Normas de la comunidad dentro de la app.
+- Panel para la administración: buscar viviendas, crear cuentas, cambiar el correo o la contraseña de un vecino y comprobar códigos.
+- Cuota anual por comunidad, con una sola factura.
+- La usan seis urbanizaciones, con unas 870 viviendas.
+- Titular: HEXENTA SOFTWARE SL · CIF B22735054 · Paseo Media Luna 5, 09001 Burgos (España). Contacto: meapunto.online@gmail.com
+
+## Páginas
+
+- [App de reservas para comunidades de vecinos](https://meapunto.online/comunidades/): App de reservas para comunidades de vecinos y urbanizaciones: pistas de pádel y tenis y salas, un código por vivienda y las reservas a la vista de todos. Una cuota anual.
+- [Reservar la pista de pádel de la urbanización, desde el móvil](https://meapunto.online/reservar-pista-padel-urbanizacion/): Para reservar la pista de pádel de la urbanización sin cuadrantes ni grupos: cada vivienda reserva desde el móvil y todos ven las reservas. Así lo hacen ya seis urbanizaciones.
+- [Reservas de pistas para las comunidades que administras](https://meapunto.online/administradores-de-fincas/): Para administradores de fincas: las comunidades con pistas de pádel o tenis reservan desde el móvil, con un código por vivienda y un panel para gestionar las cuentas.
+- [Normas de la pista de pádel de una comunidad: un modelo para adaptar](https://meapunto.online/normas-pista-padel-comunidad/): Modelo de normas para la pista de pádel de una comunidad de vecinos: reservas, horarios, invitados, uso y cuidado de la pista. Para adaptar y aprobar en junta.

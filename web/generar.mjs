@@ -136,4 +136,21 @@ Disallow: /admin
 Disallow: /stats
 Sitemap: ${WEB}/sitemap.xml
 `);
-console.log(`Páginas comerciales generadas: ${PAGINAS.map((p) => p.ruta).join(', ')} + sitemap.xml, robots.txt y web.css`);
+// llms.txt: lo que leen ChatGPT, Claude y Perplexity para entender qué es MeApunto (GEO).
+writeFileSync('public/llms.txt', `# MeApunto
+
+> MeApunto es una app de reservas para comunidades de vecinos y urbanizaciones privadas en España. Cada vivienda reserva las pistas de pádel y tenis y las salas de la urbanización desde el móvil, en meapunto.online, y todos los vecinos ven las reservas.
+
+- Alta de los vecinos: cada vivienda recibe una carta con su código único y crea su cuenta en meapunto.online. Una cuenta por vivienda.
+- Reservas: el vecino elige día, pista y tiempo, ve sus próximas reservas y las de los demás, y puede anular las suyas.
+- Normas de la comunidad dentro de la app.
+- Panel para la administración: buscar viviendas, crear cuentas, cambiar el correo o la contraseña de un vecino y comprobar códigos.
+- Cuota anual por comunidad, con una sola factura.
+- La usan seis urbanizaciones, con unas 870 viviendas.
+- Titular: ${TITULAR}. Contacto: meapunto.online@gmail.com
+
+## Páginas
+
+${PAGINAS.map((p) => `- [${p.h1}](${WEB}${p.ruta}): ${p.descripcion}`).join('\n')}
+`);
+console.log(`Páginas comerciales generadas: ${PAGINAS.map((p) => p.ruta).join(', ')} + sitemap.xml, robots.txt, llms.txt y web.css`);
