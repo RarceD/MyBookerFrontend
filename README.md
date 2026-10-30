@@ -10,9 +10,9 @@ Live at **[meapunto.online](https://www.meapunto.online)**
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
 ![MUI](https://img.shields.io/badge/MUI-5-007FFF?logo=mui&logoColor=white)
-![Capacitor](https://img.shields.io/badge/Capacitor-7-119EFF?logo=capacitor&logoColor=white)
+![Capacitor](https://img.shields.io/badge/Capacitor-8-119EFF?logo=capacitor&logoColor=white)
 
 </div>
 
@@ -33,12 +33,12 @@ Live at **[meapunto.online](https://www.meapunto.online)**
 
 ## 🧱 Tech Stack
 
-- **Framework** — React 19 + TypeScript, bundled with Vite 5
+- **Framework** — React 19 + TypeScript, bundled with Vite 7
 - **UI** — Material UI (MUI 5) with Emotion styling
 - **Routing** — React Router 7 with lazy-loaded, code-split pages
 - **Data** — REST API + WebSocket for real-time updates
 - **Charts** — Recharts
-- **Mobile** — Capacitor 7 (iOS + Android)
+- **Mobile** — Capacitor 8 (iOS + Android)
 - **Storage** — `localforage` / `localStorage` for offline-friendly caching
 
 ## 🚀 Getting Started
