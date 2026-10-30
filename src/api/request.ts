@@ -13,7 +13,8 @@ export const APP_NAME: string = "MeApunto.Online";
 // This IP is from raw VPN without dns revolver, so it is not recommended to use it in production. Use the domain name instead.
 // export const URL_REQUEST: string = "http://151.80.56.216/api/";
 // export const URL_REQUEST: string = "http://localhost:3000/api/"
-export const URL_REQUEST: string = "/api/"
+// export const URL_REQUEST: string = "/api/"
+export const URL_REQUEST: string = "https://api.meapunto.online/api/";
 
 // export const URL_REQUEST: string = "http://164.68.122.107:5010/api/";
 
