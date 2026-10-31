@@ -23,7 +23,8 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const DIST_DIR = join(ROOT, "dist");
-const REMOTE_DIR = "/home/ubuntu/";
+const REMOTE_DIR = "/root/";
+// const REMOTE_DIR = "/home/ubuntu/";
 const IS_WINDOWS = process.platform === "win32";
 
 const args = process.argv.slice(2);
