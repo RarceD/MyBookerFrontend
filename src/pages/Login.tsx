@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router';
 import { Md5 } from 'ts-md5';
 import { tryLogin } from '../api/actions';
 import TextFieldRaad from '../components/TextFieldRaad';
-import { APP_NAME, getCorrectLogo } from '../api/request';
+import { APP_NAME, getCorrectLogo } from '../util/branding';
 import { translate } from 'react-i18nify';
 
 export const Login = () => {
@@ -73,7 +73,7 @@ export const Login = () => {
                 <Stack alignItems="center" spacing={1.5} mb={4}>
                     <Avatar
                         alt={APP_NAME}
-                        src={getCorrectLogo(APP_NAME)}
+                        src={getCorrectLogo()}
                         variant="rounded"
                         sx={{
                             width: 72,

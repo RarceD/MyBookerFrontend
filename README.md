@@ -57,6 +57,16 @@ yarn build
 yarn preview
 ```
 
+## 🌐 Domain branding
+
+The app selects its name and icons from `window.location.hostname`:
+
+- `meapunto.online` (including subdomains): **MeApunto.Online**, `/images/logo1.png`.
+- `appdereservas.es` (including subdomains): **AppDeReservas**, `/images/logo.png`.
+- Localhost, native apps and other domains keep **MeApunto.Online** as the default.
+
+The configuration in `src/util/branding.ts` also updates the favicon, Apple touch icon and web app manifest. Both domains can serve the same build; API URLs are unchanged.
+
 ## 📱 Mobile Builds
 
 Powered by Capacitor — build the web app, then sync to the native platforms:

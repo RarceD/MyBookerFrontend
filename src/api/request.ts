@@ -7,9 +7,6 @@ import { StatsBooker, StatsInfo } from "../interfaces/StatsDto";
 import { GetTokenId } from "./auth";
 // rm -rf * && mv /home/ubuntu/assets.zip . && unzip assets.zip
 
-// export const APP_NAME: string = "AppDeReservas";
-export const APP_NAME: string = "MeApunto.Online";
-
 // This IP is from raw VPN without dns revolver, so it is not recommended to use it in production. Use the domain name instead.
 // export const URL_REQUEST: string = "http://151.80.56.216/api/";
 // export const URL_REQUEST: string = "http://localhost:3000/api/"
@@ -25,14 +22,6 @@ export const URL_REQUEST: string = "https://api.meapunto.online/api/";
 // export const WS_REQUEST: string = "ws://192.168.0.19/ws";
 export const WS_REQUEST: string = "ws://127.0.0.1:5432";
 
-
-export const getCorrectLogo = (url: string): string => {
-    let path: string = '/images/logo.png';
-    if (url.toLowerCase().includes("online")) {
-        path = '/images/logo1.png'
-    }
-    return path;
-}
 
 const requestOptions = {
     method: 'GET',

@@ -5,7 +5,7 @@ import Footer from './components/Footer'
 import HeaderRaad from './components/HeaderRaad'
 import NoConnection from './pages/NoConnection'
 import { convertNumberToType, PageType, PageTypeNumber } from './interfaces/pages'
-import { APP_NAME, getCorrectLogo } from './api/request'
+import { applyAppBranding } from './util/branding'
 import ResponsiveHandler from './components/ResponsiveHandler'
 import { initTranslationModule } from './util/translationService'
 
@@ -131,29 +131,22 @@ function AppBase() {
   )
 }
 
-function ChangeTitleIconFromPage() {
-  document.title = APP_NAME;
-  let link: any = document.querySelector("link[rel~='icon']")
-  if (!link) {
-    link = document.createElement('link')
-    link.rel = 'icon'
-    document.head.appendChild(link)
-  }
-  link.href = getCorrectLogo(APP_NAME)
-}
-
 function App() {
   const [translationsLoaded, setTranslationsLoaded] = useState(false);
 
-  // Check http or https
-  let urlPath = window.location.href;
-  if (!urlPath.includes("https") && !urlPath.includes("localhost") && APP_NAME.includes("Online"))
-    window.location.href = 'https://meapunto.online';
-
-  // Control page name:
-  ChangeTitleIconFromPage()
-
   useEffect(() => {
+    // Only enforce HTTPS on MeApunto, preserving the host, route and query string.
+    const { hostname, protocol, href } = window.location;
+    const normalizedHostname = hostname.toLowerCase().replace(/\.$/, '');
+    if (protocol === 'http:' && (normalizedHostname === 'meapunto.online' || normalizedHostname.endsWith('.meapunto.online'))) {
+      const secureUrl = new URL(href);
+      secureUrl.protocol = 'https:';
+      window.location.replace(secureUrl.href);
+      return;
+    }
+
+    applyAppBranding();
+
     // Synchronous now (translations are bundled), so they are ready before the
     // router renders and no raw translation keys can ever flash on screen.
     initTranslationModule();
