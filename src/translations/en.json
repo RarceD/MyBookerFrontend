@@ -142,6 +142,12 @@
         "createBtn": "Create account",
         "createEmpty": "Fill in the code, email and password.",
         "userCreated": "Account created successfully.",
-        "createError": "The account could not be created. Check that the code is free and the email is valid."
+        "createError": "The account could not be created. Check that the code is free and the email is valid.",
+        "codeTakenBy": "This code already has an account: %{email}.",
+        "codeTakenHint": "Type the new password and press \"Change password\".",
+        "newPassword": "New password",
+        "changePassBtn": "Change password",
+        "changePassEmpty": "Type the new password.",
+        "passChanged": "Password for %{code} changed."
     }
 }

@@ -9,6 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LockResetIcon from '@mui/icons-material/LockReset';
 import { useNavigate } from 'react-router-dom';
 import ResponsiveHandler from "../components/ResponsiveHandler";
 import { deleteClientAsAnAdmin, updateClientAsAdmin, createClientAsAdmin, checkCodeFree } from "../api/actions";
@@ -39,6 +40,8 @@ const Admin = () => {
     const [createPass, setCreatePass] = useState<string>('');
     const [codeStatus, setCodeStatus] = useState<'idle' | 'free' | 'taken'>('idle');
     const [createError, setCreateError] = useState<string>('');
+    // Email of the account that already owns the code (code taken)
+    const [takenEmail, setTakenEmail] = useState<string>('');
 
     const navigator = useNavigate();
 
@@ -106,28 +109,71 @@ const Admin = () => {
         });
     };
 
-    const doCheck = () => {
-        if (createCode.trim() === '') return;
-        checkCodeFree(createCode.trim(), (free) => setCodeStatus(free ? 'free' : 'taken'));
+    const resetCreate = () => {
+        setCreateCode('');
+        setCreateEmail('');
+        setCreatePass('');
+        setCodeStatus('idle');
+        setTakenEmail('');
+        setCreateError('');
     };
+
+    // Look up who owns a taken code, so the password can be changed right here
+    const markTaken = (code: string) => {
+        setCodeStatus('taken');
+        setTakenEmail('');
+        GetAdminMatchItCode(code, (items) => {
+            const owner = (items ?? []).find(r => r.code.toLowerCase() === code.toLowerCase());
+            if (owner) setTakenEmail(owner.email);
+        }, () => { });
+    };
+
+    const doCheck = () => {
+        const code = createCode.trim();
+        if (code === '') return;
+        setCreateError('');
+        checkCodeFree(code, (free) => {
+            if (free) { setCodeStatus('free'); setTakenEmail(''); }
+            else markTaken(code);
+        });
+    };
+
+    const doChangePass = () => {
+        const code = createCode.trim();
+        if (createPass === '') {
+            setCreateError(translate('admin.changePassEmpty'));
+            return;
+        }
+        updateClientAsAdmin(code, '', hashPass(createPass), (response) => {
+            const ok = !(response === undefined || response.error);
+            if (ok) {
+                resetCreate();
+                showFeedback(translate('admin.passChanged', { code: code.toUpperCase() }), true);
+            } else {
+                setCreateError(translate('admin.updateError'));
+            }
+        });
+    };
+
     const doCreate = () => {
-        if (createCode.trim() === '' || createEmail.trim() === '' || createPass === '') {
+        const code = createCode.trim();
+        if (code === '' || createEmail.trim() === '' || createPass === '') {
             setCreateError(translate('admin.createEmpty'));
             return;
         }
-        createClientAsAdmin(createCode.trim(), createEmail.trim(), hashPass(createPass), (response) => {
+        createClientAsAdmin(code, createEmail.trim(), hashPass(createPass), (response) => {
             const ok = !(response === undefined || response.error);
             if (ok) {
-                setCreateCode('');
-                setCreateEmail('');
-                setCreatePass('');
-                setCodeStatus('idle');
-                setCreateError('');
+                resetCreate();
                 showFeedback(translate('admin.userCreated'), true);
                 // Refresh the search list so the new account shows up if it matches the current filter
                 if (itemToSearch.trim() !== '') askForMatching();
             } else {
-                setCreateError(translate('admin.createError'));
+                // Most common cause: the code already has an account -> offer the password change
+                checkCodeFree(code, (free) => {
+                    if (free) setCreateError(translate('admin.createError'));
+                    else { setCreateError(''); markTaken(code); }
+                });
             }
         });
     };
@@ -274,37 +320,53 @@ const Admin = () => {
                             <TextFieldRaadCustom
                                 value={createCode}
                                 label={translate('admin.createCodePlaceholder')}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setCreateCode(e.target.value); setCodeStatus('idle'); }}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setCreateCode(e.target.value); setCodeStatus('idle'); setTakenEmail(''); setCreateError(''); }}
                             />
                         </Box>
                         <Button variant="outlined" onClick={doCheck} sx={{ mt: 0.5 }}>
                             {translate('admin.checkBtn')}
                         </Button>
                     </Stack>
-                    {codeStatus !== 'idle' && (
-                        <Typography variant="body2" sx={{ mb: 2, color: codeStatus === 'free' ? colorSuccess : colorError }}>
-                            {codeStatus === 'free' ? translate('admin.codeFree') : translate('admin.codeTaken')}
+                    {codeStatus === 'free' && (
+                        <Typography variant="body2" sx={{ mb: 2, color: colorSuccess }}>
+                            {translate('admin.codeFree')}
                         </Typography>
                     )}
-                    <TextFieldRaadCustom
-                        value={createEmail}
-                        label={translate('admin.createEmailPlaceholder')}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCreateEmail(e.target.value)}
-                    />
+                    {codeStatus === 'taken' && (
+                        <Typography variant="body2" sx={{ mb: 2, color: colorLogo }}>
+                            {takenEmail
+                                ? translate('admin.codeTakenBy', { email: takenEmail })
+                                : translate('admin.codeTaken')}
+                            {' '}{translate('admin.codeTakenHint')}
+                        </Typography>
+                    )}
+                    {codeStatus !== 'taken' && (
+                        <TextFieldRaadCustom
+                            value={createEmail}
+                            label={translate('admin.createEmailPlaceholder')}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCreateEmail(e.target.value)}
+                        />
+                    )}
                     <TextFieldRaadCustom
                         value={createPass}
                         type="password"
-                        label={translate('admin.createPassPlaceholder')}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCreatePass(e.target.value)}
+                        label={translate(codeStatus === 'taken' ? 'admin.newPassword' : 'admin.createPassPlaceholder')}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setCreatePass(e.target.value); if (createError) setCreateError(''); }}
                     />
                     {createError && (
                         <Typography variant="body2" sx={{ mb: 2, color: colorError }}>
                             {createError}
                         </Typography>
                     )}
-                    <Button variant="contained" endIcon={<PersonAddIcon />} color="primary" onClick={doCreate}>
-                        {translate('admin.createBtn')}
-                    </Button>
+                    {codeStatus === 'taken' ? (
+                        <Button variant="contained" endIcon={<LockResetIcon />} color="primary" onClick={doChangePass}>
+                            {translate('admin.changePassBtn')}
+                        </Button>
+                    ) : (
+                        <Button variant="contained" endIcon={<PersonAddIcon />} color="primary" onClick={doCreate}>
+                            {translate('admin.createBtn')}
+                        </Button>
+                    )}
                 </Box>
             }
         />
