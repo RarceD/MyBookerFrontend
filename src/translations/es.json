@@ -142,6 +142,12 @@
         "createBtn": "Crear cuenta",
         "createEmpty": "Rellena el código, el correo y la contraseña.",
         "userCreated": "Cuenta creada correctamente.",
-        "createError": "No se ha podido crear la cuenta. Revisa que el código esté libre y el correo sea válido."
+        "createError": "No se ha podido crear la cuenta. Revisa que el código esté libre y el correo sea válido.",
+        "codeTakenBy": "Este código ya tiene cuenta: %{email}.",
+        "codeTakenHint": "Escribe la contraseña nueva y pulsa «Cambiar contraseña».",
+        "newPassword": "Contraseña nueva",
+        "changePassBtn": "Cambiar contraseña",
+        "changePassEmpty": "Escribe la contraseña nueva.",
+        "passChanged": "Contraseña de %{code} cambiada."
     }
 }
