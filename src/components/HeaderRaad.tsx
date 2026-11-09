@@ -3,7 +3,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DialogRaad from './DialogRaad';
-import { APP_NAME, getCorrectLogo } from '../api/request';
+import { APP_NAME, getCorrectLogo } from '../util/branding';
 import { translate } from 'react-i18nify';
 
 function HeaderRaad() {
@@ -17,7 +17,7 @@ function HeaderRaad() {
                     {/* Logo */}
                     <Avatar
                         alt={APP_NAME}
-                        src={getCorrectLogo(APP_NAME)}
+                        src={getCorrectLogo()}
                         variant="rounded"
                         sx={{
                             height: 40,

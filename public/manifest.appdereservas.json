@@ -1,0 +1,23 @@
+{
+  "short_name": "AppDeReservas",
+  "name": "AppDeReservas",
+  "icons": [
+    {
+      "src": "/images/logo-appdereservas-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logo-appdereservas-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "offline_enabled": true
+}
