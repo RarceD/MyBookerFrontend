@@ -3,6 +3,6 @@
     "appName": "MeApunto.Online",
     "bundledWebRuntime": false,
     "npmClient": "npm",
-    "webDir": "build",
+    "webDir": "dist",
     "cordova": {}
   }
