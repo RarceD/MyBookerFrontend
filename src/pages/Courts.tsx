@@ -30,6 +30,7 @@ import {
     formatBookingTime,
 } from '../util/util';
 import { GenericResponse } from '../interfaces/GenericResponse';
+import { refreshBookingNotifications } from '../util/notifications';
 import { translate } from 'react-i18nify';
 import NoConnection from './NoConnection';
 
@@ -139,6 +140,7 @@ const Courts = () => {
             } else {
                 modalMsg.current = translate('courts.bookingSuccess');
                 setOpen(true);
+                refreshBookingNotifications();
                 setTimeout(() => navigate('/comunity'), 3000);
             }
         });

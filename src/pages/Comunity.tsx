@@ -4,6 +4,7 @@ import { GetTokenId } from "../api/auth";
 import { GetBooks } from "../api/request";
 import ListRaad from "../components/comunity/ListRaad";
 import { ClientBooks } from "../interfaces/MyBooks";
+import { syncBookingNotifications } from "../util/notifications";
 import { translate } from "react-i18nify";
 
 function EmptyState({ label }: { label: string }) {
@@ -47,7 +48,10 @@ const Comunity = () => {
     const [_, myClientId] = GetTokenId();
 
     useEffect(() => {
-        GetBooks((n: ClientBooks[]) => setBooks(n));
+        GetBooks((n: ClientBooks[]) => {
+            setBooks(n);
+            void syncBookingNotifications(n);
+        });
     }, []);
 
     const myBooks = books.filter((item: ClientBooks) => item.clientId === +myClientId);

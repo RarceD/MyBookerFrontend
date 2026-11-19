@@ -67,7 +67,10 @@
         "errorPasswordMismatch": "Las contraseñas no coinciden, revísalas.",
         "successOnEdit": "Sus datos han sido modificados con éxito.",
         "errorOnEdit": "No es posible modificar su correo o contraseña, pruebe más tarde.",
-        "updateProfile": "Actualización perfil"
+        "updateProfile": "Actualización perfil",
+        "notificationsHeader": "Avisos",
+        "notificationsReminder": "Recordarme 30 min antes de mis reservas",
+        "notificationsError": "No se han podido activar los avisos. Revisa los permisos de notificaciones del dispositivo."
     },
     "create": {
         "email": "Correo:",
@@ -149,5 +152,11 @@
         "changePassBtn": "Cambiar contraseña",
         "changePassEmpty": "Escribe la contraseña nueva.",
         "passChanged": "Contraseña de %{code} cambiada."
+    },
+    "notifications": {
+        "channelName": "Avisos de reservas",
+        "channelDescription": "Avisos 30 minutos antes de que empiece tu reserva.",
+        "bookingReminderTitle": "Tu reserva empieza pronto",
+        "bookingReminderBody": "%{court} a las %{time}. Empieza en 30 minutos."
     }
 }

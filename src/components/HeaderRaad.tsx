@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DialogRaad from './DialogRaad';
 import { APP_NAME, getCorrectLogo } from '../util/branding';
+import { clearBookingNotifications } from '../util/notifications';
 import { translate } from 'react-i18nify';
 
 function HeaderRaad() {
@@ -76,6 +77,7 @@ function HeaderRaad() {
                 activate={showPopUp}
                 deactivate={() => setShowPopUp(false)}
                 confirmHandler={() => {
+                    void clearBookingNotifications();
                     localStorage.clear();
                     navigation('/');
                 }}

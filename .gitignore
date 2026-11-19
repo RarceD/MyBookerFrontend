@@ -3,6 +3,9 @@ android/
 ios/
 publishStore/*
 .env
+.env.ios
+*.p8
+*.cer
 
 
 # Logs

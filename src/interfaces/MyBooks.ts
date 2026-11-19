@@ -17,6 +17,7 @@ export interface MyBooks {
 export interface ClientBooks {
     id: number,
     clientId: number,
+    day?: string,
     weekday: string,
     hour: string,
     courtName: string,
