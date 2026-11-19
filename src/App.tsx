@@ -8,6 +8,7 @@ import { convertNumberToType, PageType, PageTypeNumber } from './interfaces/page
 import { applyAppBranding } from './util/branding'
 import ResponsiveHandler from './components/ResponsiveHandler'
 import { initTranslationModule } from './util/translationService'
+import { startBookingNotifications } from './util/notifications'
 
 const Comunity = lazy(() => import('./pages/Comunity'));
 const Courts = lazy(() => import('./pages/Courts'));
@@ -57,7 +58,15 @@ const router = createBrowserRouter([
     path: "/courts",
     element:
       <Suspense fallback={<NoConnection />}>
-        <AppBase />
+        <AppBase initialPage="courts" />
+      </Suspense>,
+    errorElement: <NoConnection />
+  },
+  {
+    path: "/comunity",
+    element:
+      <Suspense fallback={<NoConnection />}>
+        <AppBase initialPage="comunity" />
       </Suspense>,
     errorElement: <NoConnection />
   },
@@ -103,8 +112,8 @@ const router = createBrowserRouter([
   }
 ]);
 
-function AppBase() {
-  const [page, setPage] = useState<PageType>('courts');
+function AppBase({ initialPage = 'courts' }: { initialPage?: PageType }) {
+  const [page, setPage] = useState<PageType>(initialPage);
   const navigate = useNavigate();
   const [token, id] = GetTokenId();
   if (token == "" || id == "") {
@@ -112,6 +121,22 @@ function AppBase() {
   }
   // Stats information when load app
   // SendStatsInfo();
+
+  // The in-app tab is kept in sync with the route so that navigating to
+  // /comunity (after booking or deleting) shows the right page and the
+  // back/forward buttons keep working.
+  useEffect(() => {
+    setPage(initialPage);
+  }, [initialPage]);
+
+  // Local (client-side) reminders 30 minutes before each of my bookings.
+  // Started once the user is logged in and intentionally not stopped on
+  // unmount: reminders must keep working while browsing /comunity, etc.
+  // They are only cleared on logout (clearBookingNotifications).
+  useEffect(() => {
+    if (token == "" || id == "") return;
+    startBookingNotifications();
+  }, [token, id]);
 
   return (
     <>
@@ -126,7 +151,16 @@ function AppBase() {
       />
       < Footer
         pageToShow={page}
-        setPageToShow={(t: PageTypeNumber): void => setPage(convertNumberToType(t))} />
+        setPageToShow={(t: PageTypeNumber): void => {
+          const next = convertNumberToType(t);
+          setPage(next);
+          // Keep the URL in sync with the visible tab so /comunity and
+          // /courts survive a reload and the back button works. The remaining
+          // tabs have no dedicated route and stay client-side.
+          if (next === 'comunity' || next === 'courts') {
+            navigate(`/${next}`);
+          }
+        }} />
     </>
   )
 }

@@ -1,5 +1,6 @@
-import { Alert, Box, Button, Modal, Stack, Typography } from '@mui/material';
+import { Alert, Box, Button, FormControlLabel, Modal, Stack, Switch, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Md5 } from 'ts-md5';
@@ -11,6 +12,11 @@ import ProfileCardRaad from '../components/profile/ProfileCardRaad';
 import { TextFieldRaadCustom } from '../components/profile/TextFieldRaadCustom';
 import { ProfileInfo } from '../interfaces/ProfileInfo';
 import { ProfileToChange } from '../interfaces/profile';
+import {
+    areBookingRemindersEnabled,
+    disableBookingReminders,
+    enableBookingReminders,
+} from '../util/notifications';
 import { styleModalRaad } from '../util/util';
 import { translate } from 'react-i18nify';
 import NoConnection from './NoConnection';
@@ -54,6 +60,8 @@ const Profile = () => {
     const navigate = useNavigate();
     const [openModalError, setOpenModalError] = useState(false);
     const [openModalOk, setOpenModalOk] = useState(false);
+    const [remindersEnabled, setRemindersEnabled] = useState<boolean>(false);
+    const [remindersError, setRemindersError] = useState<boolean>(false);
 
     const cancelEmailEdit = () => {
         setFirstUser(profile.username);
@@ -109,6 +117,21 @@ const Profile = () => {
 
     useEffect(() => { GetProfileInfo((n: ProfileInfo) => setProfile(n)); }, []);
     useEffect(() => { setFirstUser(profile.username); }, [profile]);
+    useEffect(() => {
+        void areBookingRemindersEnabled().then(setRemindersEnabled);
+    }, []);
+
+    const toggleReminders = async (enabled: boolean) => {
+        setRemindersError(false);
+        if (enabled) {
+            const ok = await enableBookingReminders();
+            setRemindersEnabled(ok);
+            if (!ok) setRemindersError(true);
+        } else {
+            await disableBookingReminders();
+            setRemindersEnabled(false);
+        }
+    };
 
     if (profile.name === '') return <NoConnection />;
 
@@ -179,6 +202,40 @@ const Profile = () => {
                             </Button>
                         </Stack>
                     </>
+                )}
+            </Box>
+
+            {/* Booking reminders section */}
+            <Box
+                sx={{
+                    bgcolor: 'background.paper',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    borderRadius: 3,
+                    p: 2.5,
+                    mb: 2,
+                }}
+            >
+                <SectionLabel>{translate('profile.notificationsHeader')}</SectionLabel>
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={remindersEnabled}
+                            onChange={(e) => void toggleReminders(e.target.checked)}
+                        />
+                    }
+                    label={
+                        <Stack direction="row" spacing={1} alignItems="center">
+                            <NotificationsActiveIcon sx={{ fontSize: 18, color: 'text.secondary' }} />
+                            <Typography variant="body2">{translate('profile.notificationsReminder')}</Typography>
+                        </Stack>
+                    }
+                    sx={{ m: 0 }}
+                />
+                {remindersError && (
+                    <Alert severity="warning" variant="outlined" sx={{ mt: 2 }}>
+                        {translate('profile.notificationsError')}
+                    </Alert>
                 )}
             </Box>
 

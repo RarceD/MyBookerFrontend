@@ -14,6 +14,7 @@ import { RemoveBook } from '../../api/actions';
 import { CourtType } from '../../interfaces/Courts';
 import DialogRaad from '../DialogRaad';
 import { daysOfTheWeek } from '../../util/util';
+import { refreshBookingNotifications } from '../../util/notifications';
 import { translate } from 'react-i18nify';
 
 export default function ListRaad(props: {
@@ -129,7 +130,10 @@ export default function ListRaad(props: {
                 deactivate={() => setShowPopUp(false)}
                 confirmHandler={() => {
                     const time = props.mainText.split(' ')[1];
-                    RemoveBook(props.id, time, (_resp: any) => navigate('/'));
+                    RemoveBook(props.id, time, (_resp: any) => {
+                        refreshBookingNotifications();
+                        navigate('/comunity');
+                    });
                     setShowPopUp(false);
                 }}
             />

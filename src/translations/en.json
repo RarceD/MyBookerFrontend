@@ -67,7 +67,10 @@
         "errorPasswordMismatch": "The passwords do not match, please check them.",
         "successOnEdit": "Your data has been successfully modified.",
         "errorOnEdit": "It is not possible to modify your email or password, please try again later.",
-        "updateProfile": "Profile update"
+        "updateProfile": "Profile update",
+        "notificationsHeader": "Reminders",
+        "notificationsReminder": "Remind me 30 min before my bookings",
+        "notificationsError": "Reminders could not be enabled. Check your device's notification permissions."
     },
     "create": {
         "email": "Email:",
@@ -149,5 +152,11 @@
         "changePassBtn": "Change password",
         "changePassEmpty": "Type the new password.",
         "passChanged": "Password for %{code} changed."
+    },
+    "notifications": {
+        "channelName": "Booking reminders",
+        "channelDescription": "Reminders 30 minutes before your booking starts.",
+        "bookingReminderTitle": "Your booking starts soon",
+        "bookingReminderBody": "%{court} at %{time}. It starts in 30 minutes."
     }
 }
